@@ -1,6 +1,7 @@
 package com.prisonerprice.jdbc;
 
 import com.prisonerprice.model.Artist;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,57 +15,58 @@ public class ArtistDAOTest {
     @Before
     public void init(){
         artistDAO = new ArtistDAO();
-        newArtist = new Artist("New Pants",
+        newArtist = new Artist(
+                0,
+                "New Pants",
                 1998,
                 0,
-                "Don''t ask me what is Disco");
+                "xxxxxxx",
+                8);
+        artistDAO.insertArtists(newArtist);
+    }
+
+    @After
+    public void tearDown(){
+        artistDAO.deleteArtists(newArtist.getSerial_num());
     }
 
     @Test
     public void getArtistsTest(){
         List<Artist> artists = artistDAO.getArtists();
-        int exceptionNumOfArtists = 7;
-
+        int exceptionNumOfArtists = 7 + 1;
         for(Artist artist : artists){
             System.out.println(artist);
         }
-
         Assert.assertEquals(exceptionNumOfArtists, artists.size());
     }
 
     @Test
     public void insertArtistsTest(){
         List<Artist> artists = artistDAO.getArtists();
-        int exceptionNumOfArtists = artists.size() + 1;
-        artistDAO.insertArtists(newArtist);
-        artists = artistDAO.getArtists();
-
+        int exceptionNumOfArtists = 7 + 1;
         for(Artist artist : artists){
             System.out.println(artist);
         }
-
         Assert.assertEquals(exceptionNumOfArtists, artists.size());
     }
 
     @Test
     public void deleteArtistsTest(){
-        artistDAO.deleteArtists();
+        artistDAO.deleteArtists(newArtist.getSerial_num());
         List<Artist> artists = artistDAO.getArtists();
         int exceptionNumOfArtists = 7;
-
         for(Artist artist : artists){
             System.out.println(artist);
         }
-
         Assert.assertEquals(exceptionNumOfArtists, artists.size());
     }
 
     @Test
     public void updateArtistsTest(){
-        artistDAO.updateArtists();
+        String exceptionDesc = "Don''t ask me what is Disco";
+        artistDAO.updateArtists(newArtist.getSerial_num(), exceptionDesc);
+        exceptionDesc = "Don't ask me what is Disco";
         List<Artist> artists = artistDAO.getArtists();
-        String exceptionDesc = "Need to update";
-
         for(Artist artist : artists){
             System.out.println(artist);
             String desc = artist.getDescription();
@@ -73,7 +75,6 @@ public class ArtistDAOTest {
                 return;
             }
         }
-
         Assert.assertTrue(false);
     }
 }

@@ -15,73 +15,65 @@ public class AlbumDAOTest {
     @Before
     public void init(){
         albumDao = new AlbumDao();
-        newAlbum = new Album("Antisocialities",
+        newAlbum = new Album(
+                0,
+                "Antisocialities",
                 2017,
                 "Alvvays",
                 "Alternative",
-                "secend album of Alvvays");
+                "xxxxx",
+                10);
         albumDao.insertAlbums(newAlbum);
     }
 
     @After
     public void tearDown(){
-        albumDao.deleteAlbums();
+        albumDao.deleteAlbums(newAlbum.getSerial_num());
     }
 
     @Test
     public void getAlbumsTest(){
         List<Album> albums = albumDao.getAlbums();
-        int exceptionNumOfAlbums = 9;
-
+        int exceptionNumOfAlbums = 9 + 1;
         for(Album album : albums){
             System.out.println(album);
         }
-
         Assert.assertEquals(exceptionNumOfAlbums, albums.size());
     }
 
     @Test
     public void insertAlbumsTest(){
         List<Album> albums = albumDao.getAlbums();
-        int exceptionNumOfAlbums = albums.size() + 1;
-        albumDao.insertAlbums(newAlbum);
-        albums = albumDao.getAlbums();
-
+        int exceptionNumOfAlbums = 9 + 1;
         for(Album album : albums){
             System.out.println(album);
         }
-
         Assert.assertEquals(exceptionNumOfAlbums, albums.size());
     }
 
     @Test
     public void deleteAlbumsTest(){
-        albumDao.deleteAlbums();
+        albumDao.deleteAlbums(newAlbum.getSerial_num());
         List<Album> albums = albumDao.getAlbums();
         int exceptionNumOfAlbums = 9;
-
         for(Album album : albums){
             System.out.println(album);
         }
-
         Assert.assertEquals(exceptionNumOfAlbums, albums.size());
     }
 
     @Test
     public void updateAlbumsTest(){
-        albumDao.updateAlbums();
+        String exceptionDesc = "Their 2nd album";
+        albumDao.updateAlbums(10, exceptionDesc);
         List<Album> albums = albumDao.getAlbums();
-        String exceptionDesc = "Need to update";
-
         for(Album album : albums){
-            System.out.println(album);
-            String desc = album.getDescription();
-            if(desc.equals(exceptionDesc)) {
+            System.out.println(album.toString());
+            if(album.getDescription().equals(exceptionDesc)){
                 Assert.assertTrue(true);
                 return;
             }
         }
-
         Assert.assertTrue(false);
     }
 }

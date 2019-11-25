@@ -17,15 +17,16 @@ public class ArtistDAO {
     public List<Artist> getArtists(){
         logger.info("Enter the method getArtists");
         List<Artist> artists = new ArrayList<>();
-
         try {
             rs = myConnection.connectAndFetchResult("SELECT * FROM artist");
             while(rs.next()){
                 artists.add(new Artist(
+                        rs.getInt("id"),
                         rs.getString("name"),
                         rs.getInt("start_year"),
                         rs.getInt("end_year"),
-                        rs.getString("description")
+                        rs.getString("description"),
+                        rs.getInt("serial_num")
                 ));
             }
         } catch (SQLException e) {
@@ -45,24 +46,26 @@ public class ArtistDAO {
 
     public void insertArtists(Artist artist){
         logger.info("Enter the method insertArtists");
-        String sqlQuery = "INSERT INTO artist (name, start_year, end_year, description) " +
+        String sqlQuery = "INSERT INTO artist (name, start_year, end_year, description, serial_num) " +
                 "VALUES (" +
                 "'" + artist.getName() + "', " +
                 artist.getStart_year() + ", " +
                 artist.getEnd_year() + ", " +
-                "'" + artist.getDescription() + "');";
+                "'" + artist.getDescription() + "', " +
+                artist.getSerial_num() + ");";
         doAQuery(sqlQuery);
     }
 
-    public void deleteArtists(){
+    public void deleteArtists(int serial_num){
         logger.info("Enter the method deleteArtists");
-        String sqlQuery = "DELETE FROM artist WHERE id > 7";
+        String sqlQuery = "DELETE FROM artist WHERE serial_num = " + serial_num + ";";
         doAQuery(sqlQuery);
     }
 
-    public void updateArtists(){
+    public void updateArtists(int serial_num, String desc){
         logger.info("Enter the method updateArtists");
-        String sqlQuery = "UPDATE artist SET description = 'Need to update' WHERE description IS NULL;";
+        String sqlQuery = "UPDATE artist SET description = '" + desc + "' " +
+                "WHERE serial_num = " + serial_num + ";";
         doAQuery(sqlQuery);
     }
 

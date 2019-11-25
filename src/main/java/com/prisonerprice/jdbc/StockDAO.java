@@ -20,15 +20,16 @@ public class StockDAO {
 
         try {
             rs = myConnection.connectAndFetchResult("SELECT * FROM stock");
-
             while(rs.next()){
                 stocks.add(new Stock(
+                        rs.getInt("id"),
                         rs.getString("album_name"),
                         rs.getInt("stock_NY_01"),
                         rs.getInt("stock_NY_02"),
                         rs.getInt("stock_DC_01"),
                         rs.getInt("stock_VA_01"),
-                        rs.getInt("stock_MD_01")
+                        rs.getInt("stock_MD_01"),
+                        rs.getInt("serial_num")
                 ));
             }
         } catch (SQLException e) {
@@ -41,33 +42,33 @@ public class StockDAO {
                 e.printStackTrace();
             }
         }
-
         logger.info("Exit the method getStocks");
         return stocks;
     }
 
     public void insertStocks(Stock stock){
         logger.info("Enter the method insertStocks");
-        String sqlQuery = "INSERT INTO stock (album_name, stock_NY_01, stock_NY_02, stock_DC_01, stock_VA_01, stock_MD_01) " +
+        String sqlQuery = "INSERT INTO stock (album_name, stock_NY_01, stock_NY_02, stock_DC_01, stock_VA_01, stock_MD_01, serial_num) " +
                 "VALUES (" +
                 "'" + stock.getAlbum_name() + "', " +
                 stock.getStock_NY_01() + ", " +
                 stock.getStock_NY_02() + ", " +
                 stock.getStock_DC_01() + ", " +
                 stock.getStock_VA_01() + ", " +
-                stock.getStock_MD_01() + ");";
+                stock.getStock_MD_01() + ", " +
+                stock.getSerial_num() + ");";
         doAQuery(sqlQuery);
     }
 
-    public void deleteStocks(){
+    public void deleteStocks(int serial_num){
         logger.info("Enter the method deleteStocks");
-        String sqlQuery = "DELETE FROM stock WHERE id > 9";
+        String sqlQuery = "DELETE FROM stock WHERE serial_num = " + serial_num + ";";
         doAQuery(sqlQuery);
     }
 
-    public void updateStocks(){
+    public void updateStocks(int serial_num, int dc_01_stock){
         logger.info("Enter the method updateStocks");
-        String sqlQuery = "UPDATE stock SET stock_DC_01 = 0;";
+        String sqlQuery = "UPDATE stock SET stock_DC_01 = " + dc_01_stock + " where serial_num = " + serial_num + ";";
         doAQuery(sqlQuery);
     }
 

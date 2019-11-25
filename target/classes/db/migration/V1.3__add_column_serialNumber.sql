@@ -1,4 +1,4 @@
-ALTER TABLE album
+ALTER TABLE artist
 ADD serial_num INT;
 
 UPDATE album
@@ -15,8 +15,4 @@ UPDATE album
 SET serial_num = 6 WHERE id = 6;
 UPDATE album
 SET serial_num = 7 WHERE id = 7;
-UPDATE album
-SET serial_num = 8 WHERE id = 8;
-UPDATE album
-SET serial_num = 9 WHERE id = 9;
 

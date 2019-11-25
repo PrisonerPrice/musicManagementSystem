@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f411d98b-a258-48e2-a0ba-502292aff445" name="Default Changelist" comment="" />
+    <list default="true" id="f411d98b-a258-48e2-a0ba-502292aff445" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/AlbumDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/AlbumDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/ArtistDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/ArtistDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/StockDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/StockDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Album.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Artist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Artist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Stock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1.2__add_column_serialNumber.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1.2__add_column_serialNumber.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/AlbumDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/AlbumDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/ArtistDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/ArtistDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/StockDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/StockDAOTest.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +31,13 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1Ttw2XoDoSKbD7HP1UWlbpiUN6m" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
   </component>
@@ -35,40 +53,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ArtistDAOTest.insertArtistsTest">
-    <configuration name="AlbumDAOTest.getAlbumsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="music_management" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.prisonerprice.jdbc.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
-      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.AlbumDAOTest" />
-      <option name="METHOD_NAME" value="getAlbumsTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AlbumDAOTest.insertAlbumsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="music_management" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.prisonerprice.jdbc.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
-      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.AlbumDAOTest" />
-      <option name="METHOD_NAME" value="insertAlbumsTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ArtistDAOTest.insertArtistsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.StockDAOTest.updateStocksTest">
+    <configuration name="ArtistDAOTest.updateArtistsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="music_management" />
       <extension name="coverage">
         <pattern>
@@ -78,13 +64,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
       <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.ArtistDAOTest" />
-      <option name="METHOD_NAME" value="insertArtistsTest" />
+      <option name="METHOD_NAME" value="updateArtistsTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CombineTablesTest.getCombineTablesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="StockDAOTest.deleteStocksTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="music_management" />
       <extension name="coverage">
         <pattern>
@@ -93,8 +79,40 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
-      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.CombineTablesTest" />
-      <option name="METHOD_NAME" value="getCombineTablesTest" />
+      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.StockDAOTest" />
+      <option name="METHOD_NAME" value="deleteStocksTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StockDAOTest.getStocksTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music_management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prisonerprice.jdbc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
+      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.StockDAOTest" />
+      <option name="METHOD_NAME" value="getStocksTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StockDAOTest.insertAlbumsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music_management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prisonerprice.jdbc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
+      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.StockDAOTest" />
+      <option name="METHOD_NAME" value="insertAlbumsTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -118,11 +136,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ArtistDAOTest.insertArtistsTest" />
-        <item itemvalue="JUnit.AlbumDAOTest.insertAlbumsTest" />
-        <item itemvalue="JUnit.AlbumDAOTest.getAlbumsTest" />
-        <item itemvalue="JUnit.CombineTablesTest.getCombineTablesTest" />
         <item itemvalue="JUnit.StockDAOTest.updateStocksTest" />
+        <item itemvalue="JUnit.StockDAOTest.deleteStocksTest" />
+        <item itemvalue="JUnit.StockDAOTest.insertAlbumsTest" />
+        <item itemvalue="JUnit.StockDAOTest.getStocksTest" />
+        <item itemvalue="JUnit.ArtistDAOTest.updateArtistsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -142,11 +160,22 @@
       <workItem from="1574369619560" duration="3674000" />
       <workItem from="1574448879279" duration="401000" />
       <workItem from="1574450033474" duration="2696000" />
-      <workItem from="1574695179620" duration="2946000" />
+      <workItem from="1574695179620" duration="9523000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

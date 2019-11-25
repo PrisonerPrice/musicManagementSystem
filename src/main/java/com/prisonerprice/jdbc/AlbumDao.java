@@ -17,10 +17,8 @@ public class AlbumDao {
     public List<Album> getAlbums(){
         logger.info("Enter the method getAlbums");
         List<Album> albums = new ArrayList<>();
-
         try {
             rs = myConnection.connectAndFetchResult("SELECT * FROM album;");
-
             while(rs.next()){
                 albums.add(new Album(
                         rs.getInt("id"),
@@ -56,19 +54,20 @@ public class AlbumDao {
                 "'" + album.getArtist() + "', " +
                 "'" + album.getGenre() + "', " +
                 "'" + album.getDescription() + "', " +
-                "'" + album.getSerial_num() + "');";
+                album.getSerial_num() + ");";
         doAQuery(sqlQuery);
     }
 
-    public void deleteAlbums(){
+    public void deleteAlbums(int serial_num){
         logger.info("Enter the method deleteAlbums");
-        String sqlQuery = "DELETE FROM album WHERE id > 9;";
+        String sqlQuery = "DELETE FROM album WHERE serial_num = " + serial_num + ";";
         doAQuery(sqlQuery);
     }
 
-    public void updateAlbums(){
+    public void updateAlbums(int serial_num, String desc){
         logger.info("Enter the method updateAlbums");
-        String sqlQuery = "UPDATE album SET description = 'Need to update' WHERE description = '';";
+        String sqlQuery = "UPDATE album SET description = '" + desc + "' " +
+                "WHERE serial_num = " + serial_num + ";";
         doAQuery(sqlQuery);
     }
 

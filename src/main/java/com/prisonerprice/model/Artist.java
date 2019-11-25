@@ -6,12 +6,15 @@ public class Artist {
     private int start_year;
     private int end_year;
     private String description;
+    private int serial_num;
 
-    public Artist(String name, int start_year, int end_year, String description) {
+    public Artist(int id, String name, int start_year, int end_year, String description, int serial_num) {
+        this.id = id;
         this.name = name;
         this.start_year = start_year;
         this.end_year = end_year;
         this.description = description;
+        this.serial_num = serial_num;
     }
 
     public Artist(){
@@ -20,6 +23,7 @@ public class Artist {
         this.start_year = 0;
         this.end_year = 0;
         this.description = "NULL";
+        this.serial_num = 0;
     }
 
     public int getId() {
@@ -36,6 +40,10 @@ public class Artist {
 
     public int getEnd_year() {
         return end_year;
+    }
+
+    public int getSerial_num() {
+        return serial_num;
     }
 
     public String getDescription() {
@@ -62,6 +70,10 @@ public class Artist {
         this.description = description;
     }
 
+    public void setSerial_num(int serial_num) {
+        this.serial_num = serial_num;
+    }
+
     @Override
     public String toString() {
         return "Artist{" +
@@ -70,6 +82,7 @@ public class Artist {
                 ", start_year=" + start_year +
                 ", end_year=" + end_year +
                 ", description='" + description + '\'' +
+                ", serial_num=" + serial_num +
                 '}';
     }
 }

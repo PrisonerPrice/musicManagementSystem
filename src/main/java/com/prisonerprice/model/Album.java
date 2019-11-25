@@ -9,8 +9,8 @@ public class Album {
     private String description;
     private int serial_num;
 
-    public Album(String name, int release_year, String artist, String genre, String description, int serial_num) {
-        this.id = 0;
+    public Album(int id, String name, int release_year, String artist, String genre, String description, int serial_num) {
+        this.id = id;
         this.name = name;
         this.release_year = release_year;
         this.artist = artist;
@@ -19,8 +19,8 @@ public class Album {
         this.serial_num = serial_num;
     }
 
-    public Album(int id, String name, int release_year, String artist, String genre, String description, int serial_num){
-        this.id = 0;
+    public Album(){
+        this.id = id;
         this.name = "NULL";
         this.release_year = 0;
         this.artist = "NULL";
@@ -94,6 +94,7 @@ public class Album {
                 ", artist='" + artist + '\'' +
                 ", genre='" + genre + '\'' +
                 ", description='" + description + '\'' +
+                ", serial_num=" + serial_num +
                 '}';
     }
 }
