@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f411d98b-a258-48e2-a0ba-502292aff445" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Ttw2XoDoSKbD7HP1UWlbpiUN6m" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.ArtistDAOTest.insertArtistsTest">
+    <configuration name="AlbumDAOTest.getAlbumsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music_management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prisonerprice.jdbc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
+      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.AlbumDAOTest" />
+      <option name="METHOD_NAME" value="getAlbumsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AlbumDAOTest.insertAlbumsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music_management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prisonerprice.jdbc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
+      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.AlbumDAOTest" />
+      <option name="METHOD_NAME" value="insertAlbumsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ArtistDAOTest.insertArtistsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music_management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prisonerprice.jdbc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
+      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.ArtistDAOTest" />
+      <option name="METHOD_NAME" value="insertArtistsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CombineTablesTest.getCombineTablesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music_management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prisonerprice.jdbc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
+      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.CombineTablesTest" />
+      <option name="METHOD_NAME" value="getCombineTablesTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StockDAOTest.updateStocksTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music_management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.prisonerprice.jdbc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.prisonerprice.jdbc" />
+      <option name="MAIN_CLASS_NAME" value="com.prisonerprice.jdbc.StockDAOTest" />
+      <option name="METHOD_NAME" value="updateStocksTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ArtistDAOTest.insertArtistsTest" />
+        <item itemvalue="JUnit.AlbumDAOTest.insertAlbumsTest" />
+        <item itemvalue="JUnit.AlbumDAOTest.getAlbumsTest" />
+        <item itemvalue="JUnit.CombineTablesTest.getCombineTablesTest" />
+        <item itemvalue="JUnit.StockDAOTest.updateStocksTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f411d98b-a258-48e2-a0ba-502292aff445" name="Default Changelist" comment="" />
+      <created>1574292492538</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1574292492538</updated>
+      <workItem from="1574292497157" duration="14618000" />
+      <workItem from="1574343756634" duration="4807000" />
+      <workItem from="1574351662697" duration="2787000" />
+      <workItem from="1574369619560" duration="3674000" />
+      <workItem from="1574448879279" duration="401000" />
+      <workItem from="1574450033474" duration="2696000" />
+      <workItem from="1574695179620" duration="2946000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>
