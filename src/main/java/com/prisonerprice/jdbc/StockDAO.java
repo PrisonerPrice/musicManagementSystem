@@ -29,7 +29,7 @@ public class StockDAO {
                         rs.getInt("stock_DC_01"),
                         rs.getInt("stock_VA_01"),
                         rs.getInt("stock_MD_01"),
-                        rs.getInt("serial_num")
+                        rs.getString("serial_num")
                 ));
             }
         } catch (SQLException e) {
@@ -50,25 +50,25 @@ public class StockDAO {
         logger.info("Enter the method insertStocks");
         String sqlQuery = "INSERT INTO stock (album_name, stock_NY_01, stock_NY_02, stock_DC_01, stock_VA_01, stock_MD_01, serial_num) " +
                 "VALUES (" +
-                "'" + stock.getAlbum_name() + "', " +
+                "'" + stock.getAlbumName() + "', " +
                 stock.getStock_NY_01() + ", " +
                 stock.getStock_NY_02() + ", " +
                 stock.getStock_DC_01() + ", " +
                 stock.getStock_VA_01() + ", " +
                 stock.getStock_MD_01() + ", " +
-                stock.getSerial_num() + ");";
+                "'" + stock.getSerialNumber() + "');";
         doAQuery(sqlQuery);
     }
 
-    public void deleteStocks(int serial_num){
+    public void deleteStocks(String serialNumber){
         logger.info("Enter the method deleteStocks");
-        String sqlQuery = "DELETE FROM stock WHERE serial_num = " + serial_num + ";";
+        String sqlQuery = "DELETE FROM stock WHERE serial_num = '" + serialNumber + "';";
         doAQuery(sqlQuery);
     }
 
-    public void updateStocks(int serial_num, int dc_01_stock){
+    public void updateStocks(String serialNumber, int dc_01_stock){
         logger.info("Enter the method updateStocks");
-        String sqlQuery = "UPDATE stock SET stock_DC_01 = " + dc_01_stock + " where serial_num = " + serial_num + ";";
+        String sqlQuery = "UPDATE stock SET stock_DC_01 = " + dc_01_stock + " where serial_num = '" + serialNumber + "';";
         doAQuery(sqlQuery);
     }
 

@@ -26,7 +26,7 @@ public class ArtistDAO {
                         rs.getInt("start_year"),
                         rs.getInt("end_year"),
                         rs.getString("description"),
-                        rs.getInt("serial_num")
+                        rs.getString("serial_num")
                 ));
             }
         } catch (SQLException e) {
@@ -39,7 +39,6 @@ public class ArtistDAO {
                 e.printStackTrace();
             }
         }
-
         logger.info("Exit the method getArtists");
         return artists;
     }
@@ -49,23 +48,23 @@ public class ArtistDAO {
         String sqlQuery = "INSERT INTO artist (name, start_year, end_year, description, serial_num) " +
                 "VALUES (" +
                 "'" + artist.getName() + "', " +
-                artist.getStart_year() + ", " +
-                artist.getEnd_year() + ", " +
+                artist.getStartYear() + ", " +
+                artist.getEndYear() + ", " +
                 "'" + artist.getDescription() + "', " +
-                artist.getSerial_num() + ");";
+                "'" + artist.getSerialNumber() + "');";
         doAQuery(sqlQuery);
     }
 
-    public void deleteArtists(int serial_num){
+    public void deleteArtists(String serialNumber){
         logger.info("Enter the method deleteArtists");
-        String sqlQuery = "DELETE FROM artist WHERE serial_num = " + serial_num + ";";
+        String sqlQuery = "DELETE FROM artist WHERE serial_num = '" + serialNumber + "';";
         doAQuery(sqlQuery);
     }
 
-    public void updateArtists(int serial_num, String desc){
+    public void updateArtists(String serialNumber, String desc){
         logger.info("Enter the method updateArtists");
         String sqlQuery = "UPDATE artist SET description = '" + desc + "' " +
-                "WHERE serial_num = " + serial_num + ";";
+                "WHERE serial_num = '" + serialNumber + "';";
         doAQuery(sqlQuery);
     }
 

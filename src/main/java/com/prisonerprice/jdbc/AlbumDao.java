@@ -27,7 +27,7 @@ public class AlbumDao {
                         rs.getString("artist"),
                         rs.getString("genre"),
                         rs.getString("description"),
-                        rs.getInt("serial_num")
+                        rs.getString("serial_num")
                 ));
             }
         } catch (SQLException e) {
@@ -40,7 +40,6 @@ public class AlbumDao {
                 e.printStackTrace();
             }
         }
-
         logger.info("Exit the method getAlbums");
         return albums;
     }
@@ -50,24 +49,24 @@ public class AlbumDao {
         String sqlQuery = "INSERT INTO album (name, release_year, artist, genre, description, serial_num) " +
                 "VALUES " +
                 "('" + album.getName() + "', " +
-                album.getRelease_year() + ", " +
+                album.getReleaseYear() + ", " +
                 "'" + album.getArtist() + "', " +
                 "'" + album.getGenre() + "', " +
                 "'" + album.getDescription() + "', " +
-                album.getSerial_num() + ");";
+                "'" + album.getSerialNumber() + "');";
         doAQuery(sqlQuery);
     }
 
-    public void deleteAlbums(int serial_num){
+    public void deleteAlbums(String serialNumber){
         logger.info("Enter the method deleteAlbums");
-        String sqlQuery = "DELETE FROM album WHERE serial_num = " + serial_num + ";";
+        String sqlQuery = "DELETE FROM album WHERE serial_num = '" + serialNumber + "';";
         doAQuery(sqlQuery);
     }
 
-    public void updateAlbums(int serial_num, String desc){
+    public void updateAlbums(String serialNumber, String desc){
         logger.info("Enter the method updateAlbums");
         String sqlQuery = "UPDATE album SET description = '" + desc + "' " +
-                "WHERE serial_num = " + serial_num + ";";
+                "WHERE serial_num = '" + serialNumber + "';";
         doAQuery(sqlQuery);
     }
 

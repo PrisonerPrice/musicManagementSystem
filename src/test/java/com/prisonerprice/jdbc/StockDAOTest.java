@@ -16,26 +16,26 @@ public class StockDAOTest {
     public void init(){
         stockDAO = new StockDAO();
         newStock = new Stock(
-                0,
                 "Antisocialities",
                 2,
                 3,
                 1,
                 2,
-                1,
-                10);
+                1);
         stockDAO.insertStocks(newStock);
     }
 
     @After
     public void tearDown(){
-        stockDAO.deleteStocks(newStock.getSerial_num());
+        stockDAO.deleteStocks(newStock.getSerialNumber());
     }
 
     @Test
     public void getStocksTest(){
         List<Stock> stocks = stockDAO.getStocks();
-        int exceptionNumOfStocks = 9 + 1;
+        int exceptionNumOfStocks = stocks.size() + 1;
+        stockDAO.insertStocks(newStock);
+        stocks = stockDAO.getStocks();
         for(Stock stock : stocks){
             System.out.println(stock);
         }
@@ -45,7 +45,9 @@ public class StockDAOTest {
     @Test
     public void insertAlbumsTest(){
         List<Stock> stocks = stockDAO.getStocks();
-        int exceptionNumOfStocks = 9 + 1;
+        int exceptionNumOfStocks = stocks.size() + 1;
+        stockDAO.insertStocks(newStock);
+        stocks = stockDAO.getStocks();
         for(Stock stock : stocks){
             System.out.println(stock);
         }
@@ -54,23 +56,24 @@ public class StockDAOTest {
 
     @Test
     public void deleteStocksTest(){
-        stockDAO.deleteStocks(newStock.getSerial_num());
         List<Stock> stocks = stockDAO.getStocks();
-        int exceptionNumOfStocks = 9;
+        int orginalNumOfStocks = stocks.size();
+        stockDAO.deleteStocks(newStock.getSerialNumber());
+        stocks = stockDAO.getStocks();
         for(Stock stock : stocks){
             System.out.println(stock);
         }
-        Assert.assertEquals(exceptionNumOfStocks, stocks.size());
+        Assert.assertTrue(orginalNumOfStocks > stocks.size());
     }
 
     @Test
     public void updateStocksTest(){
         int exceptionNumOfStocks = 1000;
-        stockDAO.updateStocks(10, 1000);
+        stockDAO.updateStocks(newStock.getSerialNumber(), 1000);
         List<Stock> stocks = stockDAO.getStocks();
         for(Stock stock : stocks){
             System.out.println(stock.getStock_DC_01());
-            if(stock.getSerial_num() == 10){
+            if(stock.getSerialNumber().equals(newStock.getSerialNumber())){
                 if(stock.getStock_DC_01() == 1000){
                     Assert.assertTrue(true);
                     return;

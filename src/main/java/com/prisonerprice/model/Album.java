@@ -1,32 +1,43 @@
 package com.prisonerprice.model;
 
+import java.util.UUID;
+
 public class Album {
     private int id;
     private String name;
-    private int release_year;
+    private int releaseYear;
     private String artist;
     private String genre;
     private String description;
-    private int serial_num;
+    private String serialNumber;
 
-    public Album(int id, String name, int release_year, String artist, String genre, String description, int serial_num) {
+    public Album(int id, String name, int releaseYear, String artist, String genre, String description, String serialNumber) {
         this.id = id;
         this.name = name;
-        this.release_year = release_year;
+        this.releaseYear = releaseYear;
         this.artist = artist;
         this.genre = genre;
         this.description = description;
-        this.serial_num = serial_num;
+        this.serialNumber = serialNumber;
+    }
+
+    public Album(String name, int release_year, String artist, String genre, String description) {
+        this.name = name;
+        this.releaseYear = release_year;
+        this.artist = artist;
+        this.genre = genre;
+        this.description = description;
+        this.serialNumber = UUID.randomUUID().toString();
     }
 
     public Album(){
-        this.id = id;
+        this.id = 0;
         this.name = "NULL";
-        this.release_year = 0;
+        this.releaseYear = 0;
         this.artist = "NULL";
         this.genre = "NULL";
         this.description = "NULL";
-        this.serial_num = 0;
+        this.serialNumber = UUID.randomUUID().toString();
     }
 
     public int getId() {
@@ -37,8 +48,8 @@ public class Album {
         return name;
     }
 
-    public int getRelease_year() {
-        return release_year;
+    public int getReleaseYear() {
+        return releaseYear;
     }
 
     public String getArtist() {
@@ -53,8 +64,8 @@ public class Album {
         return description;
     }
 
-    public int getSerial_num() {
-        return serial_num;
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
     public void setId(int id) {
@@ -65,8 +76,8 @@ public class Album {
         this.name = name;
     }
 
-    public void setRelease_year(int release_year) {
-        this.release_year = release_year;
+    public void setReleaseYear(int release_year) {
+        this.releaseYear = release_year;
     }
 
     public void setArtist(String artist) {
@@ -81,8 +92,8 @@ public class Album {
         this.description = description;
     }
 
-    public void setSerial_num(int serial_num) {
-        this.serial_num = serial_num;
+    public void setSerialNumber(String serial_num) {
+        this.serialNumber = serial_num;
     }
 
     @Override
@@ -90,11 +101,11 @@ public class Album {
         return "Album{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", release_year=" + release_year +
+                ", release_year=" + releaseYear +
                 ", artist='" + artist + '\'' +
                 ", genre='" + genre + '\'' +
                 ", description='" + description + '\'' +
-                ", serial_num=" + serial_num +
+                ", serial_num=" + serialNumber +
                 '}';
     }
 }

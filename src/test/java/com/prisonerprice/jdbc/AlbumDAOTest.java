@@ -16,25 +16,25 @@ public class AlbumDAOTest {
     public void init(){
         albumDao = new AlbumDao();
         newAlbum = new Album(
-                0,
                 "Antisocialities",
                 2017,
                 "Alvvays",
                 "Alternative",
-                "xxxxx",
-                10);
+                "xxxxx");
         albumDao.insertAlbums(newAlbum);
     }
 
     @After
     public void tearDown(){
-        albumDao.deleteAlbums(newAlbum.getSerial_num());
+        albumDao.deleteAlbums(newAlbum.getSerialNumber());
     }
 
     @Test
     public void getAlbumsTest(){
         List<Album> albums = albumDao.getAlbums();
-        int exceptionNumOfAlbums = 9 + 1;
+        int exceptionNumOfAlbums = albums.size() + 1;
+        albumDao.insertAlbums(newAlbum);
+        albums = albumDao.getAlbums();
         for(Album album : albums){
             System.out.println(album);
         }
@@ -44,7 +44,9 @@ public class AlbumDAOTest {
     @Test
     public void insertAlbumsTest(){
         List<Album> albums = albumDao.getAlbums();
-        int exceptionNumOfAlbums = 9 + 1;
+        int exceptionNumOfAlbums = albums.size() + 1;
+        albumDao.insertAlbums(newAlbum);
+        albums = albumDao.getAlbums();
         for(Album album : albums){
             System.out.println(album);
         }
@@ -53,19 +55,17 @@ public class AlbumDAOTest {
 
     @Test
     public void deleteAlbumsTest(){
-        albumDao.deleteAlbums(newAlbum.getSerial_num());
         List<Album> albums = albumDao.getAlbums();
-        int exceptionNumOfAlbums = 9;
-        for(Album album : albums){
-            System.out.println(album);
-        }
-        Assert.assertEquals(exceptionNumOfAlbums, albums.size());
+        int originalNumOfAlbums = albums.size();
+        albumDao.deleteAlbums(newAlbum.getSerialNumber());
+        albums = albumDao.getAlbums();
+        Assert.assertTrue(originalNumOfAlbums > albums.size());
     }
 
     @Test
     public void updateAlbumsTest(){
         String exceptionDesc = "Their 2nd album";
-        albumDao.updateAlbums(10, exceptionDesc);
+        albumDao.updateAlbums(newAlbum.getSerialNumber(), exceptionDesc);
         List<Album> albums = albumDao.getAlbums();
         for(Album album : albums){
             System.out.println(album.toString());

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f411d98b-a258-48e2-a0ba-502292aff445" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/AlbumDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/AlbumDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/ArtistDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/jdbc/ArtistDAO.java" afterDir="false" />
@@ -10,10 +9,10 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Album.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Artist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Artist.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prisonerprice/model/Stock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1.2__add_column_serialNumber.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1.2__add_column_serialNumber.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/AlbumDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/AlbumDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/ArtistDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/ArtistDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/StockDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/prisonerprice/jdbc/StockDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/prisonerprice/jdbc/AlbumDAOTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/prisonerprice/jdbc/AlbumDAOTest.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -160,7 +159,8 @@
       <workItem from="1574369619560" duration="3674000" />
       <workItem from="1574448879279" duration="401000" />
       <workItem from="1574450033474" duration="2696000" />
-      <workItem from="1574695179620" duration="9523000" />
+      <workItem from="1574695179620" duration="12739000" />
+      <workItem from="1574736982823" duration="2287000" />
     </task>
     <servers />
   </component>
@@ -172,7 +172,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
