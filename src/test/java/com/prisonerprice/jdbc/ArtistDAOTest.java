@@ -5,12 +5,15 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class ArtistDAOTest {
     private ArtistDAO artistDAO;
     private Artist newArtist;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Before
     public void init(){
@@ -35,7 +38,7 @@ public class ArtistDAOTest {
         artistDAO.insertArtists(newArtist);
         artists = artistDAO.getArtists();
         for(Artist artist : artists){
-            System.out.println(artist);
+            logger.debug(artist.toString());
         }
         Assert.assertEquals(exceptionNumOfArtists, artists.size());
     }
@@ -47,7 +50,7 @@ public class ArtistDAOTest {
         artistDAO.insertArtists(newArtist);
         artists = artistDAO.getArtists();
         for(Artist artist : artists){
-            System.out.println(artist);
+            logger.debug(artist.toString());
         }
         Assert.assertEquals(exceptionNumOfArtists, artists.size());
     }
@@ -59,7 +62,7 @@ public class ArtistDAOTest {
         artistDAO.deleteArtists(newArtist.getSerialNumber());
         artists = artistDAO.getArtists();
         for(Artist artist : artists){
-            System.out.println(artist);
+            logger.debug(artist.toString());
         }
         Assert.assertTrue(originalNumOfArtists > artists.size());
     }
@@ -71,7 +74,7 @@ public class ArtistDAOTest {
         exceptionDesc = "Don't ask me what is Disco";
         List<Artist> artists = artistDAO.getArtists();
         for(Artist artist : artists){
-            System.out.println(artist);
+            logger.debug(artist.toString());
             String desc = artist.getDescription();
             if(desc.equals(exceptionDesc)) {
                 Assert.assertTrue(true);

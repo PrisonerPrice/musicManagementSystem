@@ -11,6 +11,7 @@ import java.util.List;
 
 public class AlbumDao {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private String loggerInfo = System.getenv("logging.level.com.prisonerprice");
     private MyConnection myConnection = new MyConnection();
     private ResultSet rs = null;
 
@@ -31,12 +32,13 @@ public class AlbumDao {
                 ));
             }
         } catch (SQLException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
             e.printStackTrace();
         } finally {
             try {
                 myConnection.closeConnection();
             } catch (SQLException e) {
+                logger.error(e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -74,12 +76,13 @@ public class AlbumDao {
         try {
             myConnection.connectAndFetchResult(sqlQuery);
         } catch (SQLException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
             e.printStackTrace();
         } finally {
             try {
                 myConnection.closeConnection();
             } catch (SQLException e) {
+                logger.error(e.getMessage());
                 e.printStackTrace();
             }
         }

@@ -5,12 +5,15 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class AlbumDAOTest {
     private AlbumDao albumDao;
     private Album newAlbum;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Before
     public void init(){
@@ -36,7 +39,7 @@ public class AlbumDAOTest {
         albumDao.insertAlbums(newAlbum);
         albums = albumDao.getAlbums();
         for(Album album : albums){
-            System.out.println(album);
+            logger.debug(album.toString());
         }
         Assert.assertEquals(exceptionNumOfAlbums, albums.size());
     }
@@ -48,7 +51,7 @@ public class AlbumDAOTest {
         albumDao.insertAlbums(newAlbum);
         albums = albumDao.getAlbums();
         for(Album album : albums){
-            System.out.println(album);
+            logger.debug(album.toString());
         }
         Assert.assertEquals(exceptionNumOfAlbums, albums.size());
     }
@@ -68,7 +71,7 @@ public class AlbumDAOTest {
         albumDao.updateAlbums(newAlbum.getSerialNumber(), exceptionDesc);
         List<Album> albums = albumDao.getAlbums();
         for(Album album : albums){
-            System.out.println(album.toString());
+            logger.debug(album.toString());
             if(album.getDescription().equals(exceptionDesc)){
                 Assert.assertTrue(true);
                 return;

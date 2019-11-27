@@ -5,12 +5,15 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class StockDAOTest {
     private StockDAO stockDAO;
     private Stock newStock;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Before
     public void init(){
@@ -37,7 +40,7 @@ public class StockDAOTest {
         stockDAO.insertStocks(newStock);
         stocks = stockDAO.getStocks();
         for(Stock stock : stocks){
-            System.out.println(stock);
+            logger.debug(stock.toString());
         }
         Assert.assertEquals(exceptionNumOfStocks, stocks.size());
     }
@@ -49,7 +52,7 @@ public class StockDAOTest {
         stockDAO.insertStocks(newStock);
         stocks = stockDAO.getStocks();
         for(Stock stock : stocks){
-            System.out.println(stock);
+            logger.debug(stock.toString());
         }
         Assert.assertEquals(exceptionNumOfStocks, stocks.size());
     }
@@ -61,7 +64,7 @@ public class StockDAOTest {
         stockDAO.deleteStocks(newStock.getSerialNumber());
         stocks = stockDAO.getStocks();
         for(Stock stock : stocks){
-            System.out.println(stock);
+            logger.debug(stock.toString());
         }
         Assert.assertTrue(orginalNumOfStocks > stocks.size());
     }
@@ -72,7 +75,7 @@ public class StockDAOTest {
         stockDAO.updateStocks(newStock.getSerialNumber(), 1000);
         List<Stock> stocks = stockDAO.getStocks();
         for(Stock stock : stocks){
-            System.out.println(stock.getStock_DC_01());
+            logger.debug(stock.toString());
             if(stock.getSerialNumber().equals(newStock.getSerialNumber())){
                 if(stock.getStock_DC_01() == 1000){
                     Assert.assertTrue(true);

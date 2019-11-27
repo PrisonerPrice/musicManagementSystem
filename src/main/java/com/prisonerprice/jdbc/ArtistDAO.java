@@ -30,12 +30,13 @@ public class ArtistDAO {
                 ));
             }
         } catch (SQLException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
             e.printStackTrace();
         } finally {
             try {
                 myConnection.closeConnection();
             } catch (SQLException e) {
+                logger.error(e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -72,12 +73,13 @@ public class ArtistDAO {
         try {
             myConnection.connectAndFetchResult(sqlQuery);
         } catch (SQLException e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
             e.printStackTrace();
         } finally {
             try {
                 myConnection.closeConnection();
             } catch (SQLException e) {
+                logger.error(e.getMessage());
                 e.printStackTrace();
             }
         }
