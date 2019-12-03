@@ -4,12 +4,14 @@ import com.prisonerprice.model.Album;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlbumDao {
+public class AlbumDAO {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private String loggerInfo = System.getenv("logging.level.com.prisonerprice");
     private MyConnection myConnection = new MyConnection();
@@ -56,35 +58,19 @@ public class AlbumDao {
                 "'" + album.getGenre() + "', " +
                 "'" + album.getDescription() + "', " +
                 "'" + album.getSerialNumber() + "');";
-        doAQuery(sqlQuery);
+        myConnection.doAQuery(sqlQuery);
     }
 
     public void deleteAlbums(String serialNumber){
         logger.info("Enter the method deleteAlbums");
         String sqlQuery = "DELETE FROM album WHERE serial_num = '" + serialNumber + "';";
-        doAQuery(sqlQuery);
+        myConnection.doAQuery(sqlQuery);
     }
 
     public void updateAlbums(String serialNumber, String desc){
         logger.info("Enter the method updateAlbums");
         String sqlQuery = "UPDATE album SET description = '" + desc + "' " +
                 "WHERE serial_num = '" + serialNumber + "';";
-        doAQuery(sqlQuery);
-    }
-
-    public void doAQuery(String sqlQuery){
-        try {
-            myConnection.connectAndFetchResult(sqlQuery);
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
-        } finally {
-            try {
-                myConnection.closeConnection();
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
-                e.printStackTrace();
-            }
-        }
+        myConnection.doAQuery(sqlQuery);
     }
 }

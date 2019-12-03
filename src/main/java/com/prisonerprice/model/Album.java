@@ -1,14 +1,33 @@
 package com.prisonerprice.model;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "album")
 public class Album {
+
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column
     private int id;
+
+    @Column
     private String name;
+
+    @Column(name = "release_year")
     private int releaseYear;
+
+    @Column
     private String artist;
+
+    @Column
     private String genre;
+
+    @Column
     private String description;
+
+    @Id
+    @Column(name = "serial_num")
     private String serialNumber;
 
     public Album(int id, String name, int releaseYear, String artist, String genre, String description, String serialNumber) {
@@ -38,6 +57,16 @@ public class Album {
         this.genre = "NULL";
         this.description = "NULL";
         this.serialNumber = UUID.randomUUID().toString();
+    }
+
+    public Album(Album album){
+        this.id = album.getId();
+        this.name = album.getName();
+        this.releaseYear = album.getReleaseYear();
+        this.artist = album.getArtist();
+        this.genre = album.getGenre();
+        this.description = album.getDescription();
+        this.serialNumber = album.getSerialNumber();
     }
 
     public int getId() {

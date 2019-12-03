@@ -30,4 +30,20 @@ public class MyConnection {
         if(conn != null) conn.close();
     }
 
+    public void doAQuery(String sqlQuery) {
+        try {
+            this.connectAndFetchResult(sqlQuery);
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                this.closeConnection();
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

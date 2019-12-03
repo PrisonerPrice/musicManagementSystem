@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class AlbumDAOTest {
-    private AlbumDao albumDao;
+    private AlbumDAO albumDao;
     private Album newAlbum;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Before
     public void init(){
-        albumDao = new AlbumDao();
+        albumDao = new AlbumDAO();
         newAlbum = new Album(
                 "Antisocialities",
                 2017,

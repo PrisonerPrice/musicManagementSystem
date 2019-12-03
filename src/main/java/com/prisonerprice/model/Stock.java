@@ -1,15 +1,36 @@
 package com.prisonerprice.model;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "stock")
 public class Stock {
+
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column
     private int id;
+
+    @Column(name = "album_name")
     private String albumName;
+
+    @Column
     private int stock_NY_01;
+
+    @Column
     private int stock_NY_02;
+
+    @Column
     private int stock_DC_01;
+
+    @Column
     private int stock_VA_01;
+
+    @Column
     private int stock_MD_01;
+
+    @Id
+    @Column(name = "serial_num")
     private String serialNumber;
 
     public Stock(int id, String albumName, int stock_NY_01, int stock_NY_02, int stock_DC_01, int stock_VA_01, int stock_MD_01, String serialNumber) {
@@ -41,6 +62,17 @@ public class Stock {
         this.stock_VA_01 = 0;
         this.stock_MD_01 = 0;
         this.serialNumber = UUID.randomUUID().toString();
+    }
+
+    public Stock(Stock stock){
+        this.id = stock.getId();
+        this.albumName = stock.getAlbumName();
+        this.stock_NY_01 = stock.getStock_NY_01();
+        this.stock_NY_02 = stock.getStock_NY_02();
+        this.stock_DC_01 = stock.getStock_DC_01();
+        this.stock_VA_01 = stock.getStock_VA_01();
+        this.stock_MD_01 = stock.getStock_MD_01();
+        this.serialNumber = stock.getSerialNumber();
     }
 
     public int getId() {

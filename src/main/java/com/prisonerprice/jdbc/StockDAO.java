@@ -58,34 +58,18 @@ public class StockDAO {
                 stock.getStock_VA_01() + ", " +
                 stock.getStock_MD_01() + ", " +
                 "'" + stock.getSerialNumber() + "');";
-        doAQuery(sqlQuery);
+        myConnection.doAQuery(sqlQuery);
     }
 
     public void deleteStocks(String serialNumber){
         logger.info("Enter the method deleteStocks");
         String sqlQuery = "DELETE FROM stock WHERE serial_num = '" + serialNumber + "';";
-        doAQuery(sqlQuery);
+        myConnection.doAQuery(sqlQuery);
     }
 
     public void updateStocks(String serialNumber, int dc_01_stock){
         logger.info("Enter the method updateStocks");
         String sqlQuery = "UPDATE stock SET stock_DC_01 = " + dc_01_stock + " where serial_num = '" + serialNumber + "';";
-        doAQuery(sqlQuery);
-    }
-
-    public void doAQuery(String sqlQuery){
-        try {
-            myConnection.connectAndFetchResult(sqlQuery);
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
-        } finally {
-            try {
-                myConnection.closeConnection();
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
-                e.printStackTrace();
-            }
-        }
+        myConnection.doAQuery(sqlQuery);
     }
 }

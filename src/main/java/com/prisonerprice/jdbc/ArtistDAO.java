@@ -53,35 +53,19 @@ public class ArtistDAO {
                 artist.getEndYear() + ", " +
                 "'" + artist.getDescription() + "', " +
                 "'" + artist.getSerialNumber() + "');";
-        doAQuery(sqlQuery);
+        myConnection.doAQuery(sqlQuery);
     }
 
     public void deleteArtists(String serialNumber){
         logger.info("Enter the method deleteArtists");
         String sqlQuery = "DELETE FROM artist WHERE serial_num = '" + serialNumber + "';";
-        doAQuery(sqlQuery);
+        myConnection.doAQuery(sqlQuery);
     }
 
     public void updateArtists(String serialNumber, String desc){
         logger.info("Enter the method updateArtists");
         String sqlQuery = "UPDATE artist SET description = '" + desc + "' " +
                 "WHERE serial_num = '" + serialNumber + "';";
-        doAQuery(sqlQuery);
-    }
-
-    public void doAQuery(String sqlQuery){
-        try {
-            myConnection.connectAndFetchResult(sqlQuery);
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-            e.printStackTrace();
-        } finally {
-            try {
-                myConnection.closeConnection();
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
-                e.printStackTrace();
-            }
-        }
+        myConnection.doAQuery(sqlQuery);
     }
 }
