@@ -15,69 +15,25 @@ import java.util.List;
 public class StockDaoImpl implements StockDao {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Connection<Stock> stockConnection = new Connection<>();
 
     @Override
     public boolean save(Stock stock) {
-        Transaction transaction = null;
-        boolean isSuccess = true;
-        try{
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            session.save(stock);
-            transaction.commit();
-        } catch (Exception e){
-            isSuccess = false;
-            if(transaction != null) transaction.rollback();
-            logger.error(e.getMessage());
-        }
-        if (isSuccess) logger.debug(String.format("The stock %s was inserted into the table", stock.toString()));
-        return isSuccess;
+        return stockConnection.save(stock);
     }
 
     @Override
     public boolean update(Stock stock) {
-        Transaction transaction = null;
-        boolean isSuccess = true;
-        try{
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(stock);
-            transaction.commit();
-        } catch (Exception e){
-            isSuccess = false;
-            if(transaction != null) transaction.rollback();
-            logger.error(e.getMessage());
-        }
-        if (isSuccess) logger.debug(String.format("The stock %s was updated", stock.toString()));
-        return isSuccess;
+        return stockConnection.update(stock);
     }
 
     @Override
     public boolean delete(String stockNumber) {
-        String hql = "DELETE Stock where serialNumber =: serial_num";
-        int deletedCount = 0;
-        Transaction transaction = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            Query<Stock> query = session.createQuery(hql);
-            query.setParameter("serial_num", stockNumber);
-            deletedCount = query.executeUpdate();
-            transaction.commit();
-        } catch (Exception e){
-            if(transaction != null) transaction.rollback();
-            logger.error(e.getMessage());
-        }
-        logger.debug(String.format("The stock with the id %s was deleted", stockNumber));
-        return deletedCount >= 1 ? true : false;
+        return stockConnection.delete(stockNumber, "Stock");
     }
 
     @Override
     public List<Stock> getStocks() {
-        String hql = "FROM Stock";
-        try (Session session = HibernateUtil.getSessionFactory().openSession()){
-            Query<Stock> query = session.createQuery(hql);
-            return query.list();
-        }
+        return stockConnection.getAll("Stock");
     }
 }
