@@ -1,6 +1,7 @@
 package com.prisonerprice.jdbc;
 
 import com.prisonerprice.model.Album;
+import com.prisonerprice.model.Artist;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,15 +14,22 @@ import java.util.List;
 public class AlbumDAOTest {
     private AlbumDAO albumDao;
     private Album newAlbum;
+    private Artist Alvvays;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Before
     public void init(){
         albumDao = new AlbumDAO();
+        Alvvays = new Artist(
+                "Alvvays",
+                2011,
+                0,
+                "xxxx"
+        );
         newAlbum = new Album(
                 "Antisocialities",
                 2017,
-                "Alvvays",
+                Alvvays,
                 "Alternative",
                 "xxxxx");
         albumDao.insertAlbums(newAlbum);
@@ -29,7 +37,7 @@ public class AlbumDAOTest {
 
     @After
     public void tearDown(){
-        albumDao.deleteAlbums(newAlbum.getSerialNumber());
+        //albumDao.deleteAlbums(newAlbum.getId());
     }
 
     @Test
@@ -60,7 +68,7 @@ public class AlbumDAOTest {
     public void deleteAlbumsTest(){
         List<Album> albums = albumDao.getAlbums();
         int originalNumOfAlbums = albums.size();
-        albumDao.deleteAlbums(newAlbum.getSerialNumber());
+        //albumDao.deleteAlbums(newAlbum.getSerialNumber());
         albums = albumDao.getAlbums();
         Assert.assertTrue(originalNumOfAlbums > albums.size());
     }
@@ -68,7 +76,7 @@ public class AlbumDAOTest {
     @Test
     public void updateAlbumsTest(){
         String exceptionDesc = "Their 2nd album";
-        albumDao.updateAlbums(newAlbum.getSerialNumber(), exceptionDesc);
+        //albumDao.updateAlbums(newAlbum.getSerialNumber(), exceptionDesc);
         List<Album> albums = albumDao.getAlbums();
         for(Album album : albums){
             logger.debug(album.toString());

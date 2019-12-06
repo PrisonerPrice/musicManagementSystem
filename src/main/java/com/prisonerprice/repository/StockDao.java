@@ -7,6 +7,6 @@ import java.util.List;
 public interface StockDao {
     boolean save(Stock stock);
     boolean update(Stock stock);
-    boolean delete(String stockNumber);
+    boolean delete(Stock stock);
     List<Stock> getStocks();
 }

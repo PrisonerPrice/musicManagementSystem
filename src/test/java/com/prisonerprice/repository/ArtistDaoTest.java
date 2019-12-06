@@ -24,14 +24,15 @@ public class ArtistDaoTest {
                 1998,
                 0,
                 "xxxxxxx");
-        newArtist2 = new Artist(newArtist);
         artistDao.save(newArtist);
     }
 
     @After
     public void tearDown(){
-        artistDao.delete(newArtist.getSerialNumber());
-        artistDao.delete(newArtist2.getSerialNumber());
+        List<Artist> artists = artistDao.getArtists();
+        for(Artist artist : artists){
+            artistDao.delete(artist);
+        }
     }
 
     @Test
@@ -46,25 +47,20 @@ public class ArtistDaoTest {
 
     @Test
     public void updateArtists(){
-        newArtist2.setDescription("A Whole New Artist");
+        newArtist2 = new Artist(artistDao.getArtists().get(0));
+        newArtist2.setDescription("A Whole new Description");
         String originalDesc = newArtist.getDescription();
-        String serialNumber = newArtist.getSerialNumber();
         artistDao.update(newArtist2);
-        List<Artist> artists = artistDao.getArtists();
-        for(Artist artist : artists){
-            logger.info(artist.toString());
-            if(artist.getSerialNumber().equals(serialNumber)){
-                Assert.assertTrue(!originalDesc.equals(artist.getDescription()));
-                return;
-            }
-        }
-        Assert.assertTrue(false);
+        Assert.assertTrue(!originalDesc.equals(artistDao.getArtists().get(0).getDescription()));
     }
 
     @Test
     public void deleteArtists(){
-        artistDao.delete(newArtist.getSerialNumber());
         List<Artist> artists = artistDao.getArtists();
+        for(Artist artist : artists){
+            artistDao.delete(artist);
+        }
+        artists = artistDao.getArtists();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, artists.size());
     }

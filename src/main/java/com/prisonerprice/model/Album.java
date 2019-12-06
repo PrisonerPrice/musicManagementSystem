@@ -1,5 +1,7 @@
 package com.prisonerprice.model;
 
+import org.hibernate.query.criteria.internal.expression.NullLiteralExpression;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -7,56 +9,58 @@ import java.util.UUID;
 @Table(name = "album")
 public class Album {
 
+    @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
     private int id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
     @Column(name = "release_year")
     private int releaseYear;
 
-    @Column
-    private String artist;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "artist_id")
+    //select * from album al left join artist art on al.artist_serial_num = art.serial_num;
+    private Artist artist;
 
     @Column
     private String genre;
 
-    @Column
+    @Column(name = "description")
     private String description;
 
-    @Id
-    @Column(name = "serial_num")
-    private String serialNumber;
+    @OneToOne(mappedBy = "album", cascade = CascadeType.ALL)
+    private Stock stock;
 
-    public Album(int id, String name, int releaseYear, String artist, String genre, String description, String serialNumber) {
+
+    public Album(int id, String name, int releaseYear, Artist artist, String genre, String description) {
         this.id = id;
         this.name = name;
         this.releaseYear = releaseYear;
         this.artist = artist;
         this.genre = genre;
         this.description = description;
-        this.serialNumber = serialNumber;
     }
 
-    public Album(String name, int release_year, String artist, String genre, String description) {
+    public Album(String name, int release_year, Artist artist, String genre, String description) {
         this.name = name;
         this.releaseYear = release_year;
         this.artist = artist;
         this.genre = genre;
         this.description = description;
-        this.serialNumber = UUID.randomUUID().toString();
+        //this.serialNumber = UUID.randomUUID().toString();
     }
 
     public Album(){
         this.id = 0;
         this.name = "NULL";
         this.releaseYear = 0;
-        this.artist = "NULL";
+        this.artist = null;
         this.genre = "NULL";
         this.description = "NULL";
-        this.serialNumber = UUID.randomUUID().toString();
+        //this.serialNumber = UUID.randomUUID().toString();
     }
 
     public Album(Album album){
@@ -66,7 +70,7 @@ public class Album {
         this.artist = album.getArtist();
         this.genre = album.getGenre();
         this.description = album.getDescription();
-        this.serialNumber = album.getSerialNumber();
+        //this.serialNumber = album.getSerialNumber();
     }
 
     public int getId() {
@@ -81,7 +85,7 @@ public class Album {
         return releaseYear;
     }
 
-    public String getArtist() {
+    public Artist getArtist() {
         return artist;
     }
 
@@ -91,10 +95,6 @@ public class Album {
 
     public String getDescription() {
         return description;
-    }
-
-    public String getSerialNumber() {
-        return serialNumber;
     }
 
     public void setId(int id) {
@@ -109,7 +109,7 @@ public class Album {
         this.releaseYear = release_year;
     }
 
-    public void setArtist(String artist) {
+    public void setArtist(Artist artist) {
         this.artist = artist;
     }
 
@@ -121,20 +121,15 @@ public class Album {
         this.description = description;
     }
 
-    public void setSerialNumber(String serial_num) {
-        this.serialNumber = serial_num;
-    }
-
     @Override
     public String toString() {
         return "Album{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", release_year=" + releaseYear +
-                ", artist='" + artist + '\'' +
+                ", releaseYear=" + releaseYear +
+                ", artist=" + artist +
                 ", genre='" + genre + '\'' +
                 ", description='" + description + '\'' +
-                ", serial_num=" + serialNumber +
                 '}';
     }
 }

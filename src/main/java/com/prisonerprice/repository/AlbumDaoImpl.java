@@ -27,8 +27,8 @@ public class AlbumDaoImpl implements AlbumDao {
     }
 
     @Override
-    public boolean delete(String albumNumber) {
-        return albumConnection.delete(albumNumber, "Album");
+    public boolean delete(Album album) {
+        return albumConnection.delete(album);
     }
 
     @Override

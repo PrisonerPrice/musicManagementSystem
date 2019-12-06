@@ -28,8 +28,8 @@ public class StockDaoImpl implements StockDao {
     }
 
     @Override
-    public boolean delete(String stockNumber) {
-        return stockConnection.delete(stockNumber, "Stock");
+    public boolean delete(Stock stock) {
+        return stockConnection.delete(stock);
     }
 
     @Override

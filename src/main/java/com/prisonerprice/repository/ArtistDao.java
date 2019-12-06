@@ -7,6 +7,6 @@ import java.util.List;
 public interface ArtistDao {
     boolean save(Artist artist);
     boolean update(Artist artist);
-    boolean delete(String artistNumber);
+    boolean delete(Artist artist);
     List<Artist> getArtists();
 }

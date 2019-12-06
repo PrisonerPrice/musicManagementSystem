@@ -27,8 +27,8 @@ public class ArtistDaoImpl implements ArtistDao{
     }
 
     @Override
-    public boolean delete(String artistNumber) {
-        return artistConnection.delete(artistNumber, "Artist");
+    public boolean delete(Artist artist) {
+        return artistConnection.delete(artist);
     }
 
     @Override

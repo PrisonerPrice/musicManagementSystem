@@ -1,6 +1,7 @@
 package com.prisonerprice.jdbc;
 
 import com.prisonerprice.model.Album;
+import com.prisonerprice.model.Artist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,13 +25,11 @@ public class AlbumDAO {
             rs = myConnection.connectAndFetchResult("SELECT * FROM album;");
             while(rs.next()){
                 albums.add(new Album(
-                        rs.getInt("id"),
                         rs.getString("name"),
                         rs.getInt("release_year"),
-                        rs.getString("artist"),
+                        (Artist) rs.getObject("artist"),
                         rs.getString("genre"),
-                        rs.getString("description"),
-                        rs.getString("serial_num")
+                        rs.getString("description")
                 ));
             }
         } catch (SQLException e) {
@@ -56,8 +55,7 @@ public class AlbumDAO {
                 album.getReleaseYear() + ", " +
                 "'" + album.getArtist() + "', " +
                 "'" + album.getGenre() + "', " +
-                "'" + album.getDescription() + "', " +
-                "'" + album.getSerialNumber() + "');";
+                "'" + album.getDescription() + "');";
         myConnection.doAQuery(sqlQuery);
     }
 

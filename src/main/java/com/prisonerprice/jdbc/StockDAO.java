@@ -22,14 +22,6 @@ public class StockDAO {
             rs = myConnection.connectAndFetchResult("SELECT * FROM stock");
             while(rs.next()){
                 stocks.add(new Stock(
-                        rs.getInt("id"),
-                        rs.getString("album_name"),
-                        rs.getInt("stock_NY_01"),
-                        rs.getInt("stock_NY_02"),
-                        rs.getInt("stock_DC_01"),
-                        rs.getInt("stock_VA_01"),
-                        rs.getInt("stock_MD_01"),
-                        rs.getString("serial_num")
                 ));
             }
         } catch (SQLException e) {
@@ -51,13 +43,12 @@ public class StockDAO {
         logger.info("Enter the method insertStocks");
         String sqlQuery = "INSERT INTO stock (album_name, stock_NY_01, stock_NY_02, stock_DC_01, stock_VA_01, stock_MD_01, serial_num) " +
                 "VALUES (" +
-                "'" + stock.getAlbumName() + "', " +
+                "'" + stock.getAlbum().getId() + "', " +
                 stock.getStock_NY_01() + ", " +
                 stock.getStock_NY_02() + ", " +
                 stock.getStock_DC_01() + ", " +
                 stock.getStock_VA_01() + ", " +
-                stock.getStock_MD_01() + ", " +
-                "'" + stock.getSerialNumber() + "');";
+                stock.getStock_MD_01() + "');";
         myConnection.doAQuery(sqlQuery);
     }
 
