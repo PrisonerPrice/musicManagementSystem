@@ -34,6 +34,7 @@ public class StockDaoImpl implements StockDao {
 
     @Override
     public List<Stock> getStocks() {
-        return stockConnection.getAll("Stock");
+        return stockConnection.getObjectList("Stock");
     }
+
 }
