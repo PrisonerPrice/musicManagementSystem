@@ -1,7 +1,7 @@
 package com.prisonerprice.repository;
 
-import com.prisonerprice.jdbc.AlbumDAO;
 import com.prisonerprice.model.Album;
+import com.prisonerprice.model.Artist;
 import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,26 +11,43 @@ import java.util.Set;
 public class AlbumDaoTest {
 
     private static AlbumDao albumDao;
+    private static ArtistDao artistDao;
     private Album newAlbum, newAlbum2;
+    private Artist Alvvays;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Before
     public void init(){
         albumDao = new AlbumDaoImpl();
+        artistDao = new ArtistDaoImpl();
+        Alvvays = new Artist(
+                0,
+                "Alvvays",
+                2011,
+                0,
+                "xxxx"
+        );
+        artistDao.save(Alvvays);
         newAlbum = new Album(
+                0,
                 "Antisocialities",
                 2017,
-                "Alvvays",
+                Alvvays,
                 "Alternative",
                 "xxxxx");
         albumDao.save(newAlbum);
-        newAlbum2 = new Album(newAlbum);
     }
 
     @After
     public void tearDown(){
-        albumDao.delete(newAlbum.getSerialNumber());
-        albumDao.delete(newAlbum2.getSerialNumber());
+        List<Album> albums = albumDao.getAlbums();
+        for(Album album : albums){
+            albumDao.delete(album);
+        }
+        List<Artist> artists = artistDao.getArtists();
+        for(Artist artist : artists){
+            artistDao.delete(artist);
+        }
     }
 
     @Test
@@ -45,25 +62,20 @@ public class AlbumDaoTest {
 
     @Test
     public void updateAlbums(){
+        newAlbum2 = new Album(albumDao.getAlbums().get(0));
         newAlbum2.setDescription("A Whole new Description");
         String originalDesc = newAlbum.getDescription();
-        String serialNumber = newAlbum.getSerialNumber();
         albumDao.update(newAlbum2);
-        List<Album> albums = albumDao.getAlbums();
-        for(Album album : albums){
-            logger.info(album.toString());
-            if(album.getSerialNumber().equals(serialNumber)){
-                Assert.assertTrue(!originalDesc.equals(album.getDescription()));
-                return;
-            }
-        }
-        Assert.assertTrue(false);
+        Assert.assertTrue(!originalDesc.equals(albumDao.getAlbums().get(0).getDescription()));
     }
 
     @Test
     public void deleteAlbums(){
-        albumDao.delete(newAlbum.getSerialNumber());
         List<Album> albums = albumDao.getAlbums();
+        for(Album album : albums){
+            albumDao.delete(album);
+        }
+        albums = albumDao.getAlbums();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, albums.size());
     }

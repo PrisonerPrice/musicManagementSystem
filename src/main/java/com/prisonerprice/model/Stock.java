@@ -7,12 +7,14 @@ import java.util.UUID;
 @Table(name = "stock")
 public class Stock {
 
+    @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column
     private int id;
 
-    @Column(name = "album_name")
-    private String albumName;
+    @OneToOne
+    @JoinColumn(name = "album_id", referencedColumnName = "id")
+    private Album album;
 
     @Column
     private int stock_NY_01;
@@ -29,50 +31,42 @@ public class Stock {
     @Column
     private int stock_MD_01;
 
-    @Id
-    @Column(name = "serial_num")
-    private String serialNumber;
-
-    public Stock(int id, String albumName, int stock_NY_01, int stock_NY_02, int stock_DC_01, int stock_VA_01, int stock_MD_01, String serialNumber) {
+    public Stock(int id, Album album, int stock_NY_01, int stock_NY_02, int stock_DC_01, int stock_VA_01, int stock_MD_01) {
         this.id = id;
-        this.albumName = albumName;
+        this.album = album;
         this.stock_NY_01 = stock_NY_01;
         this.stock_NY_02 = stock_NY_02;
         this.stock_DC_01 = stock_DC_01;
         this.stock_VA_01 = stock_VA_01;
         this.stock_MD_01 = stock_MD_01;
-        this.serialNumber = serialNumber;
     }
 
-    public Stock(String albumName, int stock_NY_01, int stock_NY_02, int stock_DC_01, int stock_VA_01, int stock_MD_01) {
-        this.albumName = albumName;
+    public Stock(Album album, int stock_NY_01, int stock_NY_02, int stock_DC_01, int stock_VA_01, int stock_MD_01) {
+        this.album = album;
         this.stock_NY_01 = stock_NY_01;
         this.stock_NY_02 = stock_NY_02;
         this.stock_DC_01 = stock_DC_01;
         this.stock_VA_01 = stock_VA_01;
         this.stock_MD_01 = stock_MD_01;
-        this.serialNumber = UUID.randomUUID().toString();
     }
     public Stock(){
         this.id = 0;
-        this.albumName = "NULL";
+        this.album = null;
         this.stock_NY_01 = 0;
         this.stock_NY_02 = 0;
         this.stock_DC_01 = 0;
         this.stock_VA_01 = 0;
         this.stock_MD_01 = 0;
-        this.serialNumber = UUID.randomUUID().toString();
     }
 
     public Stock(Stock stock){
         this.id = stock.getId();
-        this.albumName = stock.getAlbumName();
+        this.album = stock.getAlbum();
         this.stock_NY_01 = stock.getStock_NY_01();
         this.stock_NY_02 = stock.getStock_NY_02();
         this.stock_DC_01 = stock.getStock_DC_01();
         this.stock_VA_01 = stock.getStock_VA_01();
         this.stock_MD_01 = stock.getStock_MD_01();
-        this.serialNumber = stock.getSerialNumber();
     }
 
     public int getId() {
@@ -83,12 +77,12 @@ public class Stock {
         this.id = id;
     }
 
-    public String getAlbumName() {
-        return albumName;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName;
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 
     public int getStock_NY_01() {
@@ -131,25 +125,16 @@ public class Stock {
         this.stock_MD_01 = stock_MD_01;
     }
 
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
     @Override
     public String toString() {
         return "Stock{" +
                 "id=" + id +
-                ", album_name='" + albumName + '\'' +
+                ", album=" + album +
                 ", stock_NY_01=" + stock_NY_01 +
                 ", stock_NY_02=" + stock_NY_02 +
                 ", stock_DC_01=" + stock_DC_01 +
                 ", stock_VA_01=" + stock_VA_01 +
                 ", stock_MD_01=" + stock_MD_01 +
-                ", serialNumber='" + serialNumber + '\'' +
                 '}';
     }
 }

@@ -25,8 +25,7 @@ public class ArtistDAO {
                         rs.getString("name"),
                         rs.getInt("start_year"),
                         rs.getInt("end_year"),
-                        rs.getString("description"),
-                        rs.getString("serial_num")
+                        rs.getString("description")
                 ));
             }
         } catch (SQLException e) {
@@ -51,8 +50,7 @@ public class ArtistDAO {
                 "'" + artist.getName() + "', " +
                 artist.getStartYear() + ", " +
                 artist.getEndYear() + ", " +
-                "'" + artist.getDescription() + "', " +
-                "'" + artist.getSerialNumber() + "');";
+                "'" + artist.getDescription() + "');";
         myConnection.doAQuery(sqlQuery);
     }
 

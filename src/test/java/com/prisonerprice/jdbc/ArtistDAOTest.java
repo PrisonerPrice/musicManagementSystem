@@ -28,7 +28,7 @@ public class ArtistDAOTest {
 
     @After
     public void tearDown(){
-        artistDAO.deleteArtists(newArtist.getSerialNumber());
+        //artistDAO.deleteArtists(newArtist.getSerialNumber());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class ArtistDAOTest {
     public void deleteArtistsTest(){
         List<Artist> artists = artistDAO.getArtists();
         int originalNumOfArtists = artists.size();
-        artistDAO.deleteArtists(newArtist.getSerialNumber());
+        //artistDAO.deleteArtists(newArtist.getSerialNumber());
         artists = artistDAO.getArtists();
         for(Artist artist : artists){
             logger.debug(artist.toString());
@@ -70,7 +70,7 @@ public class ArtistDAOTest {
     @Test
     public void updateArtistsTest(){
         String exceptionDesc = "Don''t ask me what is Disco";
-        artistDAO.updateArtists(newArtist.getSerialNumber(), exceptionDesc);
+        //artistDAO.updateArtists(newArtist.getSerialNumber(), exceptionDesc);
         exceptionDesc = "Don't ask me what is Disco";
         List<Artist> artists = artistDAO.getArtists();
         for(Artist artist : artists){
