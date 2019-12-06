@@ -79,13 +79,26 @@ public class Connection<T>{
 //        return deletedCount >= 1 ? true : false;
 //    }
 
-    public List<T> getAll(String typeName) {
+    public List<T> getObjectList(String typeName) {
         String hql = "FROM " + typeName;
         // try resources
         try (Session session = HibernateUtil.getSessionFactory().openSession()){
             Query<T> query = session.createQuery(hql);
             return query.list();
         }
+    }
+
+    public T getObjectByName(String hql, String param){
+        logger.debug("INTO the method getObjectByName");
+        if (hql == null) return null;
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        Query<T> query = session.createQuery(hql);
+        query.setParameter("param", param.toLowerCase());
+        // setParameter
+        T object = query.uniqueResult();
+        t.commit();
+        return object;
     }
 
 //    public Session createSession() {

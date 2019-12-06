@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ArtistDaoImpl implements ArtistDao{
 
@@ -33,6 +34,17 @@ public class ArtistDaoImpl implements ArtistDao{
 
     @Override
     public List<Artist> getArtists() {
-        return artistConnection.getAll("Artist");
+        return artistConnection.getObjectList("Artist");
     }
+
+    public Artist getArtistByName(String artistName){
+        logger.debug("INTO the method getArtistByName");
+        String hql = "FROM Artist as artist left join fetch artist.albums as albums left join " +
+                "fetch albums.stock where lower(artist.name) = :param";
+        return artistConnection.getObjectByName(hql, artistName);
+    }
+
+    public List<Object[]> getArtistsAndAlbums(){return null;}
+
+    public List<Object[]> getArtistsAndAlbumsAndStocks(){return null;}
 }

@@ -1,6 +1,8 @@
 package com.prisonerprice.repository;
 
+import com.prisonerprice.model.Album;
 import com.prisonerprice.model.Artist;
+import com.prisonerprice.model.Stock;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,18 +15,41 @@ import java.util.List;
 public class ArtistDaoTest {
 
     private static ArtistDaoImpl artistDao;
+    private static AlbumDao albumDao;
+    private static StockDao stockDao;
     private Artist newArtist, newArtist2;
+    private Album newAlbum;
+    private Stock newStock;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Before
     public void init(){
         artistDao = new ArtistDaoImpl();
+        albumDao = new AlbumDaoImpl();
+        stockDao = new StockDaoImpl();
         newArtist = new Artist(
-                "New Pants",
+                "New_Pants",
                 1998,
                 0,
                 "xxxxxxx");
+        newAlbum = new Album(
+                "untitled album",
+                2020,
+                newArtist,
+                "Punk",
+                "No description"
+        );
+        newStock = new Stock(
+                newAlbum,
+                12,
+                12,
+                12,
+                13,
+                12
+        );
         artistDao.save(newArtist);
+        albumDao.save(newAlbum);
+        stockDao.save(newStock);
     }
 
     @After
@@ -32,6 +57,14 @@ public class ArtistDaoTest {
         List<Artist> artists = artistDao.getArtists();
         for(Artist artist : artists){
             artistDao.delete(artist);
+        }
+        List<Album> albums = albumDao.getAlbums();
+        for(Album album : albums){
+            albumDao.delete(album);
+        }
+        List<Stock> stocks = stockDao.getStocks();
+        for(Stock stock : stocks){
+            stockDao.delete(stock);
         }
     }
 
@@ -63,5 +96,12 @@ public class ArtistDaoTest {
         artists = artistDao.getArtists();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, artists.size());
+    }
+
+    @Test
+    public void getArtistByName(){
+        String name = newArtist.getName();
+        Artist testArtist = artistDao.getArtistByName(name);
+        Assert.assertTrue(name.equals(testArtist.getName()));
     }
 }

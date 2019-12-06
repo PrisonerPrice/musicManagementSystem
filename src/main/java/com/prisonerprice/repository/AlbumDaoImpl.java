@@ -33,6 +33,11 @@ public class AlbumDaoImpl implements AlbumDao {
 
     @Override
     public List<Album> getAlbums() {
-        return albumConnection.getAll("Album");
+        return albumConnection.getObjectList("Album");
+    }
+
+    public Album getAlbumsByName(String albumName){
+        String hql = "";
+        return albumConnection.getObjectByName(hql, albumName);
     }
 }
