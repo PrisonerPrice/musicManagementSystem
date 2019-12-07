@@ -31,13 +31,23 @@ public class AlbumDaoImpl implements AlbumDao {
         return albumConnection.delete(album);
     }
 
+    public boolean deleteAlbumByName(String albumName){
+        return delete(getAlbumByName(albumName));
+    }
+
     @Override
     public List<Album> getAlbums() {
         return albumConnection.getObjectList("Album");
     }
 
-    public Album getAlbumsByName(String albumName){
-        String hql = "";
+    public Album getAlbumByName(String albumName){
+        String hql = "FROM Album as album left join fetch album.stock " +
+                "where lower(album.name) = :param";
         return albumConnection.getObjectByName(hql, albumName);
+    }
+
+    public List<Object[]> getAlbumAndStock(String albumName){
+        String hql = "FROM Album as album left join album.stock where lower(album.name) = :param";
+        return albumConnection.getCombinedObjects(hql, albumName);
     }
 }

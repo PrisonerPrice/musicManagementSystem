@@ -32,7 +32,7 @@ public class ArtistDaoImpl implements ArtistDao{
         return artistConnection.delete(artist);
     }
 
-    public boolean deleteByName(String artistName){
+    public boolean deleteArtistByName(String artistName){
         return delete(getArtistByName(artistName));
     }
 
