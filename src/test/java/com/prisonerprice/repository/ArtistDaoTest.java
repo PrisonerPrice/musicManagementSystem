@@ -117,4 +117,17 @@ public class ArtistDaoTest {
         }
         Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
     }
+
+    @Test
+    public void getArtistAndAlbumsAndStocksTest(){
+        String name = newArtist.getName();
+        int expectedElementsNumbers = 3;
+        List<Object[]> list = artistDao.getArtistAndAlbumsAndStocks(name);
+        for(int i = 0; i < list.size(); i++){
+            for(int j = 0; j < list.get(i).length; j++){
+                logger.debug(list.get(i)[j].toString());
+            }
+        }
+        Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
+    }
 }

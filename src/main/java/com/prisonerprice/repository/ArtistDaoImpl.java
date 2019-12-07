@@ -45,8 +45,13 @@ public class ArtistDaoImpl implements ArtistDao{
     }
 
     public List<Object[]> getArtistAndAlbums(String artistName){
-        return artistConnection.getCombinedObjects("xxx", artistName);
+        String hql = "FROM Artist as artist left join artist.albums where lower(artist.name) = :param";
+        return artistConnection.getCombinedObjects(hql, artistName);
     }
 
-    public List<Object[]> getArtistAndAlbumsAndStocks(){return null;}
+    public List<Object[]> getArtistAndAlbumsAndStocks(String artistName){
+        String hql = "FROM Artist as artist left join artist.albums as albums left join " +
+                "albums.stock as stocks where lower(artist.name) = :param";
+        return artistConnection.getCombinedObjects(hql, artistName);
+    }
 }

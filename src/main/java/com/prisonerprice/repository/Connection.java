@@ -105,7 +105,6 @@ public class Connection<T>{
     public List<Object[]> getCombinedObjects(String hql, String objName){
         logger.debug("INTO the method getCombinedObjects");
         if(hql == null) return null;
-        hql = "FROM Artist as artist left join artist.albums where lower(artist.name) = :param";
         try (Session session = getSessionFactory().openSession()){
             Query query = session.createQuery(hql);
             query.setParameter("param", objName.toLowerCase());
