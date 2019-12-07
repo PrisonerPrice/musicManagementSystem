@@ -46,8 +46,8 @@ public class AlbumDaoImpl implements AlbumDao {
         return albumConnection.getObjectByName(hql, albumName);
     }
 
-    public Album getAlbumAndStock(String albumName){
-        String hql = "";
-        return null;
+    public List<Object[]> getAlbumAndStock(String albumName){
+        String hql = "FROM Album as album left join album.stock where lower(album.name) = :param";
+        return albumConnection.getCombinedObjects(hql, albumName);
     }
 }

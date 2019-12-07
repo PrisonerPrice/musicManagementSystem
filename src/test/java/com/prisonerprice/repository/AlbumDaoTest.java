@@ -104,4 +104,17 @@ public class AlbumDaoTest {
         Album testAlbum = albumDao.getAlbumByName(name);
         Assert.assertTrue(name.equals(testAlbum.getName()));
     }
+
+    @Test
+    public void getAlbumAndStockTest(){
+        String name = newAlbum.getName();
+        int expectedElementsNumbers = 2;
+        List<Object[]> list = albumDao.getAlbumAndStock(name);
+        for(int i = 0; i < list.size(); i++){
+            for(int j = 0; j < list.get(i).length; j++){
+                logger.debug(list.get(i)[j].toString());
+            }
+        }
+        Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
+    }
 }
