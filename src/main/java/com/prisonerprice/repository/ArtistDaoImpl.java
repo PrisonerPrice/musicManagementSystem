@@ -32,6 +32,10 @@ public class ArtistDaoImpl implements ArtistDao{
         return artistConnection.delete(artist);
     }
 
+    public boolean deleteByName(String artistName){
+        return delete(getArtistByName(artistName));
+    }
+
     @Override
     public List<Artist> getArtists() {
         return artistConnection.getObjectList("Artist");
@@ -44,7 +48,14 @@ public class ArtistDaoImpl implements ArtistDao{
         return artistConnection.getObjectByName(hql, artistName);
     }
 
-    public List<Object[]> getArtistsAndAlbums(){return null;}
+    public List<Object[]> getArtistAndAlbums(String artistName){
+        String hql = "FROM Artist as artist left join artist.albums where lower(artist.name) = :param";
+        return artistConnection.getCombinedObjects(hql, artistName);
+    }
 
-    public List<Object[]> getArtistsAndAlbumsAndStocks(){return null;}
+    public List<Object[]> getArtistAndAlbumsAndStocks(String artistName){
+        String hql = "FROM Artist as artist left join artist.albums as albums left join " +
+                "albums.stock as stocks where lower(artist.name) = :param";
+        return artistConnection.getCombinedObjects(hql, artistName);
+    }
 }

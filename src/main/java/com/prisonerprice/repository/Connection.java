@@ -10,13 +10,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import static com.prisonerprice.util.HibernateUtil.*;
+
 public class Connection<T>{
 
     private boolean isSuccess = true;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public boolean save(T obj){
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         try{
             session.save(obj);
@@ -26,12 +28,12 @@ public class Connection<T>{
             if(t != null) t.rollback();
             logger.error(e.getMessage());
         }
-        if (isSuccess) logger.debug(String.format("The album %s was inserted into the table", obj.toString()));
+        if (isSuccess) logger.debug(String.format("The item %s was inserted into the table", obj.toString()));
         return isSuccess;
     }
 
     public boolean update(T obj) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         try{
             session.saveOrUpdate(obj);
@@ -46,7 +48,7 @@ public class Connection<T>{
     }
 
     public boolean delete(T obj){
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         try{
             session.delete(obj);
@@ -82,23 +84,33 @@ public class Connection<T>{
     public List<T> getObjectList(String typeName) {
         String hql = "FROM " + typeName;
         // try resources
-        try (Session session = HibernateUtil.getSessionFactory().openSession()){
-            Query<T> query = session.createQuery(hql);
+        try (Session session = getSessionFactory().openSession()){
+            Query query = session.createQuery(hql);
             return query.list();
         }
     }
 
-    public T getObjectByName(String hql, String param){
+    public T getObjectByName(String hql, String objName){
         logger.debug("INTO the method getObjectByName");
         if (hql == null) return null;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
-        Query<T> query = session.createQuery(hql);
-        query.setParameter("param", param.toLowerCase());
-        // setParameter
-        T object = query.uniqueResult();
+        Query query = session.createQuery(hql);
+        query.setParameter("param", objName.toLowerCase());
+        T object = (T) query.uniqueResult();
         t.commit();
         return object;
+    }
+
+    public List<Object[]> getCombinedObjects(String hql, String objName){
+        logger.debug("INTO the method getCombinedObjects");
+        if(hql == null) return null;
+        try (Session session = getSessionFactory().openSession()){
+            Query query = session.createQuery(hql);
+            query.setParameter("param", objName.toLowerCase());
+            List<Object[]> resultList = query.list();
+            return resultList;
+        }
     }
 
 //    public Session createSession() {

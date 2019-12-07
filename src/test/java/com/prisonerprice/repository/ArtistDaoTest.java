@@ -69,7 +69,7 @@ public class ArtistDaoTest {
     }
 
     @Test
-    public void getArtists() {
+    public void getArtistsTest() {
         List<Artist> artists = artistDao.getArtists();
         for(Artist artist : artists){
             logger.info(artist.toString());
@@ -79,7 +79,7 @@ public class ArtistDaoTest {
     }
 
     @Test
-    public void updateArtists(){
+    public void updateArtistTest(){
         newArtist2 = new Artist(artistDao.getArtists().get(0));
         newArtist2.setDescription("A Whole new Description");
         String originalDesc = newArtist.getDescription();
@@ -88,7 +88,7 @@ public class ArtistDaoTest {
     }
 
     @Test
-    public void deleteArtists(){
+    public void deleteArtistTest(){
         List<Artist> artists = artistDao.getArtists();
         for(Artist artist : artists){
             artistDao.delete(artist);
@@ -99,9 +99,44 @@ public class ArtistDaoTest {
     }
 
     @Test
-    public void getArtistByName(){
+    public void deleteArtistByNameTest(){
+        Artist deletedArtist = artistDao.getArtists().get(0);
+        int expectedNumberOfArtists = artistDao.getArtists().size() - 1;
+        String artistName = deletedArtist.getName();
+        artistDao.deleteByName(artistName);
+        Assert.assertEquals(expectedNumberOfArtists, artistDao.getArtists().size());
+    }
+
+    @Test
+    public void getArtistByNameTest(){
         String name = newArtist.getName();
         Artist testArtist = artistDao.getArtistByName(name);
         Assert.assertTrue(name.equals(testArtist.getName()));
+    }
+
+    @Test
+    public void getArtistAndAlbumsTest(){
+        String name = newArtist.getName();
+        int expectedElementsNumbers = 2;
+        List<Object[]> list = artistDao.getArtistAndAlbums(name);
+        for(int i = 0; i < list.size(); i++){
+            for(int j = 0; j < list.get(i).length; j++){
+                logger.debug(list.get(i)[j].toString());
+            }
+        }
+        Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
+    }
+
+    @Test
+    public void getArtistAndAlbumsAndStocksTest(){
+        String name = newArtist.getName();
+        int expectedElementsNumbers = 3;
+        List<Object[]> list = artistDao.getArtistAndAlbumsAndStocks(name);
+        for(int i = 0; i < list.size(); i++){
+            for(int j = 0; j < list.get(i).length; j++){
+                logger.debug(list.get(i)[j].toString());
+            }
+        }
+        Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
     }
 }

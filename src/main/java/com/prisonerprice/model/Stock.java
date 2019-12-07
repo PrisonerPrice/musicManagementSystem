@@ -137,4 +137,19 @@ public class Stock {
                 ", stock_MD_01=" + stock_MD_01 +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if(!(obj instanceof Stock)) return false;
+        Stock s = (Stock) obj;
+        if(s.getAlbum() == this.getAlbum() &&
+            s.getId() == this.getId() &&
+            s.getStock_NY_01() == this.getStock_NY_01() &&
+            s.getStock_NY_02() == this.getStock_NY_02() &&
+            s.getStock_DC_01() == this.getStock_DC_01() &&
+            s.getStock_VA_01() == this.getStock_VA_01() &&
+            s.getStock_MD_01() == this.getStock_MD_01()) return true;
+        else return super.equals(obj);
+    }
 }
