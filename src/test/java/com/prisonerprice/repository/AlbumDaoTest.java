@@ -69,7 +69,7 @@ public class AlbumDaoTest {
     }
 
     @Test
-    public void getAlbums() {
+    public void getAlbumsTest() {
         List<Album> albums = albumDao.getAlbums();
         for(Album album : albums){
             logger.info(album.toString());
@@ -79,7 +79,7 @@ public class AlbumDaoTest {
     }
 
     @Test
-    public void updateAlbums(){
+    public void updateAlbumTest(){
         newAlbum2 = new Album(albumDao.getAlbums().get(0));
         newAlbum2.setDescription("A Whole new Description");
         String originalDesc = newAlbum.getDescription();
@@ -88,7 +88,7 @@ public class AlbumDaoTest {
     }
 
     @Test
-    public void deleteAlbums(){
+    public void deleteAlbumTest(){
         List<Album> albums = albumDao.getAlbums();
         for(Album album : albums){
             albumDao.delete(album);
@@ -96,6 +96,15 @@ public class AlbumDaoTest {
         albums = albumDao.getAlbums();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, albums.size());
+    }
+
+    @Test
+    public void deleteAlbumByNameTest(){
+        Album deletedAlbum = albumDao.getAlbums().get(0);
+        int expectedNumberOfAlbums = albumDao.getAlbums().size() - 1;
+        String albumName = deletedAlbum.getName();
+        albumDao.deleteAlbumByName(albumName);
+        Assert.assertEquals(expectedNumberOfAlbums, albumDao.getAlbums().size());
     }
 
     @Test
