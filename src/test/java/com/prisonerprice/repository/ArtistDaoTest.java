@@ -103,7 +103,7 @@ public class ArtistDaoTest {
         Artist deletedArtist = artistDao.getArtists().get(0);
         int expectedNumberOfArtists = artistDao.getArtists().size() - 1;
         String artistName = deletedArtist.getName();
-        artistDao.deleteByName(artistName);
+        artistDao.deleteArtistByName(artistName);
         Assert.assertEquals(expectedNumberOfArtists, artistDao.getArtists().size());
     }
 
