@@ -32,9 +32,19 @@ public class StockDaoImpl implements StockDao {
         return stockConnection.delete(stock);
     }
 
+    public boolean deleteStockByName(String stockName){
+        return delete(getStockByName(stockName));
+    }
+
     @Override
     public List<Stock> getStocks() {
         return stockConnection.getObjectList("Stock");
+    }
+
+    public Stock getStockByName(String albumName){
+        String hql = "FROM Stock as stock " +
+                "where lower(stock.album.name) = :param";
+        return stockConnection.getObjectByName(hql, albumName);
     }
 
 }

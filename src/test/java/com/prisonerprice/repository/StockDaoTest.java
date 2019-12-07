@@ -14,7 +14,7 @@ import java.util.List;
 
 public class StockDaoTest {
 
-    private static StockDao stockDao;
+    private static StockDaoImpl stockDao;
     private static AlbumDao albumDao;
     private static ArtistDao artistDao;
     private Stock newStock, newStock2;
@@ -73,7 +73,7 @@ public class StockDaoTest {
     }
 
     @Test
-    public void getStocks() {
+    public void getStocksTest() {
         List<Stock> stocks = stockDao.getStocks();
         for(Stock stock : stocks){
             logger.info(stock.toString());
@@ -83,7 +83,7 @@ public class StockDaoTest {
     }
 
     @Test
-    public void updateStocks() {
+    public void updateStockTest() {
         int expectStockInDC01 = 999;
         newStock2 = new Stock(stockDao.getStocks().get(0));
         newStock2.setStock_DC_01(999);
@@ -92,7 +92,7 @@ public class StockDaoTest {
     }
 
     @Test
-    public void deleteStocks(){
+    public void deleteStockTest(){
         List<Stock> stocks = stockDao.getStocks();
         for(Stock stock : stocks){
             stockDao.delete(stock);
@@ -100,5 +100,21 @@ public class StockDaoTest {
         stocks = stockDao.getStocks();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, stocks.size());
+    }
+
+    @Test
+    public void deleteStockByNameTest(){
+        Stock deletedStock = stockDao.getStocks().get(0);
+        int expectedNumberOfStocks = stockDao.getStocks().size() - 1;
+        String name = deletedStock.getAlbum().getName();
+        stockDao.deleteStockByName(name);
+        Assert.assertEquals(expectedNumberOfStocks, stockDao.getStocks().size());
+    }
+
+    @Test
+    public void getStockByNameTest(){
+        String name = newStock.getAlbum().getName();
+        Stock testStock = stockDao.getStockByName(name);
+        Assert.assertTrue(name.equals(testStock.getAlbum().getName()));
     }
 }
