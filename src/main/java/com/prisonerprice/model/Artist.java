@@ -109,4 +109,17 @@ public class Artist {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if(!(obj instanceof Artist)) return false;
+        Artist a = (Artist) obj;
+        if(this.getId() == a.getId() &&
+            this.getName() == a.getName() &&
+            this.getStartYear() == a.getStartYear() &&
+            this.getEndYear() == a.getEndYear() &&
+            this.getDescription() == a.getDescription()) return true;
+        return super.equals(obj);
+    }
 }

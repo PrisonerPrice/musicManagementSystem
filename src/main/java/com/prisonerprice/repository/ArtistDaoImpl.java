@@ -44,7 +44,9 @@ public class ArtistDaoImpl implements ArtistDao{
         return artistConnection.getObjectByName(hql, artistName);
     }
 
-    public List<Object[]> getArtistsAndAlbums(){return null;}
+    public List<Object[]> getArtistAndAlbums(String artistName){
+        return artistConnection.getCombinedObjects("xxx", artistName);
+    }
 
-    public List<Object[]> getArtistsAndAlbumsAndStocks(){return null;}
+    public List<Object[]> getArtistAndAlbumsAndStocks(){return null;}
 }

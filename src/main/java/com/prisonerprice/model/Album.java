@@ -3,6 +3,7 @@ package com.prisonerprice.model;
 import org.hibernate.query.criteria.internal.expression.NullLiteralExpression;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.UUID;
 
 @Entity
@@ -131,5 +132,19 @@ public class Album {
                 ", genre='" + genre + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return true;
+        if(!(obj instanceof Album)) return false;
+        Album o = (Album) obj;
+        if(this.getId() == o.getId() &&
+            this.getReleaseYear() == o.getReleaseYear() &&
+            this.getArtist() == o.getArtist() &&
+            this.getName() == o.getName() &&
+            this.getGenre() == o.getGenre() &&
+            this.getDescription() == o.getDescription()) return true;
+        return super.equals(obj);
     }
 }
