@@ -79,7 +79,7 @@ public class ArtistDaoTest {
     }
 
     @Test
-    public void updateArtistsTest(){
+    public void updateArtistTest(){
         newArtist2 = new Artist(artistDao.getArtists().get(0));
         newArtist2.setDescription("A Whole new Description");
         String originalDesc = newArtist.getDescription();
@@ -88,7 +88,7 @@ public class ArtistDaoTest {
     }
 
     @Test
-    public void deleteArtistsTest(){
+    public void deleteArtistTest(){
         List<Artist> artists = artistDao.getArtists();
         for(Artist artist : artists){
             artistDao.delete(artist);
@@ -96,6 +96,15 @@ public class ArtistDaoTest {
         artists = artistDao.getArtists();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, artists.size());
+    }
+
+    @Test
+    public void deleteArtistByNameTest(){
+        Artist deletedArtist = artistDao.getArtists().get(0);
+        int expectedNumberOfArtists = artistDao.getArtists().size() - 1;
+        String artistName = deletedArtist.getName();
+        artistDao.deleteByName(artistName);
+        Assert.assertEquals(expectedNumberOfArtists, artistDao.getArtists().size());
     }
 
     @Test
