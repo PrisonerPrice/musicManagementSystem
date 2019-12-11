@@ -18,6 +18,7 @@ public class AppInitializer {
         }
         SpringApplication.run(AppInitializer.class, args);
     }
+
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public Logger logger(InjectionPoint injectionPoint) {
