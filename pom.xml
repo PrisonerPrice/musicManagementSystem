@@ -23,6 +23,14 @@
     <database.user>admin</database.user>
     <database.password>1234</database.password>
   </properties>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.1.6.RELEASE</version>
+    <relativePath />
+  </parent>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -56,6 +64,17 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.9.10</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <version>2.1.6.RELEASE</version>
     </dependency>
 
   </dependencies>
