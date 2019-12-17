@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.prisonerprice.util.HibernateUtil.*;
 
@@ -81,12 +82,21 @@ public class Connection<T>{
 //        return deletedCount >= 1 ? true : false;
 //    }
 
-    public List<T> getObjectList(String typeName) {
-        String hql = "FROM " + typeName;
+    public List<T> getObjectList(String TypeName) {
+        String hql = "FROM " + TypeName;
         // try resources
         try (Session session = getSessionFactory().openSession()){
             Query query = session.createQuery(hql);
             return query.list();
+        }
+    }
+
+    public List<T> getObjectListWithChildren(String hql){
+        logger.info("INTO the method getObjectListWithChildren");
+        try (Session session = getSessionFactory().openSession()) {
+            Query<T> query = session.createQuery(hql);
+            //return query.list();
+            return query.list().stream().distinct().collect(Collectors.toList());
         }
     }
 

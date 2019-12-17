@@ -99,6 +99,10 @@ public class Artist {
         this.description = description;
     }
 
+    public Set<Album> getAlbums() {
+        return albums;
+    }
+
     @Override
     public String toString() {
         return "Artist{" +

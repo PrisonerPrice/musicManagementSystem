@@ -46,6 +46,12 @@ public class ArtistDaoImpl implements ArtistDao{
         return artistConnection.getObjectList("Artist");
     }
 
+    public List<Artist> getArtistsWithChildren(){
+        //logger.debug("INTO the method getArtistsWithChildren");
+        String hql = "FROM Artist as artist left join fetch artist.albums as albums left join fetch albums.stock";
+        return artistConnection.getObjectListWithChildren(hql);
+    }
+
     public Artist getArtistByName(String artistName){
         logger.debug("INTO the method getArtistByName");
         String hql = "FROM Artist as artist left join fetch artist.albums as albums left join " +

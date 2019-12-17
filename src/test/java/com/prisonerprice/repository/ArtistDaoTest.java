@@ -74,8 +74,18 @@ public class ArtistDaoTest {
         for(Artist artist : artists){
             logger.info(artist.toString());
         }
-        int expectedNumOfDept = 1;
-        Assert.assertEquals(expectedNumOfDept, artists.size());
+        int expectedNumOfArtist = 1;
+        Assert.assertEquals(expectedNumOfArtist, artists.size());
+    }
+
+    @Test
+    public void getArtistsWithChildrenTest(){
+        List<Artist> artists = artistDao.getArtistsWithChildren();
+        for(Artist artist : artists){
+            logger.info(artists.toString());
+        }
+        int expectedNumOfArtist = 1;
+        Assert.assertEquals(expectedNumOfArtist, artists.get(0).getAlbums().size());
     }
 
     @Test
