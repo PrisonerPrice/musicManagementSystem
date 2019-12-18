@@ -1,5 +1,7 @@
 package com.prisonerprice.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 import java.util.Set;
 import java.util.UUID;
@@ -25,7 +27,8 @@ public class Artist {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Album> albums;
 
     public Artist(int id, String name, int startYear, int endYear, String description) {
@@ -41,6 +44,10 @@ public class Artist {
         this.startYear = start_year;
         this.endYear = end_year;
         this.description = description;
+    }
+
+    public Artist(String name){
+        this.name = name;
     }
 
     public Artist(){
@@ -97,6 +104,22 @@ public class Artist {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Album> getAlbums() {
+        try{
+            albums.size();
+        } catch (Exception e){
+            return null;
+        }
+        return albums;
+    }
+
+    public void setAlbums(Set<Album> albums) {
+        for(Album album : albums){
+            if (album.getArtist() == null) album.setArtist(this);
+        }
+        this.albums = albums;
     }
 
     @Override

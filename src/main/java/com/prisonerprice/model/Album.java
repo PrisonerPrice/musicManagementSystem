@@ -1,5 +1,6 @@
 package com.prisonerprice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.query.criteria.internal.expression.NullLiteralExpression;
 
 import javax.persistence.*;
@@ -21,7 +22,8 @@ public class Album {
     @Column(name = "release_year")
     private int releaseYear;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
     //select * from album al left join artist art on al.artist_serial_num = art.serial_num;
     private Artist artist;
@@ -34,7 +36,6 @@ public class Album {
 
     @OneToOne(mappedBy = "album", cascade = CascadeType.ALL)
     private Stock stock;
-
 
     public Album(int id, String name, int releaseYear, Artist artist, String genre, String description) {
         this.id = id;
@@ -120,6 +121,20 @@ public class Album {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Stock getStock() {
+        try{
+            stock.getId();
+        } catch (Exception e){
+            return null;
+        }
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        if (stock.getAlbum() == null) stock.setAlbum(this);
+        this.stock = stock;
     }
 
     @Override

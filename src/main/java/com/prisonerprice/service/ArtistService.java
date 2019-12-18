@@ -1,5 +1,6 @@
 package com.prisonerprice.service;
 
+import com.prisonerprice.model.Album;
 import com.prisonerprice.model.Artist;
 import com.prisonerprice.repository.ArtistDaoImpl;
 import org.slf4j.Logger;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
@@ -47,8 +50,12 @@ public class ArtistService{
         return artistDao.getArtistAndAlbumsAndStocks(name);
     }
 
-    public List<Artist> getAllArtists(){
-        return artistDao.getArtists();
+    public List<Artist> getArtistList(){
+        return artistDao.getArtistList();
+    }
+
+    public List<Artist> getArtistListWithChildren(){
+        return artistDao.getArtistListWithChildren();
     }
 
 }

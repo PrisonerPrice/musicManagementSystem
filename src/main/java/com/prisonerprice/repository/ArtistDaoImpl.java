@@ -24,6 +24,7 @@ public class ArtistDaoImpl implements ArtistDao{
 
     @Override
     public boolean save(Artist artist) {
+        //logger.info(artist.getAlbums().toString());
         return artistConnection.save(artist);
     }
 
@@ -42,8 +43,14 @@ public class ArtistDaoImpl implements ArtistDao{
     }
 
     @Override
-    public List<Artist> getArtists() {
+    public List<Artist> getArtistList() {
         return artistConnection.getObjectList("Artist");
+    }
+
+    public List<Artist> getArtistListWithChildren(){
+        //logger.debug("INTO the method getArtistsWithChildren");
+        String hql = "FROM Artist as artist left join fetch artist.albums as albums left join fetch albums.stock";
+        return artistConnection.getObjectListWithChildren(hql);
     }
 
     public Artist getArtistByName(String artistName){

@@ -1,6 +1,7 @@
 package com.prisonerprice.repository;
 
 import com.prisonerprice.model.Album;
+import com.prisonerprice.model.Artist;
 import com.prisonerprice.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,9 +20,12 @@ public class AlbumDaoImpl implements AlbumDao {
     @Autowired
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private Connection<Album> albumConnection = new Connection<>();
+    private Connection<Artist> artistConnection = new Connection<>();
 
     @Override
     public boolean save(Album album) {
+
+        //album.setArtist(artistConnection.get);
         return albumConnection.save(album);
     }
 
@@ -40,8 +44,13 @@ public class AlbumDaoImpl implements AlbumDao {
     }
 
     @Override
-    public List<Album> getAlbums() {
+    public List<Album> getAlbumList() {
         return albumConnection.getObjectList("Album");
+    }
+
+    public List<Album> getAlbumListWithChildren(){
+        String hql = "FROM Album as album left join fetch album.stock";
+        return albumConnection.getObjectListWithChildren(hql);
     }
 
     public Album getAlbumByName(String albumName){

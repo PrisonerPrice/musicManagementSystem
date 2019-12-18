@@ -58,15 +58,15 @@ public class ArtistServiceTest {
 
     @After
     public void tearDown(){
-        List<Artist> artists = artistService.getAllArtists();
+        List<Artist> artists = artistService.getArtistList();
         for(Artist artist : artists){
             artistService.deleteByName(artist.getName());
         }
-        List<Album> albums = albumService.getAllAlbums();
+        List<Album> albums = albumService.getAlbumList();
         for(Album album : albums){
             albumService.deleteByName(album.getName());
         }
-        List<Stock> stocks = stockService.getAllStocks();
+        List<Stock> stocks = stockService.getStockList();
         for(Stock stock : stocks){
             stockService.deleteByName(stock.getAlbum().getName());
         }
@@ -74,7 +74,7 @@ public class ArtistServiceTest {
 
     @Test
     public void getAllArtists() {
-        List<Artist> artists = artistService.getAllArtists();
+        List<Artist> artists = artistService.getArtistList();
         for(Artist artist : artists){
             logger.info(artist.toString());
         }
@@ -84,20 +84,20 @@ public class ArtistServiceTest {
 
     @Test
     public void updateArtistTest(){
-        newArtist2 = new Artist(artistService.getAllArtists().get(0));
+        newArtist2 = new Artist(artistService.getArtistList().get(0));
         newArtist2.setDescription("A Whole new Description");
         String originalDesc = newArtist.getDescription();
         artistService.update(newArtist2);
-        Assert.assertTrue(!originalDesc.equals(artistService.getAllArtists().get(0).getDescription()));
+        Assert.assertTrue(!originalDesc.equals(artistService.getArtistList().get(0).getDescription()));
     }
 
     @Test
     public void deleteArtistByNameTest(){
-        Artist deletedArtist = artistService.getAllArtists().get(0);
-        int expectedNumberOfArtists = artistService.getAllArtists().size() - 1;
+        Artist deletedArtist = artistService.getArtistList().get(0);
+        int expectedNumberOfArtists = artistService.getArtistList().size() - 1;
         String artistName = deletedArtist.getName();
         artistService.deleteByName(artistName);
-        Assert.assertEquals(expectedNumberOfArtists, artistService.getAllArtists().size());
+        Assert.assertEquals(expectedNumberOfArtists, artistService.getArtistList().size());
     }
 
     @Test
