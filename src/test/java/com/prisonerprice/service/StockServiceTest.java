@@ -60,7 +60,7 @@ public class StockServiceTest {
 
     @After
     public void tearDown(){
-        List<Stock> stocks = stockService.getAllStocks();
+        List<Stock> stocks = stockService.getStockList();
         for(Stock stock : stocks){
             stockService.deleteByName(stock.getAlbum().getName());
         }
@@ -76,7 +76,7 @@ public class StockServiceTest {
 
     @Test
     public void getStocksTest() {
-        List<Stock> stocks = stockService.getAllStocks();
+        List<Stock> stocks = stockService.getStockList();
         for(Stock stock : stocks){
             logger.info(stock.toString());
         }
@@ -87,19 +87,19 @@ public class StockServiceTest {
     @Test
     public void updateStockTest() {
         int expectStockInDC01 = 999;
-        newStock2 = new Stock(stockService.getAllStocks().get(0));
+        newStock2 = new Stock(stockService.getStockList().get(0));
         newStock2.setStock_DC_01(999);
         stockService.update(newStock2);
-        Assert.assertEquals(expectStockInDC01, stockService.getAllStocks().get(0).getStock_DC_01());
+        Assert.assertEquals(expectStockInDC01, stockService.getStockList().get(0).getStock_DC_01());
     }
 
     @Test
     public void deleteByNameTest(){
-        Stock deletedStock = stockService.getAllStocks().get(0);
-        int expectedNumberOfStocks = stockService.getAllStocks().size() - 1;
+        Stock deletedStock = stockService.getStockList().get(0);
+        int expectedNumberOfStocks = stockService.getStockList().size() - 1;
         String name = deletedStock.getAlbum().getName();
         stockService.deleteByName(name);
-        Assert.assertEquals(expectedNumberOfStocks, stockService.getAllStocks().size());
+        Assert.assertEquals(expectedNumberOfStocks, stockService.getStockList().size());
     }
 
     @Test

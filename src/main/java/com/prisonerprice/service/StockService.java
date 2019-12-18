@@ -38,7 +38,7 @@ public class StockService {
         return stockDao.getStockByName(name);
     }
 
-    public List<Stock> getAllStocks(){
-        return stockDao.getStocks();
+    public List<Stock> getStockList(){
+        return stockDao.getStockList();
     }
 }

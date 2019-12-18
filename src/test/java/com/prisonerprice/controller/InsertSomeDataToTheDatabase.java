@@ -67,7 +67,7 @@ public class InsertSomeDataToTheDatabase {
         for(Album album : albums){
             albumDao.delete(album);
         }
-        List<Stock> stocks = stockDao.getStocks();
+        List<Stock> stocks = stockDao.getStockList();
         for(Stock stock : stocks){
             stockDao.delete(stock);
         }

@@ -59,7 +59,7 @@ public class AlbumServiceTest {
 
     @After
     public void tearDown(){
-        List<Stock> stocks = stockService.getAllStocks();
+        List<Stock> stocks = stockService.getStockList();
         for(Stock stock : stocks){
             stockService.deleteByName(stock.getAlbum().getName());
         }

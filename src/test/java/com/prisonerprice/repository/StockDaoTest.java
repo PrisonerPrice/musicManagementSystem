@@ -58,7 +58,7 @@ public class StockDaoTest {
 
     @After
     public void teardown(){
-        List<Stock> stocks = stockDao.getStocks();
+        List<Stock> stocks = stockDao.getStockList();
         for(Stock stock : stocks){
             stockDao.delete(stock);
         }
@@ -74,7 +74,7 @@ public class StockDaoTest {
 
     @Test
     public void getStocksTest() {
-        List<Stock> stocks = stockDao.getStocks();
+        List<Stock> stocks = stockDao.getStockList();
         for(Stock stock : stocks){
             logger.info(stock.toString());
         }
@@ -85,30 +85,30 @@ public class StockDaoTest {
     @Test
     public void updateStockTest() {
         int expectStockInDC01 = 999;
-        newStock2 = new Stock(stockDao.getStocks().get(0));
+        newStock2 = new Stock(stockDao.getStockList().get(0));
         newStock2.setStock_DC_01(999);
         stockDao.update(newStock2);
-        Assert.assertEquals(expectStockInDC01, stockDao.getStocks().get(0).getStock_DC_01());
+        Assert.assertEquals(expectStockInDC01, stockDao.getStockList().get(0).getStock_DC_01());
     }
 
     @Test
     public void deleteStockTest(){
-        List<Stock> stocks = stockDao.getStocks();
+        List<Stock> stocks = stockDao.getStockList();
         for(Stock stock : stocks){
             stockDao.delete(stock);
         }
-        stocks = stockDao.getStocks();
+        stocks = stockDao.getStockList();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, stocks.size());
     }
 
     @Test
     public void deleteStockByNameTest(){
-        Stock deletedStock = stockDao.getStocks().get(0);
-        int expectedNumberOfStocks = stockDao.getStocks().size() - 1;
+        Stock deletedStock = stockDao.getStockList().get(0);
+        int expectedNumberOfStocks = stockDao.getStockList().size() - 1;
         String name = deletedStock.getAlbum().getName();
         stockDao.deleteStockByName(name);
-        Assert.assertEquals(expectedNumberOfStocks, stockDao.getStocks().size());
+        Assert.assertEquals(expectedNumberOfStocks, stockDao.getStockList().size());
     }
 
     @Test

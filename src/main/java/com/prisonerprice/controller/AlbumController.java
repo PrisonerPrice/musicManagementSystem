@@ -27,7 +27,6 @@ public class AlbumController {
         this.albumService = albumService;
     }
 
-    // error: has children
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Album> getAlbums(){
         List<Album> albums = albumService.getAlbumList();
@@ -47,7 +46,7 @@ public class AlbumController {
     }
 
     @RequestMapping(value = "/{artistName}", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String createArtist(@RequestBody Album album, @PathVariable String artistName){
+    public String createAlbum(@RequestBody Album album, @PathVariable String artistName){
         String msg = "The album was created";
         boolean isSuccess = true;
         if(artistService.getArtistByName(artistName) != null){

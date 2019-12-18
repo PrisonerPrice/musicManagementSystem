@@ -8,5 +8,5 @@ public interface StockDao {
     boolean save(Stock stock);
     boolean update(Stock stock);
     boolean delete(Stock stock);
-    List<Stock> getStocks();
+    List<Stock> getStockList();
 }

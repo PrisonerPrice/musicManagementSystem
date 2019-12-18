@@ -54,7 +54,7 @@ public class AlbumDaoTest {
 
     @After
     public void tearDown(){
-        List<Stock> stocks = stockDao.getStocks();
+        List<Stock> stocks = stockDao.getStockList();
         for(Stock stock : stocks){
             stockDao.delete(stock);
         }
