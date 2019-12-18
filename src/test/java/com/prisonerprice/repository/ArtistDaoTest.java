@@ -54,7 +54,7 @@ public class ArtistDaoTest {
 
     @After
     public void tearDown(){
-        List<Artist> artists = artistDao.getArtists();
+        List<Artist> artists = artistDao.getArtistList();
         for(Artist artist : artists){
             artistDao.delete(artist);
         }
@@ -70,7 +70,7 @@ public class ArtistDaoTest {
 
     @Test
     public void getArtistsTest() {
-        List<Artist> artists = artistDao.getArtists();
+        List<Artist> artists = artistDao.getArtistList();
         for(Artist artist : artists){
             logger.info(artist.toString());
         }
@@ -80,7 +80,7 @@ public class ArtistDaoTest {
 
     @Test
     public void getArtistsWithChildrenTest(){
-        List<Artist> artists = artistDao.getArtistsWithChildren();
+        List<Artist> artists = artistDao.getArtistListWithChildren();
         for(Artist artist : artists){
             logger.info(artists.toString());
         }
@@ -90,31 +90,31 @@ public class ArtistDaoTest {
 
     @Test
     public void updateArtistTest(){
-        newArtist2 = new Artist(artistDao.getArtists().get(0));
+        newArtist2 = new Artist(artistDao.getArtistList().get(0));
         newArtist2.setDescription("A Whole new Description");
         String originalDesc = newArtist.getDescription();
         artistDao.update(newArtist2);
-        Assert.assertTrue(!originalDesc.equals(artistDao.getArtists().get(0).getDescription()));
+        Assert.assertTrue(!originalDesc.equals(artistDao.getArtistList().get(0).getDescription()));
     }
 
     @Test
     public void deleteArtistTest(){
-        List<Artist> artists = artistDao.getArtists();
+        List<Artist> artists = artistDao.getArtistList();
         for(Artist artist : artists){
             artistDao.delete(artist);
         }
-        artists = artistDao.getArtists();
+        artists = artistDao.getArtistList();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, artists.size());
     }
 
     @Test
     public void deleteArtistByNameTest(){
-        Artist deletedArtist = artistDao.getArtists().get(0);
-        int expectedNumberOfArtists = artistDao.getArtists().size() - 1;
+        Artist deletedArtist = artistDao.getArtistList().get(0);
+        int expectedNumberOfArtists = artistDao.getArtistList().size() - 1;
         String artistName = deletedArtist.getName();
         artistDao.deleteArtistByName(artistName);
-        Assert.assertEquals(expectedNumberOfArtists, artistDao.getArtists().size());
+        Assert.assertEquals(expectedNumberOfArtists, artistDao.getArtistList().size());
     }
 
     @Test

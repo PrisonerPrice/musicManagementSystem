@@ -22,7 +22,7 @@ public class Connection<T>{
         Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         try{
-            session.save(obj);
+            session.persist(obj);
             t.commit();
         } catch (Exception e){
             isSuccess = false;

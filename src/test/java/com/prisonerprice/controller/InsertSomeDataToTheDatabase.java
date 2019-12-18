@@ -59,7 +59,7 @@ public class InsertSomeDataToTheDatabase {
 
     @Test
     public void tearDown(){
-        List<Artist> artists = artistDao.getArtists();
+        List<Artist> artists = artistDao.getArtistList();
         for(Artist artist : artists){
             artistDao.delete(artist);
         }

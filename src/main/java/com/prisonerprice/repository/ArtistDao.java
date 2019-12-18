@@ -8,5 +8,5 @@ public interface ArtistDao {
     boolean save(Artist artist);
     boolean update(Artist artist);
     boolean delete(Artist artist);
-    List<Artist> getArtists();
+    List<Artist> getArtistList();
 }

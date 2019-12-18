@@ -47,8 +47,12 @@ public class ArtistService{
         return artistDao.getArtistAndAlbumsAndStocks(name);
     }
 
-    public List<Artist> getAllArtists(){
-        return artistDao.getArtists();
+    public List<Artist> getArtistList(){
+        return artistDao.getArtistList();
+    }
+
+    public List<Artist> getArtistListWithChildren(){
+        return artistDao.getArtistListWithChildren();
     }
 
 }

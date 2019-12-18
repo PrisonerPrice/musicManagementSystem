@@ -1,5 +1,6 @@
 package com.prisonerprice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.query.criteria.internal.expression.NullLiteralExpression;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Album {
     @Column(name = "release_year")
     private int releaseYear;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "artist_id")
     //select * from album al left join artist art on al.artist_serial_num = art.serial_num;
@@ -120,6 +122,14 @@ public class Album {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
     }
 
     @Override

@@ -103,6 +103,11 @@ public class Artist {
         return albums;
     }
 
+    public void setAlbums(Set<Album> albums) {
+        System.out.println(">>>>> albums: " + albums);
+        this.albums = albums;
+    }
+
     @Override
     public String toString() {
         return "Artist{" +
