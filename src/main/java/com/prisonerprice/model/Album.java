@@ -129,6 +129,7 @@ public class Album {
     }
 
     public void setStock(Stock stock) {
+        if (stock.getAlbum() == null) stock.setAlbum(this);
         this.stock = stock;
     }
 

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = {"/albums"})
@@ -44,20 +46,42 @@ public class AlbumController {
         return album;
     }
 
-    // error
     @RequestMapping(value = "/{artistName}", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String createArtist(@RequestBody Album album, @PathVariable String artistName){
         String msg = "The album was created";
+        boolean isSuccess = true;
         if(artistService.getArtistByName(artistName) != null){
             album.setArtist(artistService.getArtistByName(artistName));
+            album.getStock().setAlbum(album);
+            isSuccess = albumService.save(album);
         }
         else{
-            artistService.save(new Artist(artistName));
+            Artist artist = new Artist(artistName);
+            artistService.save(artist);
             album.setArtist(artistService.getArtistByName(artistName));
+            album.getStock().setAlbum(album);
+            isSuccess = albumService.save(album);
         }
-        album.getStock().setAlbum(album);
-        boolean isSuccess = albumService.save(album);
         if (!isSuccess) msg = "The album was not created";
+        return msg;
+    }
+
+    // have to provide the id
+    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public String updateAlbum(@RequestBody Album album){
+        String msg = "The album was updated";
+        Artist artist = albumService.searchArtist(album.getName());
+        album.setArtist(artist);
+        boolean isSuccess = albumService.update(album);
+        if(!isSuccess) msg = "The album was not updated";
+        return msg;
+    }
+
+    @RequestMapping(value = "/{albumName}", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public String deleteAlbum(@PathVariable String albumName){
+        String msg = "The album was deleted";
+        boolean isSuccess = albumService.deleteByName(albumName);
+        if(!isSuccess) msg = "The album was not deleted";
         return msg;
     }
 }

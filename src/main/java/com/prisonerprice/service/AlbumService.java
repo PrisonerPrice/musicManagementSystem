@@ -1,6 +1,7 @@
 package com.prisonerprice.service;
 
 import com.prisonerprice.model.Album;
+import com.prisonerprice.model.Artist;
 import com.prisonerprice.model.Stock;
 import com.prisonerprice.repository.AlbumDaoImpl;
 import org.slf4j.Logger;
@@ -49,5 +50,9 @@ public class AlbumService {
 
     public List<Album> getAlbumListWithChildren(){
         return albumDao.getAlbumListWithChildren();
+    }
+
+    public Artist searchArtist(String albumName){
+        return getAlbumByName(albumName).getArtist();
     }
 }

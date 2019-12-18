@@ -108,7 +108,9 @@ public class Artist {
     }
 
     public void setAlbums(Set<Album> albums) {
-        System.out.println(">>>>> albums: " + albums);
+        for(Album album : albums){
+            if (album.getArtist() == null) album.setArtist(this);
+        }
         this.albums = albums;
     }
 
