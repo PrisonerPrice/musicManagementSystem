@@ -58,7 +58,7 @@ public class AlbumDaoTest {
         for(Stock stock : stocks){
             stockDao.delete(stock);
         }
-        List<Album> albums = albumDao.getAlbums();
+        List<Album> albums = albumDao.getAlbumList();
         for(Album album : albums){
             albumDao.delete(album);
         }
@@ -70,7 +70,7 @@ public class AlbumDaoTest {
 
     @Test
     public void getAlbumsTest() {
-        List<Album> albums = albumDao.getAlbums();
+        List<Album> albums = albumDao.getAlbumList();
         for(Album album : albums){
             logger.info(album.toString());
         }
@@ -80,31 +80,31 @@ public class AlbumDaoTest {
 
     @Test
     public void updateAlbumTest(){
-        newAlbum2 = new Album(albumDao.getAlbums().get(0));
+        newAlbum2 = new Album(albumDao.getAlbumList().get(0));
         newAlbum2.setDescription("A Whole new Description");
         String originalDesc = newAlbum.getDescription();
         albumDao.update(newAlbum2);
-        Assert.assertTrue(!originalDesc.equals(albumDao.getAlbums().get(0).getDescription()));
+        Assert.assertTrue(!originalDesc.equals(albumDao.getAlbumList().get(0).getDescription()));
     }
 
     @Test
     public void deleteAlbumTest(){
-        List<Album> albums = albumDao.getAlbums();
+        List<Album> albums = albumDao.getAlbumList();
         for(Album album : albums){
             albumDao.delete(album);
         }
-        albums = albumDao.getAlbums();
+        albums = albumDao.getAlbumList();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, albums.size());
     }
 
     @Test
     public void deleteAlbumByNameTest(){
-        Album deletedAlbum = albumDao.getAlbums().get(0);
-        int expectedNumberOfAlbums = albumDao.getAlbums().size() - 1;
+        Album deletedAlbum = albumDao.getAlbumList().get(0);
+        int expectedNumberOfAlbums = albumDao.getAlbumList().size() - 1;
         String albumName = deletedAlbum.getName();
         albumDao.deleteAlbumByName(albumName);
-        Assert.assertEquals(expectedNumberOfAlbums, albumDao.getAlbums().size());
+        Assert.assertEquals(expectedNumberOfAlbums, albumDao.getAlbumList().size());
     }
 
     @Test

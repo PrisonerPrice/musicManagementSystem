@@ -22,7 +22,7 @@ public class Connection<T>{
         Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         try{
-            session.persist(obj);
+            session.save(obj);
             t.commit();
         } catch (Exception e){
             isSuccess = false;
@@ -108,7 +108,7 @@ public class Connection<T>{
         Query query = session.createQuery(hql);
         query.setParameter("param", objName.toLowerCase());
         T object = (T) query.uniqueResult();
-        logger.warn(object.toString());
+        //logger.warn(object.toString());
         t.commit();
         return object;
     }

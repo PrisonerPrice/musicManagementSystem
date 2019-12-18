@@ -58,7 +58,7 @@ public class ArtistDaoTest {
         for(Artist artist : artists){
             artistDao.delete(artist);
         }
-        List<Album> albums = albumDao.getAlbums();
+        List<Album> albums = albumDao.getAlbumList();
         for(Album album : albums){
             albumDao.delete(album);
         }

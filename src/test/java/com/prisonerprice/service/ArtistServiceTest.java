@@ -62,7 +62,7 @@ public class ArtistServiceTest {
         for(Artist artist : artists){
             artistService.deleteByName(artist.getName());
         }
-        List<Album> albums = albumService.getAllAlbums();
+        List<Album> albums = albumService.getAlbumList();
         for(Album album : albums){
             albumService.deleteByName(album.getName());
         }

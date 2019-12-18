@@ -63,7 +63,7 @@ public class AlbumServiceTest {
         for(Stock stock : stocks){
             stockService.deleteByName(stock.getAlbum().getName());
         }
-        List<Album> albums = albumService.getAllAlbums();
+        List<Album> albums = albumService.getAlbumList();
         for(Album album : albums){
             albumService.deleteByName(album.getName());
         }
@@ -75,7 +75,7 @@ public class AlbumServiceTest {
 
     @Test
     public void getAllAlbumsTest() {
-        List<Album> albums = albumService.getAllAlbums();
+        List<Album> albums = albumService.getAlbumList();
         for(Album album : albums){
             logger.info(album.toString());
         }
@@ -85,20 +85,20 @@ public class AlbumServiceTest {
 
     @Test
     public void updateAlbumTest(){
-        newAlbum2 = new Album(albumService.getAllAlbums().get(0));
+        newAlbum2 = new Album(albumService.getAlbumList().get(0));
         newAlbum2.setDescription("A Whole new Description");
         String originalDesc = newAlbum.getDescription();
         albumService.update(newAlbum2);
-        Assert.assertTrue(!originalDesc.equals(albumService.getAllAlbums().get(0).getDescription()));
+        Assert.assertTrue(!originalDesc.equals(albumService.getAlbumList().get(0).getDescription()));
     }
 
     @Test
     public void deleteAlbumByNameTest(){
-        Album deletedAlbum = albumService.getAllAlbums().get(0);
-        int expectedNumberOfAlbums = albumService.getAllAlbums().size() - 1;
+        Album deletedAlbum = albumService.getAlbumList().get(0);
+        int expectedNumberOfAlbums = albumService.getAlbumList().size() - 1;
         String albumName = deletedAlbum.getName();
         albumService.deleteByName(albumName);
-        Assert.assertEquals(expectedNumberOfAlbums, albumService.getAllAlbums().size());
+        Assert.assertEquals(expectedNumberOfAlbums, albumService.getAlbumList().size());
     }
 
     @Test

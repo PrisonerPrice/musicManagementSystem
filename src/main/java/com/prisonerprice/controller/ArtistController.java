@@ -44,7 +44,7 @@ public class ArtistController {
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String createArtist(@RequestBody Artist artist){
-        String msg = "The artist was created.";
+        String msg = "The artist was created";
         Set<Album> albums = artist.getAlbums();
         for(Album album : albums){
             album.setArtist(artist);

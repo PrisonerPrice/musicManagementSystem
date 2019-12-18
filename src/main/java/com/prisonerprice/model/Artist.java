@@ -43,6 +43,10 @@ public class Artist {
         this.description = description;
     }
 
+    public Artist(String name){
+        this.name = name;
+    }
+
     public Artist(){
         this.id = 0;
         this.name = "NULL";

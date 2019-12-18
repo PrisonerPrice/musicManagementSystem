@@ -44,8 +44,13 @@ public class AlbumDaoImpl implements AlbumDao {
     }
 
     @Override
-    public List<Album> getAlbums() {
+    public List<Album> getAlbumList() {
         return albumConnection.getObjectList("Album");
+    }
+
+    public List<Album> getAlbumListWithChildren(){
+        String hql = "FROM Album as album left join fetch album.stock";
+        return albumConnection.getObjectListWithChildren(hql);
     }
 
     public Album getAlbumByName(String albumName){

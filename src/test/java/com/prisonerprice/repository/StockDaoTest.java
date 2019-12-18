@@ -62,7 +62,7 @@ public class StockDaoTest {
         for(Stock stock : stocks){
             stockDao.delete(stock);
         }
-        List<Album> albums = albumDao.getAlbums();
+        List<Album> albums = albumDao.getAlbumList();
         for(Album album : albums){
             albumDao.delete(album);
         }

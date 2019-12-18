@@ -8,5 +8,5 @@ public interface AlbumDao {
     boolean save(Album album);
     boolean update(Album album);
     boolean delete(Album album);
-    List<Album> getAlbums();
+    List<Album> getAlbumList();
 }
