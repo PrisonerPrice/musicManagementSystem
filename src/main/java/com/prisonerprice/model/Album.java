@@ -23,7 +23,7 @@ public class Album {
     private int releaseYear;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
     //select * from album al left join artist art on al.artist_serial_num = art.serial_num;
     private Artist artist;
@@ -36,7 +36,6 @@ public class Album {
 
     @OneToOne(mappedBy = "album", cascade = CascadeType.ALL)
     private Stock stock;
-
 
     public Album(int id, String name, int releaseYear, Artist artist, String genre, String description) {
         this.id = id;
@@ -125,6 +124,11 @@ public class Album {
     }
 
     public Stock getStock() {
+        try{
+            stock.getId();
+        } catch (Exception e){
+            return null;
+        }
         return stock;
     }
 

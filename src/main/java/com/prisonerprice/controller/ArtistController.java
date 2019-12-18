@@ -1,5 +1,6 @@
 package com.prisonerprice.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.prisonerprice.model.Album;
 import com.prisonerprice.model.Artist;
 import com.prisonerprice.service.ArtistService;
@@ -23,7 +24,6 @@ public class ArtistController {
         this.artistService = artistService;
     }
 
-    // error
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Artist> getArtists(){
         List<Artist> artists = artistService.getArtistList();
@@ -59,11 +59,7 @@ public class ArtistController {
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String updateArtist(@RequestBody Artist artist){
         String msg = "The artist was updated";
-        Set<Album> albums = artist.getAlbums();
-        for(Album album : albums){
-            album.setArtist(artist);
-            album.getStock().setAlbum(album);
-        }
+        artist.setAlbums(artist.getAlbums());
         boolean isSuccess = artistService.update(artist);
         if(!isSuccess) msg = "The artist was not updated";
         return msg;
@@ -72,8 +68,8 @@ public class ArtistController {
     @RequestMapping(value = "/{artistName}", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String deleteArtist(@PathVariable String artistName){
         String msg = "The artist was deleted";
-        boolean isSucces = artistService.deleteByName(artistName);
-        if(!isSucces) msg = "The artist was not deleted";
+        boolean isSuccess = artistService.deleteByName(artistName);
+        if(!isSuccess) msg = "The artist was not deleted";
         return msg;
     }
 
