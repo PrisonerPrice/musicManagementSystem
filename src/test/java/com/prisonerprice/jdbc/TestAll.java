@@ -7,7 +7,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         AlbumDAOTest.class,
         ArtistDAOTest.class,
-        CombineTablesTest.class,
         StockDAOTest.class
 })
 public class TestAll {

@@ -22,7 +22,7 @@ public class Connection<T>{
         Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         try{
-            session.save(obj);
+            session.persist(obj);
             t.commit();
         } catch (Exception e){
             isSuccess = false;
@@ -63,25 +63,6 @@ public class Connection<T>{
         return isSuccess;
     }
 
-//    public boolean delete(int id, String typeName) {
-//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//        Transaction t = null;
-//        String hql = "DELETE " + typeName + " where id = :id";
-//        int deletedCount = 0;
-//        try {
-//            Query query = session.createQuery(hql);
-//            query.setParameter("id", id);
-//            deletedCount = query.executeUpdate();
-//            t.commit();
-//        } catch (Exception e){
-//            if(t != null) t.rollback();
-//            logger.error(e.getMessage());
-//        }
-//        logger.debug(String.format("The item with the id %s was deleted", id));
-//        if(deletedCount < 1) logger.debug("Delete Album is failed");
-//        return deletedCount >= 1 ? true : false;
-//    }
-
     public List<T> getObjectList(String TypeName) {
         String hql = "FROM " + TypeName;
         // try resources
@@ -108,7 +89,19 @@ public class Connection<T>{
         Query query = session.createQuery(hql);
         query.setParameter("param", objName.toLowerCase());
         T object = (T) query.uniqueResult();
-        //logger.warn(object.toString());
+        t.commit();
+        return object;
+    }
+
+    public T getObjectByName(String hql, String param1, String param2){
+        logger.debug("INTO the method getObjectByName");
+        if (hql == null) return null;
+        Session session = getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        Query query = session.createQuery(hql);
+        query.setParameter("param1", param1.toLowerCase().trim());
+        query.setParameter("param2", param2);
+        T object = (T) query.uniqueResult();
         t.commit();
         return object;
     }
