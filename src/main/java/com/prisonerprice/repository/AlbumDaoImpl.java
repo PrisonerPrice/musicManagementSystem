@@ -2,10 +2,6 @@ package com.prisonerprice.repository;
 
 import com.prisonerprice.model.Album;
 import com.prisonerprice.model.Artist;
-import com.prisonerprice.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +14,9 @@ import java.util.List;
 public class AlbumDaoImpl implements AlbumDao {
 
     @Autowired
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger;
+
     private Connection<Album> albumConnection = new Connection<>();
-    private Connection<Artist> artistConnection = new Connection<>();
 
     @Override
     public boolean save(Album album) {

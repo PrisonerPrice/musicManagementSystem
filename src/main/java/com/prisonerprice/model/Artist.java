@@ -1,6 +1,7 @@
 package com.prisonerprice.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -9,24 +10,33 @@ import java.util.UUID;
 @Entity
 @Table(name = "artist")
 public class Artist {
+    public interface Brief{};
+    public interface Full extends Brief{};
+    public interface WithChildren{};
 
+    @JsonView({Brief.class, Full.class, WithChildren.class})
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column
     private int id;
 
+    @JsonView({Brief.class, Full.class, WithChildren.class})
     @Column(name = "name")
     private String name;
 
+    @JsonView({Full.class, WithChildren.class})
     @Column(name = "start_year")
     private int startYear;
 
+    @JsonView({Full.class, WithChildren.class})
     @Column(name = "end_year")
     private int endYear;
 
+    @JsonView({Full.class, WithChildren.class})
     @Column
     private String description;
 
+    @JsonView({WithChildren.class})
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Album> albums;

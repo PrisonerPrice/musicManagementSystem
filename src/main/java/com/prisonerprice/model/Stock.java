@@ -1,6 +1,7 @@
 package com.prisonerprice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -8,29 +9,37 @@ import java.util.UUID;
 @Entity
 @Table(name = "stock")
 public class Stock {
+    public interface Brief{};
 
+    @JsonView({Brief.class, Artist.WithChildren.class})
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column
     private int id;
 
+    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     private Album album;
 
+    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_NY_01;
 
+    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_NY_02;
 
+    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_DC_01;
 
+    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_VA_01;
 
+    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_MD_01;
 
