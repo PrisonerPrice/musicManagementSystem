@@ -1,5 +1,6 @@
 package com.prisonerprice.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.prisonerprice.model.Album;
 import com.prisonerprice.model.Stock;
 import com.prisonerprice.service.AlbumService;
@@ -29,18 +30,21 @@ public class StockController {
         this.logger = logger;
     }
 
+    @JsonView({Stock.Brief.class})
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Stock> getStocks(){
         List<Stock> stocks = stockService.getStockList();
         return stocks;
     }
 
+    @JsonView({Stock.Brief.class})
     @RequestMapping(value = "/{albumName}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Stock getStockByAlbumName(@PathVariable String albumName){
         Stock stock = stockService.getStockByName(albumName);
         return stock;
     }
 
+    @JsonView({Stock.Brief.class})
     @RequestMapping(value = "/{albumName}/{value1}/{value2}/{value3}/{value4}/{value5}", method = RequestMethod.PATCH, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Stock updateStock(@PathVariable int value1,
                              @PathVariable int value2,

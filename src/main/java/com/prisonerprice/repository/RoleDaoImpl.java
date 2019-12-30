@@ -1,7 +1,9 @@
 package com.prisonerprice.repository;
 
 import com.prisonerprice.model.Role;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class RoleDaoImpl implements RoleDao{
 
     private Connection<Role> roleConnection = new Connection<>();

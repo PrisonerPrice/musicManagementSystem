@@ -1,24 +1,17 @@
 package com.prisonerprice.repository;
 
-import com.prisonerprice.model.Album;
 import com.prisonerprice.model.Artist;
-import com.prisonerprice.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class ArtistDaoImpl implements ArtistDao{
 
-    @Autowired
-    private Logger logger;
+    //@Autowired
+    private Logger logger= LoggerFactory.getLogger(getClass());
 
     private Connection<Artist> artistConnection = new Connection<>();
 

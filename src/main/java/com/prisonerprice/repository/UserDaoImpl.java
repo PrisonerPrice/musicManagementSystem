@@ -1,8 +1,8 @@
 package com.prisonerprice.repository;
 
 import com.prisonerprice.model.User;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,13 +11,10 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao{
 
-    private Logger logger;
-    private Connection<User> userConnection = new Connection<>();
+    //@Autowired
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    public UserDaoImpl(Logger logger){
-        this.logger = logger;
-    }
+    private Connection<User> userConnection = new Connection<>();
 
     @Override
     public boolean save(User user) {
@@ -26,6 +23,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User getUserByEmail(String email) {
+        logger.debug("INTO the method getUserByEmail");
         String hql = "FROM User as u where lower(u.email) = :param";
         return userConnection.getObjectByName(hql, email);
     }

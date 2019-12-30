@@ -1,39 +1,47 @@
 package com.prisonerprice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.query.criteria.internal.expression.NullLiteralExpression;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
-import java.util.Comparator;
-import java.util.UUID;
 
 @Entity
 @Table(name = "album")
 public class Album {
+    public interface Brief{};
+    public interface Full extends Artist.Brief {};
+    public interface WithChildren{};
 
+    @JsonView({Brief.class, Full.class, WithChildren.class, Artist.WithChildren.class})
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
+    @JsonView({Brief.class, Full.class, WithChildren.class, Artist.WithChildren.class})
     @Column(name = "name")
     private String name;
 
+    @JsonView({Full.class, WithChildren.class, Artist.WithChildren.class})
     @Column(name = "release_year")
     private int releaseYear;
 
+    @JsonView({Brief.class, Full.class, WithChildren.class, Artist.WithChildren.class})
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
     //select * from album al left join artist art on al.artist_serial_num = art.serial_num;
     private Artist artist;
 
+    @JsonView({Full.class, WithChildren.class, Artist.WithChildren.class})
     @Column
     private String genre;
 
+    @JsonView({Full.class, WithChildren.class, Artist.WithChildren.class})
     @Column(name = "description")
     private String description;
 
+    @JsonView({WithChildren.class, Artist.WithChildren.class})
     @OneToOne(mappedBy = "album", cascade = CascadeType.ALL)
     private Stock stock;
 

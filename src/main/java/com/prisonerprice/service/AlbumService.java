@@ -5,6 +5,7 @@ import com.prisonerprice.model.Artist;
 import com.prisonerprice.model.Stock;
 import com.prisonerprice.repository.AlbumDaoImpl;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -15,7 +16,8 @@ import java.util.List;
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class AlbumService {
-    private Logger logger;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private AlbumDaoImpl albumDao;
 
     @Autowired

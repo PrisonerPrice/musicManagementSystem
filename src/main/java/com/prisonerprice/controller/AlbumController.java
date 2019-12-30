@@ -1,5 +1,6 @@
 package com.prisonerprice.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.prisonerprice.model.Album;
 import com.prisonerprice.model.Artist;
 import com.prisonerprice.service.AlbumService;
@@ -27,24 +28,28 @@ public class AlbumController {
         this.albumService = albumService;
     }
 
+    @JsonView({Album.Full.class})
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Album> getAlbums(){
         List<Album> albums = albumService.getAlbumList();
         return albums;
     }
 
+    @JsonView({Album.WithChildren.class})
     @RequestMapping(value = "/with-children", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Album> getAlbumsWithChildren(){
         List<Album> albums = albumService.getAlbumListWithChildren();
         return albums;
     }
 
+    @JsonView({Album.WithChildren.class})
     @RequestMapping(value = "/{albumName}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Album getAlbumByName(@PathVariable String albumName){
         Album album = albumService.getAlbumByName(albumName);
         return album;
     }
 
+    @JsonView({Album.WithChildren.class})
     @RequestMapping(value = "/{artistName}", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String createAlbum(@RequestBody Album album, @PathVariable String artistName){
         String msg = "The album was created";
@@ -66,6 +71,7 @@ public class AlbumController {
     }
 
     // have to provide the id
+    @JsonView({Album.WithChildren.class})
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String updateAlbum(@RequestBody Album album){
         String msg = "The album was updated";
@@ -76,6 +82,7 @@ public class AlbumController {
         return msg;
     }
 
+    @JsonView({Album.WithChildren.class})
     @RequestMapping(value = "/{albumName}", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String deleteAlbum(@PathVariable String albumName){
         String msg = "The album was deleted";

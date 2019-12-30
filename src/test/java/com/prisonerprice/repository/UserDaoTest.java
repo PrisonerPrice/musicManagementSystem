@@ -14,12 +14,9 @@ public class UserDaoTest {
     private User user2;
     private UserDaoImpl userDao;
 
-    @Autowired
-    private Logger logger;
-
     @Before
     public void init(){
-        userDao = new UserDaoImpl(logger);
+        userDao = new UserDaoImpl();
         user1 = new User("AlexPrice",
                 "debug123",
                 "dasjh90dkjahgu",
