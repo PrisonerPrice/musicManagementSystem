@@ -33,7 +33,7 @@ The version number should be unique and you should pay attention that there is t
 
 After the setup, you can do SQL queries in your project root directory using this command:
 
-	mvn flyway: migrate
+	mvn flyway:migrate
 
 ## From JDBC to Hibernate
 
