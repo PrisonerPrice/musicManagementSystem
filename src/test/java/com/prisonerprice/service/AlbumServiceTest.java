@@ -59,26 +59,15 @@ public class AlbumServiceTest {
 
     @After
     public void tearDown(){
-        List<Stock> stocks = stockService.getStockList();
-        for(Stock stock : stocks){
-            stockService.deleteByName(stock.getAlbum().getName());
-        }
-        List<Album> albums = albumService.getAlbumList();
-        for(Album album : albums){
-            albumService.deleteByName(album.getName());
-        }
-        List<Artist> artists = artistService.getArtistList();
-        for(Artist artist : artists){
-            artistService.deleteByName(artist.getName());
-        }
+        stockService.getStockList().forEach(stock -> stockService.deleteByName(stock.getAlbum().getName()));
+        albumService.getAlbumList().forEach(album -> albumService.deleteByName(album.getName()));
+        artistService.getArtistList().forEach(artist -> artistService.deleteByName(artist.getName()));
     }
 
     @Test
     public void getAllAlbumsTest() {
         List<Album> albums = albumService.getAlbumList();
-        for(Album album : albums){
-            logger.info(album.toString());
-        }
+        albums.forEach(album -> logger.info(album.toString()));
         int expectedNumOfDept = 1;
         Assert.assertEquals(expectedNumOfDept, albums.size());
     }
@@ -113,11 +102,11 @@ public class AlbumServiceTest {
         String name = newAlbum.getName();
         int expectedElementsNumbers = 2;
         List<Object[]> list = albumService.getAlbumAndStock(name);
-        for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < list.get(i).length; j++){
-                logger.debug(list.get(i)[j].toString());
+        list.forEach(objects -> {
+            for(Object object : objects){
+                logger.debug(object.toString());
             }
-        }
+        });
         Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
     }
 }

@@ -60,26 +60,15 @@ public class StockServiceTest {
 
     @After
     public void tearDown(){
-        List<Stock> stocks = stockService.getStockList();
-        for(Stock stock : stocks){
-            stockService.deleteByName(stock.getAlbum().getName());
-        }
-        List<Album> albums = albumService.getAlbumList();
-        for(Album album : albums){
-            albumService.deleteByName(album.getName());
-        }
-        List<Artist> artists = artistService.getArtistList();
-        for(Artist artist : artists){
-            artistService.deleteByName(artist.getName());
-        }
+        stockService.getStockList().forEach(stock -> stockService.deleteByName(stock.getAlbum().getName()));
+        albumService.getAlbumList().forEach(album -> albumService.deleteByName(album.getName()));
+        artistService.getArtistList().forEach(artist -> artistService.deleteByName(artist.getName()));
     }
 
     @Test
     public void getStocksTest() {
         List<Stock> stocks = stockService.getStockList();
-        for(Stock stock : stocks){
-            logger.info(stock.toString());
-        }
+        stocks.forEach(stock -> logger.info(stock.toString()));
         int expectedNumOfDept = 1;
         Assert.assertEquals(expectedNumOfDept, stocks.size());
     }

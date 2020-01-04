@@ -6,6 +6,8 @@ import com.prisonerprice.model.Stock;
 import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -54,26 +56,15 @@ public class AlbumDaoTest {
 
     @After
     public void tearDown(){
-        List<Stock> stocks = stockDao.getStockList();
-        for(Stock stock : stocks){
-            stockDao.delete(stock);
-        }
-        List<Album> albums = albumDao.getAlbumList();
-        for(Album album : albums){
-            albumDao.delete(album);
-        }
-        List<Artist> artists = artistDao.getArtistList();
-        for(Artist artist : artists){
-            artistDao.delete(artist);
-        }
+        stockDao.getStockList().forEach(stock -> stockDao.delete(stock));
+        albumDao.getAlbumList().forEach(album -> albumDao.delete(album));
+        artistDao.getArtistList().forEach(artist -> artistDao.delete(artist));
     }
 
     @Test
     public void getAlbumsTest() {
         List<Album> albums = albumDao.getAlbumList();
-        for(Album album : albums){
-            logger.info(album.toString());
-        }
+        albums.forEach(album -> logger.info(album.toString()));
         int expectedNumOfDept = 1;
         Assert.assertEquals(expectedNumOfDept, albums.size());
     }
@@ -90,9 +81,7 @@ public class AlbumDaoTest {
     @Test
     public void deleteAlbumTest(){
         List<Album> albums = albumDao.getAlbumList();
-        for(Album album : albums){
-            albumDao.delete(album);
-        }
+        albums.forEach(album -> albumDao.delete(album));
         albums = albumDao.getAlbumList();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, albums.size());
@@ -119,11 +108,7 @@ public class AlbumDaoTest {
         String name = newAlbum.getName();
         int expectedElementsNumbers = 2;
         List<Object[]> list = albumDao.getAlbumAndStock(name);
-        for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < list.get(i).length; j++){
-                logger.debug(list.get(i)[j].toString());
-            }
-        }
+        list.stream().flatMap(objects -> Arrays.stream(objects)).forEach(obj -> logger.debug(obj.toString()));
         Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
     }
 }
