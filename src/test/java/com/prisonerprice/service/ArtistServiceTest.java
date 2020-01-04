@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -58,26 +59,15 @@ public class ArtistServiceTest {
 
     @After
     public void tearDown(){
-        List<Artist> artists = artistService.getArtistList();
-        for(Artist artist : artists){
-            artistService.deleteByName(artist.getName());
-        }
-        List<Album> albums = albumService.getAlbumList();
-        for(Album album : albums){
-            albumService.deleteByName(album.getName());
-        }
-        List<Stock> stocks = stockService.getStockList();
-        for(Stock stock : stocks){
-            stockService.deleteByName(stock.getAlbum().getName());
-        }
+        stockService.getStockList().forEach(stock -> stockService.deleteByName(stock.getAlbum().getName()));
+        albumService.getAlbumList().forEach(album -> albumService.deleteByName(album.getName()));
+        artistService.getArtistList().forEach(artist -> artistService.deleteByName(artist.getName()));
     }
 
     @Test
     public void getAllArtists() {
         List<Artist> artists = artistService.getArtistList();
-        for(Artist artist : artists){
-            logger.info(artist.toString());
-        }
+        artists.forEach(artist -> logger.info(artist.toString()));
         int expectedNumOfDept = 1;
         Assert.assertEquals(expectedNumOfDept, artists.size());
     }
@@ -112,11 +102,7 @@ public class ArtistServiceTest {
         String name = newArtist.getName();
         int expectedElementsNumbers = 2;
         List<Object[]> list = artistService.getArtistAndAlbums(name);
-        for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < list.get(i).length; j++){
-                logger.debug(list.get(i)[j].toString());
-            }
-        }
+        list.stream().flatMap(objects -> Arrays.stream(objects)).forEach(obj -> logger.debug(obj.toString()));
         Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
     }
 
@@ -125,11 +111,7 @@ public class ArtistServiceTest {
         String name = newArtist.getName();
         int expectedElementsNumbers = 3;
         List<Object[]> list = artistService.getArtistAndAlbumsAndStocks(name);
-        for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < list.get(i).length; j++){
-                logger.debug(list.get(i)[j].toString());
-            }
-        }
+        list.stream().flatMap(objects -> Arrays.stream(objects)).forEach(obj -> logger.debug(obj.toString()));
         Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
     }
 }

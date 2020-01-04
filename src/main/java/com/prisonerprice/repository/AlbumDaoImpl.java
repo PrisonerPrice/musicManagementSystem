@@ -20,7 +20,6 @@ public class AlbumDaoImpl implements AlbumDao {
 
     @Override
     public boolean save(Album album) {
-
         //album.setArtist(artistConnection.get);
         return albumConnection.save(album);
     }

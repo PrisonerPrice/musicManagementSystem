@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ArtistDaoTest {
@@ -54,26 +55,15 @@ public class ArtistDaoTest {
 
     @After
     public void tearDown(){
-        List<Artist> artists = artistDao.getArtistList();
-        for(Artist artist : artists){
-            artistDao.delete(artist);
-        }
-        List<Album> albums = albumDao.getAlbumList();
-        for(Album album : albums){
-            albumDao.delete(album);
-        }
-        List<Stock> stocks = stockDao.getStockList();
-        for(Stock stock : stocks){
-            stockDao.delete(stock);
-        }
+        stockDao.getStockList().forEach(stock -> stockDao.delete(stock));
+        albumDao.getAlbumList().forEach(album -> albumDao.delete(album));
+        artistDao.getArtistList().forEach(artist -> artistDao.delete(artist));
     }
 
     @Test
     public void getArtistsTest() {
         List<Artist> artists = artistDao.getArtistList();
-        for(Artist artist : artists){
-            logger.info(artist.toString());
-        }
+        artists.forEach(artist -> logger.info(artist.toString()));
         int expectedNumOfArtist = 1;
         Assert.assertEquals(expectedNumOfArtist, artists.size());
     }
@@ -81,9 +71,7 @@ public class ArtistDaoTest {
     @Test
     public void getArtistsWithChildrenTest(){
         List<Artist> artists = artistDao.getArtistListWithChildren();
-        for(Artist artist : artists){
-            logger.info(artists.toString());
-        }
+        artists.forEach(artist -> logger.info(artists.toString()));
         int expectedNumOfArtist = 1;
         Assert.assertEquals(expectedNumOfArtist, artists.get(0).getAlbums().size());
     }
@@ -100,9 +88,7 @@ public class ArtistDaoTest {
     @Test
     public void deleteArtistTest(){
         List<Artist> artists = artistDao.getArtistList();
-        for(Artist artist : artists){
-            artistDao.delete(artist);
-        }
+        artists.forEach(artist -> artistDao.delete(artist));
         artists = artistDao.getArtistList();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, artists.size());
@@ -129,11 +115,7 @@ public class ArtistDaoTest {
         String name = newArtist.getName();
         int expectedElementsNumbers = 2;
         List<Object[]> list = artistDao.getArtistAndAlbums(name);
-        for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < list.get(i).length; j++){
-                logger.debug(list.get(i)[j].toString());
-            }
-        }
+        list.stream().flatMap(objects -> Arrays.stream(objects)).forEach(obj -> logger.debug(obj.toString()));
         Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
     }
 
@@ -142,11 +124,7 @@ public class ArtistDaoTest {
         String name = newArtist.getName();
         int expectedElementsNumbers = 3;
         List<Object[]> list = artistDao.getArtistAndAlbumsAndStocks(name);
-        for(int i = 0; i < list.size(); i++){
-            for(int j = 0; j < list.get(i).length; j++){
-                logger.debug(list.get(i)[j].toString());
-            }
-        }
+        list.stream().flatMap(objects -> Arrays.stream(objects)).forEach(obj -> logger.debug(obj.toString()));
         Assert.assertEquals(expectedElementsNumbers, list.size() * list.get(0).length);
     }
 }

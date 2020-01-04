@@ -58,26 +58,15 @@ public class StockDaoTest {
 
     @After
     public void teardown(){
-        List<Stock> stocks = stockDao.getStockList();
-        for(Stock stock : stocks){
-            stockDao.delete(stock);
-        }
-        List<Album> albums = albumDao.getAlbumList();
-        for(Album album : albums){
-            albumDao.delete(album);
-        }
-        List<Artist> artists = artistDao.getArtistList();
-        for(Artist artist : artists){
-            artistDao.delete(artist);
-        }
+        stockDao.getStockList().forEach(stock -> stockDao.delete(stock));
+        albumDao.getAlbumList().forEach(album -> albumDao.delete(album));
+        artistDao.getArtistList().forEach(artist -> artistDao.delete(artist));
     }
 
     @Test
     public void getStocksTest() {
         List<Stock> stocks = stockDao.getStockList();
-        for(Stock stock : stocks){
-            logger.info(stock.toString());
-        }
+        stocks.forEach(stock -> stockDao.delete(stock));
         int expectedNumOfDept = 1;
         Assert.assertEquals(expectedNumOfDept, stocks.size());
     }
@@ -94,9 +83,7 @@ public class StockDaoTest {
     @Test
     public void deleteStockTest(){
         List<Stock> stocks = stockDao.getStockList();
-        for(Stock stock : stocks){
-            stockDao.delete(stock);
-        }
+        stocks.forEach(stock -> stockDao.delete(stock));
         stocks = stockDao.getStockList();
         int expectedNumOfDept = 0;
         Assert.assertEquals(expectedNumOfDept, stocks.size());
