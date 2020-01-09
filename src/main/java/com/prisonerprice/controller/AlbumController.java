@@ -7,6 +7,8 @@ import com.prisonerprice.service.AlbumService;
 import com.prisonerprice.service.ArtistService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,8 @@ public class AlbumController {
     }
 
     @JsonView({Album.Full.class})
+    // unless = "#result < 12000"
+    @Cacheable(value = "albums")
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Album> getAlbums(){
         List<Album> albums = albumService.getAlbumList();
@@ -72,6 +76,7 @@ public class AlbumController {
 
     // have to provide the id
     @JsonView({Album.WithChildren.class})
+    @CachePut(value = "albums", key = "#album.id")
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String updateAlbum(@RequestBody Album album){
         String msg = "The album was updated";
