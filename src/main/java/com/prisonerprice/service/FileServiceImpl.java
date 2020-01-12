@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
@@ -48,7 +47,7 @@ public class FileServiceImpl implements FileService {
      *
      */
     @Override
-    public String uploadFile(String bucketName, MultipartFile file) throws IOException {
+    public String uploadFile(String bucketName, MultipartFile file) {
         // MultipartFile: split into parts
         try {
             if (amazonS3.doesObjectExist(bucketName, file.getOriginalFilename())) {
@@ -102,5 +101,15 @@ public class FileServiceImpl implements FileService {
         }
 
         return isSuccess;
+    }
+
+    @Override
+    public void deleteFile(String bucketName, String key) {
+        String msg = "The file deletion is failed";
+        if (amazonS3.doesObjectExist(bucketName, key)){
+            amazonS3.deleteObject(bucketName, key);
+            msg = String.format("The file %s in bucket %s is successfully deleted", key, bucketName);
+        }
+        logger.info(msg);
     }
 }

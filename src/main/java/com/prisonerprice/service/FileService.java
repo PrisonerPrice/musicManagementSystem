@@ -14,7 +14,6 @@ public interface FileService {
     String uploadFile(String bucketName, MultipartFile file) throws IOException;    // return uploadUrl
     String getFileUrl(String bucketName, String fileName);
     void createBucket(String bucketName);
-    public boolean saveFile(MultipartFile multipartFile, String filePath);
-
-    //TODO 1: some new methods, e.g. list, delete
+    boolean saveFile(MultipartFile multipartFile, String filePath);
+    void deleteFile(String bucketName, String key);
 }
