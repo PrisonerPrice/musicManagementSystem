@@ -84,6 +84,7 @@ public class FileServiceImpl implements FileService {
         if (!amazonS3.doesBucketExistV2(bucketName)) amazonS3.createBucket(bucketName);
     }
 
+    /*
     @Override
     public boolean saveFile(MultipartFile multipartFile, String filePath) {
         boolean isSuccess = false;
@@ -102,6 +103,8 @@ public class FileServiceImpl implements FileService {
 
         return isSuccess;
     }
+
+     */
 
     @Override
     public String deleteFile(String bucketName, String key) {

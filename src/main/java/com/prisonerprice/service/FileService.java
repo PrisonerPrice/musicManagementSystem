@@ -14,6 +14,5 @@ public interface FileService {
     String uploadFile(String bucketName, MultipartFile file) throws IOException;    // return uploadUrl
     String getFileUrl(String bucketName, String fileName);
     void createBucket(String bucketName);
-    boolean saveFile(MultipartFile multipartFile, String filePath);
     String deleteFile(String bucketName, String key);
 }
