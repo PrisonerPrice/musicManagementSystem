@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "artist")
-public class Artist {
+public class Artist implements Serializable {
     public interface Brief{};
     public interface Full extends Brief{};
     public interface WithChildren{};
