@@ -62,7 +62,7 @@ public class FileServiceImpl implements FileService {
             logger.info(String.format("The file name=%s, size=%d was uploaded to bucket %s", file.getOriginalFilename(), file.getSize(), bucketName));
         }
         catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error("!!!" + e.getMessage());
             return null;
         }
 
@@ -104,12 +104,13 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void deleteFile(String bucketName, String key) {
+    public String deleteFile(String bucketName, String key) {
         String msg = "The file deletion is failed";
         if (amazonS3.doesObjectExist(bucketName, key)){
             amazonS3.deleteObject(bucketName, key);
             msg = String.format("The file %s in bucket %s is successfully deleted", key, bucketName);
         }
         logger.info(msg);
+        return msg;
     }
 }

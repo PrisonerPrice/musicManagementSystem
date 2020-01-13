@@ -15,5 +15,5 @@ public interface FileService {
     String getFileUrl(String bucketName, String fileName);
     void createBucket(String bucketName);
     boolean saveFile(MultipartFile multipartFile, String filePath);
-    void deleteFile(String bucketName, String key);
+    String deleteFile(String bucketName, String key);
 }

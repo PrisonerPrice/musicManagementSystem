@@ -74,10 +74,36 @@ public class FileServiceTest {
 
     }
 
+    // TODO 1: need to find a way to generate file
     @Test
     public void uploadFileTest() throws IOException {
-        String returnMsg = fileService.uploadFile("Music_project_bucket", file);
+        String returnMsg = fileService.uploadFile("music-management-system-bucket", file);
         logger.debug(returnMsg);
         Assert.assertTrue(returnMsg.length() > 10);
+    }
+
+    @Test
+    public void getFileUrlTest(){
+        String returnMsg = fileService.getFileUrl("music-management-system-bucket", "text.cpp");
+        logger.debug("GetFileUrlTest: " + returnMsg);
+        Assert.assertTrue(returnMsg.length() > 10);
+    }
+
+    // TODO 2: createBucketTest
+    @Test
+    public void createBucketTest(){
+        fileService.createBucket("my-test-bucket");
+        Assert.assertTrue(true);
+    }
+
+    // TODO 3: saveFileTest
+    @Test
+    public void saveFileTest(){
+
+    }
+
+    @Test
+    public void deleteFileTest(){
+        String returnMsg = fileService.deleteFile("music-management-system-bucket", "text.cpp");
     }
 }
