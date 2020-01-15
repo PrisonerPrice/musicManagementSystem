@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "album")
-public class Album implements Serializable {
+public class Album extends Model implements Serializable {
     public interface Brief{};
     public interface Full extends Artist.Brief {};
     public interface WithChildren{};

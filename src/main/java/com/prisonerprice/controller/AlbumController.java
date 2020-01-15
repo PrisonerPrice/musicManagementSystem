@@ -82,8 +82,8 @@ public class AlbumController {
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String updateAlbum(@RequestBody Album album){
         String msg = "The album was updated";
-        Artist artist = albumService.searchArtist(album.getName());
-        album.setArtist(artist);
+        //Artist artist = albumService.searchArtist(album.getName());
+        //album.setArtist(artist);
         boolean isSuccess = albumService.update(album);
         if(!isSuccess) msg = "The album was not updated";
         return msg;

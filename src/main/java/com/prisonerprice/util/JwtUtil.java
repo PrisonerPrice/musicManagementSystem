@@ -26,7 +26,7 @@ public class JwtUtil {
     private static Logger logger = LoggerFactory.getLogger(JwtUtil.class);
     private static final String SECRET_KEY = System.getProperty("secret.key");
     private static final String ISSUER = "com.prisonerprice";
-    private static final long EXPIRATION_TIME = 86400;
+    private static final long EXPIRATION_TIME = 86400 * 1000;
 
     public static String generateToken(User user) {
         //JWT signature algorithm using to sign the token
