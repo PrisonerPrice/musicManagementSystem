@@ -83,4 +83,84 @@ public class ArtistController {
         return msg;
     }
 
+    /*
+    Test cases using Postman:
+    passed 1: getAll artists - without children
+    passed 2: getAll artists - with children
+    passed 3: get an artist by name - with children
+    Passed 4: post an artist - with album, with stock
+        {
+            "name": "testArtist",
+            "startYear": 1999,
+            "endYear": 0,
+            "albums": [
+                {
+                    "name": "testAlbum",
+                    "releaseYear": 2020,
+                    "genre": "Punk",
+                    "description": "Not provided",
+                    "stock": {
+                        "stock_NY_01": 1,
+                        "stock_NY_02": 2,
+                        "stock_DC_01": 3,
+                        "stock_VA_01": 4,
+                        "stock_MD_01": 5
+                    }
+                }
+            ]
+        }
+    passed 5: post an artist - with album, unique name
+     {
+        "name": "testArtist2",
+        "startYear": 1999,
+        "endYear": 0,
+        "albums": [
+             {
+                "name": "testAlbum2",
+                "releaseYear": 2020,
+                "genre": "Punk",
+                "description": "Not provided",
+                "stock": {
+                }
+             }
+         ]
+     }
+    passed 6: post an artist - with album, repeated name
+     {
+        "name": "testArtist3",
+        "startYear": 1999,
+        "endYear": 0,
+        "albums": [
+             {
+                "name": "testAlbum2",
+                "releaseYear": 2020,
+                "genre": "Punk",
+                "description": "Not provided",
+                "stock": {
+                }
+             }
+         ]
+     }
+    TODO 7: post an artist
+     {
+         "name": "testArtist4",
+         "startYear": 1999,
+         "endYear": 0,
+         "album": {
+         }
+     }
+     -- need modification to show correct message
+    TODO 8: put an artist (have to provide the id)
+     {
+        "id": xxx
+        "name": "testArtist",
+        "startYear": 1999,
+        "endYear": 0,
+     }
+    TODO 9: delete an artist and its children (have to provide the id)
+     {
+        "id": xxx
+     }
+     */
+
 }
