@@ -9,12 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "role")
-public class Role {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+public class Role extends Model{
 
     @Column(name = "name")
     private String name;
@@ -37,14 +32,6 @@ public class Role {
     @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

@@ -1,7 +1,9 @@
 package com.prisonerprice.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,40 +11,34 @@ import java.io.Serializable;
 @Entity
 @Table(name = "album")
 public class Album extends Model implements Serializable {
-    public interface Brief{};
-    public interface Full extends Artist.Brief {};
-    public interface WithChildren{};
+    //public interface Brief{};
+    //public interface Full extends Artist.Brief {};
+    //public interface WithChildren{};
 
-    @JsonView({Brief.class, Full.class, WithChildren.class, Artist.WithChildren.class})
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
-    @JsonView({Brief.class, Full.class, WithChildren.class, Artist.WithChildren.class})
+    //@JsonView({Brief.class, Full.class, WithChildren.class, Artist.WithChildren.class})
     @Column(name = "name")
     private String name;
 
-    @JsonView({Full.class, WithChildren.class, Artist.WithChildren.class})
+    //@JsonView({Full.class, WithChildren.class, Artist.WithChildren.class})
     @Column(name = "release_year")
     private int releaseYear;
 
-    @JsonView({Brief.class, Full.class, WithChildren.class, Artist.WithChildren.class})
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonView({Brief.class, Full.class, WithChildren.class, Artist.WithChildren.class})
+    //@JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "artist_id")
     //select * from album al left join artist art on al.artist_serial_num = art.serial_num;
     private Artist artist;
 
-    @JsonView({Full.class, WithChildren.class, Artist.WithChildren.class})
+    //@JsonView({Full.class, WithChildren.class, Artist.WithChildren.class})
     @Column
     private String genre;
 
-    @JsonView({Full.class, WithChildren.class, Artist.WithChildren.class})
+    //@JsonView({Full.class, WithChildren.class, Artist.WithChildren.class})
     @Column(name = "description")
     private String description;
 
-    @JsonView({WithChildren.class, Artist.WithChildren.class})
+    //@JsonView({WithChildren.class, Artist.WithChildren.class})
     @OneToOne(mappedBy = "album", cascade = CascadeType.ALL)
     private Stock stock;
 
@@ -61,7 +57,6 @@ public class Album extends Model implements Serializable {
         this.artist = artist;
         this.genre = genre;
         this.description = description;
-        //this.serialNumber = UUID.randomUUID().toString();
     }
 
     public Album(){
@@ -71,7 +66,6 @@ public class Album extends Model implements Serializable {
         this.artist = null;
         this.genre = "NULL";
         this.description = "NULL";
-        //this.serialNumber = UUID.randomUUID().toString();
     }
 
     public Album(Album album){
@@ -81,11 +75,6 @@ public class Album extends Model implements Serializable {
         this.artist = album.getArtist();
         this.genre = album.getGenre();
         this.description = album.getDescription();
-        //this.serialNumber = album.getSerialNumber();
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
@@ -106,10 +95,6 @@ public class Album extends Model implements Serializable {
 
     public String getDescription() {
         return description;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setName(String name) {
@@ -144,18 +129,6 @@ public class Album extends Model implements Serializable {
     public void setStock(Stock stock) {
         if (stock.getAlbum() == null) stock.setAlbum(this);
         this.stock = stock;
-    }
-
-    @Override
-    public String toString() {
-        return "Album{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", releaseYear=" + releaseYear +
-                ", artist=" + artist +
-                ", genre='" + genre + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 
     @Override

@@ -31,31 +31,32 @@ public class AlbumController {
         this.albumService = albumService;
     }
 
-    @JsonView({Album.Full.class})
+    //@JsonView({Album.Full.class})
     // unless = "#result < 12000"
-    @Cacheable(value = "albums") // "albums" is a namespace
+    //@Cacheable(value = "albums") // "albums" is a namespace
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Album> getAlbums(){
         List<Album> albums = albumService.getAlbumList();
+        logger.info(">>>>>> albums:" + albums);
         return albums;
     }
 
-    @JsonView({Album.WithChildren.class})
+    //@JsonView({Album.WithChildren.class})
     @RequestMapping(value = "/with-children", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Album> getAlbumsWithChildren(){
         List<Album> albums = albumService.getAlbumListWithChildren();
         return albums;
     }
 
-    @JsonView({Album.WithChildren.class})
+    //@JsonView({Album.WithChildren.class})
     @RequestMapping(value = "/{albumName}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Album getAlbumByName(@PathVariable String albumName){
         Album album = albumService.getAlbumByName(albumName);
         return album;
     }
 
-    @JsonView({Album.WithChildren.class})
-    @CacheEvict(value = "albums", allEntries = true)
+    //@JsonView({Album.WithChildren.class})
+    //@CacheEvict(value = "albums", allEntries = true)
     @RequestMapping(value = "/{artistName}", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String createAlbum(@RequestBody Album album, @PathVariable String artistName){
         String msg = "The album was created";
@@ -77,10 +78,11 @@ public class AlbumController {
     }
 
     // have to provide the id
-    @JsonView({Album.WithChildren.class})
-    @CachePut(value = "albums", key = "#album.id", unless = "#album.name == null")
+    //@JsonView({Album.WithChildren.class})
+    //@CachePut(value = "albums", key = "#album.id", unless = "#album.name == null")
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String updateAlbum(@RequestBody Album album){
+        logger.info(">>>>>> album: " + album);
         String msg = "The album was updated";
         //Artist artist = albumService.searchArtist(album.getName());
         //album.setArtist(artist);
@@ -89,7 +91,7 @@ public class AlbumController {
         return msg;
     }
 
-    @JsonView({Album.WithChildren.class})
+    //@JsonView({Album.WithChildren.class})
     @RequestMapping(value = "/{albumName}", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String deleteAlbum(@PathVariable String albumName){
         String msg = "The album was deleted";

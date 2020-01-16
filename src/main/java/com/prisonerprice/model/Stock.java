@@ -9,38 +9,32 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "stock")
-public class Stock implements Serializable {
-    public interface Brief{};
+public class Stock extends Model implements Serializable {
+    //public interface Brief{};
 
-    @JsonView({Brief.class, Artist.WithChildren.class})
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column
-    private int id;
-
-    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
-    @JsonIgnore
+    //@JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
+    //@JsonIgnore
     @OneToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     private Album album;
 
-    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
+    //@JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_NY_01;
 
-    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
+    //@JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_NY_02;
 
-    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
+    //@JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_DC_01;
 
-    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
+    //@JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_VA_01;
 
-    @JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
+    //@JsonView({Brief.class, Artist.WithChildren.class, Album.WithChildren.class})
     @Column
     private int stock_MD_01;
 
@@ -80,14 +74,6 @@ public class Stock implements Serializable {
         this.stock_DC_01 = stock.getStock_DC_01();
         this.stock_VA_01 = stock.getStock_VA_01();
         this.stock_MD_01 = stock.getStock_MD_01();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Album getAlbum() {

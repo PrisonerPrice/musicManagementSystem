@@ -1,7 +1,9 @@
 package com.prisonerprice.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,36 +12,30 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "artist")
-public class Artist implements Serializable {
-    public interface Brief{};
-    public interface Full extends Brief{};
-    public interface WithChildren{};
+public class Artist extends Model implements Serializable {
+    //public interface Brief{};
+    //public interface Full extends Brief{};
+    //public interface WithChildren{};
 
-    @JsonView({Brief.class, Full.class, WithChildren.class})
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column
-    private int id;
-
-    @JsonView({Brief.class, Full.class, WithChildren.class})
+    //@JsonView({Brief.class, Full.class, WithChildren.class})
     @Column(name = "name")
     private String name;
 
-    @JsonView({Full.class, WithChildren.class})
+    //@JsonView({Full.class, WithChildren.class})
     @Column(name = "start_year")
     private int startYear;
 
-    @JsonView({Full.class, WithChildren.class})
+    //@JsonView({Full.class, WithChildren.class})
     @Column(name = "end_year")
     private int endYear;
 
-    @JsonView({Full.class, WithChildren.class})
+    //@JsonView({Full.class, WithChildren.class})
     @Column
     private String description;
 
-    @JsonView({WithChildren.class})
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JsonView({WithChildren.class})
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Album> albums;
 
     public Artist(int id, String name, int startYear, int endYear, String description) {
@@ -75,14 +71,6 @@ public class Artist implements Serializable {
         this.startYear = artist.getStartYear();
         this.endYear = artist.getEndYear();
         this.description = artist.getDescription();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -131,17 +119,6 @@ public class Artist implements Serializable {
             if (album.getArtist() == null) album.setArtist(this);
         }
         this.albums = albums;
-    }
-
-    @Override
-    public String toString() {
-        return "Artist{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", startYear=" + startYear +
-                ", endYear=" + endYear +
-                ", description='" + description + '\'' +
-                '}';
     }
 
     @Override
