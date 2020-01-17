@@ -1,6 +1,7 @@
 package com.prisonerprice.service;
 
 import com.amazonaws.services.sqs.model.Message;
+import com.amazonaws.services.sqs.model.QueueDoesNotExistException;
 import com.prisonerprice.init.AppInitializer;
 import org.junit.After;
 import org.junit.Assert;
@@ -31,7 +32,7 @@ public class MessageServiceTest {
 
     @After
     public void tearDown(){
-
+        messageService.deleteQueue(testQueueName);
     }
 
     @Test
@@ -42,7 +43,7 @@ public class MessageServiceTest {
     }
 
     @Test
-    public void getQueueUrl(){
+    public void getQueueUrlTest(){
         messageService.createQueue(testQueueName);
         String resultUrl = messageService.getQueueUrl(testQueueName);
         logger.info("The result Url is: " + resultUrl);
@@ -57,8 +58,10 @@ public class MessageServiceTest {
         Assert.assertTrue(resultStrings.size() == 1);
     }
 
-    @Test
+    @Test(expected = QueueDoesNotExistException.class)
     public void deleteQueueTest(){
-
-    }
+        messageService.createQueue(testQueueName);
+        messageService.deleteQueue(testQueueName);
+        messageService.getQueueUrl(testQueueName); // will throw exception
+    }   // TODO: why it does not pass?
 }

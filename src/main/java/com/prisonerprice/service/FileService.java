@@ -13,6 +13,7 @@ import java.io.IOException;
 public interface FileService {
     String uploadFile(String bucketName, MultipartFile file) throws IOException;    // return uploadUrl
     String getFileUrl(String bucketName, String fileName);
+    boolean saveFile(MultipartFile multipartFile, String filePath);
     void createBucket(String bucketName);
     String deleteFile(String bucketName, String key);
 }

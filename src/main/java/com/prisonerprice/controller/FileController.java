@@ -27,12 +27,14 @@ public class FileController {
     private Logger logger;
     private FileService fileService;
     private MessageService messageService;
+    private AuthController authController;
 
     @Autowired
-    public FileController(Logger logger, FileService fileService, MessageService messageService) {
+    public FileController(Logger logger, FileService fileService, MessageService messageService, AuthController authController) {
         this.logger = logger;
         this.fileService = fileService;
         this.messageService = messageService;
+        this.authController = authController;
     }
 
     @RequestMapping(value = "/{bucketName}", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -42,9 +44,7 @@ public class FileController {
 
         try {
             String path = System.getProperty("user.dir") + File.separator + "temp";
-            // TODO
-            // fileService.saveFile(file, path);
-            // save file to local dir, not related to AWS
+            fileService.saveFile(file, path);   // save file to local dir, not related to AWS
             String url = fileService.uploadFile(bucketName, file);
 
             if (url != null) {
@@ -64,7 +64,7 @@ public class FileController {
     }
 
     @RequestMapping(value = "/{fileName}", method = RequestMethod.GET, produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    public ResponseEntity<Object> downloadFile(@PathVariable String fileName) {
         // request is not used
         Resource resource = null;
         String msg = "The file doesn't exist.";
@@ -76,14 +76,15 @@ public class FileController {
             if(!resource.exists()) return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(msg);
             responseEntity = ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                    .body(resource);;
+                    .body(resource);
 
-            msg = String.format("The file %s was downloaded", resource.getFilename());
+            msg = String.format("The file %s was downloaded by user %s", resource.getFilename(), authController.userEmail);
+            // TODO: is this way a good and secure way?
             //Send message to SQS
+
             messageService.sendMessage(queueName, msg);
             logger.debug(msg);
-            // TODO: info of who download the file
-            // TODO: download files from S3
+
         }
         catch (Exception ex) {
             responseEntity = ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(ex.getMessage());

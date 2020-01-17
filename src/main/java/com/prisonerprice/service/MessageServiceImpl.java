@@ -27,18 +27,12 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public String createQueue(String queueName) {
-        String queueUrl = null;
-        try{
-            queueUrl = getQueueUrl(queueName);
-        } catch (QueueDoesNotExistException e){
-            CreateQueueRequest createQueueRequest = new CreateQueueRequest(queueName);
-            queueUrl = amazonSQS.createQueue(createQueueRequest).getQueueUrl();
-        }
+        String queueUrl;
+        CreateQueueRequest createQueueRequest = new CreateQueueRequest(queueName);
+        queueUrl = amazonSQS.createQueue(createQueueRequest).getQueueUrl();
         logger.info(">>>>>> Queue " + queueName + " URL is: " + queueUrl);
         return queueUrl;
     }
-    // TODO: delete try catch
-    // TODO: Add String constants file
 
     @Override
     public String getQueueUrl(String queueName) {
@@ -72,7 +66,8 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public void deleteQueue(String queueName) {
-
+        DeleteQueueResult deleteQueueRequest = amazonSQS.deleteQueue(queueName);
+        logger.info("Delete result isL " + deleteQueueRequest.toString());
     }
 
     @Override
