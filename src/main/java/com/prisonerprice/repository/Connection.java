@@ -15,10 +15,10 @@ import static com.prisonerprice.util.HibernateUtil.*;
 
 public class Connection<T>{
 
-    private boolean isSuccess = true;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public boolean save(T obj){
+        boolean isSuccess = true;
         Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         try{
@@ -34,6 +34,7 @@ public class Connection<T>{
     }
 
     public boolean update(T obj) {
+        boolean isSuccess = true;
         Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         try{
@@ -49,6 +50,7 @@ public class Connection<T>{
     }
 
     public boolean delete(T obj){
+        boolean isSuccess = true;
         Session session = getSessionFactory().getCurrentSession();
         Transaction t = session.beginTransaction();
         try{

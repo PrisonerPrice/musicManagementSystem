@@ -57,7 +57,6 @@ public class ArtistController {
                 album.getStock().setAlbum(album);
             }
         }
-
         boolean isSuccess = artistService.save(artist);
         if (!isSuccess) msg = "The artist was not created";
         return msg;
@@ -68,7 +67,6 @@ public class ArtistController {
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String updateArtist(@RequestBody Artist artist){
         String msg = "The artist was updated";
-        artist.setAlbums(artist.getAlbums());
         boolean isSuccess = artistService.update(artist);
         if(!isSuccess) msg = "The artist was not updated";
         return msg;
@@ -141,7 +139,7 @@ public class ArtistController {
              }
          ]
      }
-    TODO 7: post an artist
+    passed 7: post an artist
      {
          "name": "testArtist4",
          "startYear": 1999,
@@ -149,18 +147,15 @@ public class ArtistController {
          "album": {
          }
      }
-     -- need modification to show correct message
-    TODO 8: put an artist (have to provide the id)
+    passed 8: put an artist (have to provide the id)
      {
-        "id": xxx
+        "id": 23,
         "name": "testArtist",
         "startYear": 1999,
-        "endYear": 0,
+        "endYear": 2020
      }
-    TODO 9: delete an artist and its children (have to provide the id)
-     {
-        "id": xxx
-     }
+    passed 9: delete an artist and its children
+     DELETE http://localhost:8080/artists/testArtist11pro
      */
 
 }

@@ -70,7 +70,7 @@ public class FileController {
         Resource resource = null;
         String msg = "The file doesn't exist.";
         ResponseEntity responseEntity;
-        
+
         // TODO: get User email
 
         logger.info(httpServletRequest.getAttribute(StringsRes.USER_EMAIL_TAG).toString());
