@@ -42,9 +42,16 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public String getQueueUrl(String queueName) {
+
         String queueUrl = null;
-        GetQueueUrlResult getQueueUrlResult = amazonSQS.getQueueUrl(queueName);
-        queueUrl = getQueueUrlResult.getQueueUrl();
+        try {
+            logger.info(">>>>> " + queueName);
+            GetQueueUrlResult getQueueUrlResult = amazonSQS.getQueueUrl(queueName);
+            queueUrl = getQueueUrlResult.getQueueUrl();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         logger.info(">>>>>> Queue " + queueName + " URL is: " + queueUrl);
         return queueUrl;
     }
