@@ -32,7 +32,11 @@ public class MessageServiceTest {
 
     @After
     public void tearDown(){
-        messageService.deleteQueue(testQueueName);
+        try{
+            messageService.deleteQueue(testQueueName);
+        } catch (Exception e){
+            logger.debug("testQueue has been deleted");
+        }
     }
 
     @Test
@@ -63,5 +67,5 @@ public class MessageServiceTest {
         messageService.createQueue(testQueueName);
         messageService.deleteQueue(testQueueName);
         messageService.getQueueUrl(testQueueName); // will throw exception
-    }   // TODO: why it does not pass?
+    }
 }

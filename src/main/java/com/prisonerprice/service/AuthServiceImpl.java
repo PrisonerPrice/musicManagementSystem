@@ -68,6 +68,7 @@ public class AuthServiceImpl implements AuthService {
     public Map<String, String> authenticate(User user) {
         String tokenKeyWord = "Authorization";
         String tokenType = "Bearer";
+        String userEmail = user.getEmail();
 
         logger.debug(user.toString());
         User u = userService.getUserByCredentials(user.getEmail(), user.getPassword());
@@ -76,7 +77,7 @@ public class AuthServiceImpl implements AuthService {
         try {
             String token = JwtUtil.generateToken(u);
             Map<String, String> map = new HashMap();
-            map.put(tokenKeyWord, tokenType + " " + token);
+            map.put(tokenKeyWord, tokenType + " " + token + " " + userEmail);
             return map;
         }
         catch (Exception e) {

@@ -35,17 +35,12 @@ public class MessageServiceImpl implements MessageService{
     }
 
     @Override
-    public String getQueueUrl(String queueName) {
+    public String getQueueUrl (String queueName) throws QueueDoesNotExistException{
 
         String queueUrl = null;
-        try {
-            logger.info(">>>>> " + queueName);
-            GetQueueUrlResult getQueueUrlResult = amazonSQS.getQueueUrl(queueName);
-            queueUrl = getQueueUrlResult.getQueueUrl();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        logger.info(">>>>> " + queueName);
+        GetQueueUrlResult getQueueUrlResult = amazonSQS.getQueueUrl(queueName);
+        queueUrl = getQueueUrlResult.getQueueUrl();
         logger.info(">>>>>> Queue " + queueName + " URL is: " + queueUrl);
         return queueUrl;
     }
@@ -65,7 +60,7 @@ public class MessageServiceImpl implements MessageService{
     }
 
     @Override
-    public void deleteQueue(String queueName) {
+    public void deleteQueue(String queueName) throws QueueDoesNotExistException {
         DeleteQueueResult deleteQueueRequest = amazonSQS.deleteQueue(queueName);
         logger.info("Delete result isL " + deleteQueueRequest.toString());
     }

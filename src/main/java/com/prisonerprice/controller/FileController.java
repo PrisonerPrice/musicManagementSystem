@@ -2,6 +2,7 @@ package com.prisonerprice.controller;
 
 import com.prisonerprice.service.FileService;
 import com.prisonerprice.service.MessageService;
+import com.prisonerprice.util.StringsRes;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -64,11 +65,15 @@ public class FileController {
     }
 
     @RequestMapping(value = "/{fileName}", method = RequestMethod.GET, produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> downloadFile(@PathVariable String fileName) {
+    public ResponseEntity<Object> downloadFile(@PathVariable String fileName, HttpServletRequest httpServletRequest) {
         // request is not used
         Resource resource = null;
         String msg = "The file doesn't exist.";
         ResponseEntity responseEntity;
+        
+        // TODO: get User email
+
+        logger.info(httpServletRequest.getAttribute(StringsRes.USER_EMAIL_TAG).toString());
 
         try {
             Path filePath = Paths.get(fileDownloadDir).toAbsolutePath().resolve(fileName).normalize();
@@ -78,9 +83,8 @@ public class FileController {
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                     .body(resource);
 
-            msg = String.format("The file %s was downloaded by user %s", resource.getFilename(), authController.userEmail);
-            // TODO: is this way a good and secure way?
             //Send message to SQS
+            msg = String.format("The file %s was downloaded by user %s", resource.getFilename(), authController.userEmail);
 
             messageService.sendMessage(queueName, msg);
             logger.debug(msg);

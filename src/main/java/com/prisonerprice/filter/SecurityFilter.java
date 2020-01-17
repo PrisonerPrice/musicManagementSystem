@@ -8,6 +8,7 @@
 package com.prisonerprice.filter;
 
 import com.prisonerprice.service.AuthService;
+import com.prisonerprice.util.StringsRes;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,8 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.prisonerprice.util.StringsRes.USER_EMAIL_TAG;
+
 @WebFilter(filterName = "securityFilter", urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
 public class SecurityFilter implements Filter {
+
     @Autowired private Logger logger;
     @Autowired private AuthService authService;
 
@@ -38,7 +42,15 @@ public class SecurityFilter implements Filter {
         }
 
         int statusCode = authService.authorize(req);
-        if (statusCode == HttpServletResponse.SC_ACCEPTED) filterChain.doFilter(request, response);
+        if (statusCode == HttpServletResponse.SC_ACCEPTED) {
+
+            String token = req.getHeader("Authorization");
+            logger.info(">>>>>" + "TOKEN is: " + token);
+
+            request.setAttribute(USER_EMAIL_TAG, token);
+
+            filterChain.doFilter(request, response);
+        }
         else ((HttpServletResponse)response).sendError(statusCode, "No valid token found.");
         logger.debug(">>>>>>>>>> Left SecurityFilter.");
     }

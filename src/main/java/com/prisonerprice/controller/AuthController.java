@@ -33,7 +33,6 @@ public class AuthController {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity authenticate(@RequestBody User user) {
         Map<String, String> token = authService.authenticate(user);
-        if (token != null) userEmail = user.getEmail();
         return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 

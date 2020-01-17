@@ -29,5 +29,3 @@ public class AppInitializer {
         return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
     }
 }
-
-// TODO: <master> Add String constants file
