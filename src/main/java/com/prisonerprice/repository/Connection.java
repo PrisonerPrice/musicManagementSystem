@@ -82,6 +82,17 @@ public class Connection<T>{
             return query.list().stream().distinct().collect(Collectors.toList());
         }
     }
+    
+    public T getObjectById(String hql){
+        logger.debug("INTO the method getObjectById");
+        if (hql == null) return null;
+        Session session = getSessionFactory().getCurrentSession();
+        Transaction t = session.beginTransaction();
+        Query query = session.createQuery(hql);
+        T object = (T) query.uniqueResult();
+        t.commit();
+        return object;
+    }
 
     public T getObjectByName(String hql, String objName){
         logger.debug("INTO the method getObjectByName");

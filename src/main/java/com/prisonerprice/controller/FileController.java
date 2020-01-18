@@ -1,7 +1,9 @@
 package com.prisonerprice.controller;
 
+import com.prisonerprice.model.User;
 import com.prisonerprice.service.FileService;
 import com.prisonerprice.service.MessageService;
+import com.prisonerprice.service.UserService;
 import com.prisonerprice.util.StringsRes;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +30,14 @@ public class FileController {
     private Logger logger;
     private FileService fileService;
     private MessageService messageService;
-    private AuthController authController;
+    private UserService userService;
 
     @Autowired
-    public FileController(Logger logger, FileService fileService, MessageService messageService, AuthController authController) {
+    public FileController(Logger logger, FileService fileService, MessageService messageService, UserService userService) {
         this.logger = logger;
         this.fileService = fileService;
         this.messageService = messageService;
-        this.authController = authController;
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/{bucketName}", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -72,8 +74,10 @@ public class FileController {
         ResponseEntity responseEntity;
 
         // TODO: get User email
+        User u = userService.getUserById(httpServletRequest.getAttribute(StringsRes.USER_EMAIL_TAG).toString());
+        String email = u.getEmail();
 
-        logger.info(httpServletRequest.getAttribute(StringsRes.USER_EMAIL_TAG).toString());
+        logger.info(email);
 
         try {
             Path filePath = Paths.get(fileDownloadDir).toAbsolutePath().resolve(fileName).normalize();
@@ -84,7 +88,7 @@ public class FileController {
                     .body(resource);
 
             //Send message to SQS
-            msg = String.format("The file %s was downloaded by user %s", resource.getFilename(), authController.userEmail);
+            msg = String.format("The file %s was downloaded by user %s", resource.getFilename(), email);
 
             messageService.sendMessage(queueName, msg);
             logger.debug(msg);

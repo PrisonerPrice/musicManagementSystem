@@ -43,12 +43,6 @@ public class SecurityFilter implements Filter {
 
         int statusCode = authService.authorize(req);
         if (statusCode == HttpServletResponse.SC_ACCEPTED) {
-
-            String token = req.getHeader("Authorization");
-            logger.info(">>>>>" + "TOKEN is: " + token);
-
-            request.setAttribute(USER_EMAIL_TAG, token);
-
             filterChain.doFilter(request, response);
         }
         else ((HttpServletResponse)response).sendError(statusCode, "No valid token found.");

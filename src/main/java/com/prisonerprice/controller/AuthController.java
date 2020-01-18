@@ -23,7 +23,6 @@ import java.util.Map;
 public class AuthController {
 
     private AuthService authService;
-    public static String userEmail;
 
     @Autowired
     public AuthController(AuthService authService) {

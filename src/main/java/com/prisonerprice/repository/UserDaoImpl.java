@@ -22,6 +22,12 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
+    public User getUserById(String id) {
+        String hql = "FROM User where id=" + id;
+        return userConnection.getObjectById(hql);
+    }
+
+    @Override
     public User getUserByEmail(String email) {
         logger.debug("INTO the method getUserByEmail");
         String hql = "FROM User as u where lower(u.email) = :param";
