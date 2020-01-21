@@ -82,7 +82,7 @@ public class Connection<T>{
             return query.list().stream().distinct().collect(Collectors.toList());
         }
     }
-    
+
     public T getObjectById(String hql){
         logger.debug("INTO the method getObjectById");
         if (hql == null) return null;

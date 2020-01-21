@@ -83,5 +83,23 @@ You can read the reference links here to get more information:
 https://www.tutorialspoint.com/hibernate/index.htm
 https://dzone.com/articles/all-hibernate-annotations-mapping-annotations
 
+## API documentation
+
+###ArtistController<Under Construction>
+
+###AlbumController<Under Construction>
+
+###StockController<Under Construction>
+
+###AuthController<Under Construction>
+
+###FileController
+**UPLOAD File**
+```
+  HTTP Method = POST
+  URL = http://host/files/AWS_S3_Bucket_Name
+```
+
+
 
 	
