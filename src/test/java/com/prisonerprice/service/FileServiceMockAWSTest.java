@@ -122,9 +122,6 @@ public class FileServiceMockAWSTest {
     @Test
     public void deleteFileTest(){
         when(amazonS3.doesObjectExist(anyString(), anyString())).thenReturn(true);
-        doAnswer(ans -> {
-            return null;
-        }).when(amazonS3).deleteObject(anyString(), anyString());
         fileService.deleteFile(bucketName, fileName);
         verify(amazonS3, times(1)).deleteObject(bucketName, fileName);
     }
