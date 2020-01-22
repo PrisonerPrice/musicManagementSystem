@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Scope;
 
 @SpringBootApplication(scanBasePackages = {"com.prisonerprice"})
 @ServletComponentScan(basePackages = {"com.prisonerprice.filter"})
-@EnableCaching
+//@EnableCaching
 public class AppInitializer {
     public static void main(String[] args) throws NullPointerException{
         if (HibernateUtil.getSessionFactory() == null) {
