@@ -10,6 +10,7 @@ package com.prisonerprice.filter;
 import com.prisonerprice.service.AuthService;
 import com.prisonerprice.util.StringsRes;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,12 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.prisonerprice.util.StringsRes.USER_EMAIL_TAG;
-
 @WebFilter(filterName = "securityFilter", urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
 public class SecurityFilter implements Filter {
-
-    @Autowired private Logger logger;
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired private AuthService authService;
 
     @Override

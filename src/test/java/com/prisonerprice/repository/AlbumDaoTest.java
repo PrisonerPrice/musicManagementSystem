@@ -3,6 +3,8 @@ package com.prisonerprice.repository;
 import com.prisonerprice.model.Album;
 import com.prisonerprice.model.Artist;
 import com.prisonerprice.model.Stock;
+import com.prisonerprice.util.HibernateUtil;
+import org.hibernate.SessionFactory;
 import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,6 +103,33 @@ public class AlbumDaoTest {
         String name = newAlbum.getName();
         Album testAlbum = albumDao.getAlbumByName(name);
         Assert.assertTrue(name.equals(testAlbum.getName()));
+    }
+
+    @Test
+    public void getAlbumByNameEagerTest(){
+        Album expectedAlbum = new Album(
+                "unTitledNewAlbum",
+                2020,
+                Alvvays,
+                "Alternative",
+                "Null");
+        albumDao.save(expectedAlbum);
+        Stock expectedStock = new Stock(
+                expectedAlbum,
+                15,
+                23,
+                44,
+                32,
+                1
+        );
+        stockDao.save(expectedStock);
+        Assert.assertNotNull(expectedStock.getId()); // I don't know why
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //sessionFactory.getCurrentSession().flush();
+        //sessionFactory.getCurrentSession().refresh(expectedAlbum);
+        Album actualAlbum = albumDao.getAlbumByName(expectedAlbum.getName());
+        Stock actualStock = actualAlbum.getStock();
+        Assert.assertEquals(actualStock.getStock_DC_01(), 44);
     }
 
     @Test

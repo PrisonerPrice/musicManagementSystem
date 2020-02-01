@@ -8,6 +8,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.Scope;
 @SpringBootApplication(scanBasePackages = {"com.prisonerprice"})
 @ServletComponentScan(basePackages = {"com.prisonerprice.filter"})
 //@EnableCaching
-public class AppInitializer {
+public class AppInitializer extends SpringBootServletInitializer {
     public static void main(String[] args) throws NullPointerException{
         if (HibernateUtil.getSessionFactory() == null) {
             throw new NullPointerException("The Hibernate session factory is NULL!");
