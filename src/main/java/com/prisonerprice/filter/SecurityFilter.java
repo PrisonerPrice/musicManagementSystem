@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -22,11 +23,14 @@ import java.io.IOException;
 
 @WebFilter(filterName = "securityFilter", urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
 public class SecurityFilter implements Filter {
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    @Autowired private Logger logger;
     @Autowired private AuthService authService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        if (logger == null || authService == null) {
+            SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, request.getServletContext());
+        }
         logger.debug(">>>>>>>>>> Entering SecurityFilter...");
         HttpServletRequest req = (HttpServletRequest)request;
 
@@ -49,7 +53,7 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        logger.debug(">>>>>>>>>> Initializing SecurityFilter...");
+        //logger.debug(">>>>>>>>>> Initializing SecurityFilter...");
     }
 
     @Override
