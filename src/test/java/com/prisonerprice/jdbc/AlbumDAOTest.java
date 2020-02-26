@@ -17,6 +17,7 @@ public class AlbumDAOTest {
     private Artist Alvvays;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /*
     @Before
     public void init(){
         albumDao = new AlbumDAO();
@@ -87,4 +88,6 @@ public class AlbumDAOTest {
         }
         Assert.assertTrue(false);
     }
+
+     */
 }

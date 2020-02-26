@@ -15,6 +15,7 @@ public class StockDAOTest {
     private Stock newStock;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /*
     @Before
     public void init(){
         stockDAO = new StockDAO();

@@ -41,7 +41,7 @@ public class UserDaoTest {
     @Test
     public void saveTest(){
         userDao.save(user2);
-        int expectedNumberOfUsers = 2;
+        int expectedNumberOfUsers = 5;
         Assert.assertEquals(expectedNumberOfUsers, userDao.getUserList().size());
     }
 

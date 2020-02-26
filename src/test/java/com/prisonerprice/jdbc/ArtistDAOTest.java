@@ -15,6 +15,7 @@ public class ArtistDAOTest {
     private Artist newArtist;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /*
     @Before
     public void init(){
         artistDAO = new ArtistDAO();
@@ -83,4 +84,6 @@ public class ArtistDAOTest {
         }
         Assert.assertTrue(false);
     }
+
+     */
 }

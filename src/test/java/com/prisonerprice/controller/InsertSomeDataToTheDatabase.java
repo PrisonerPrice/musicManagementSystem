@@ -22,6 +22,7 @@ public class InsertSomeDataToTheDatabase {
     private Stock newStock;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /*
     @Before
     public void insertData(){
         artistDao = new ArtistDaoImpl();
@@ -73,5 +74,7 @@ public class InsertSomeDataToTheDatabase {
         }
         Assert.assertTrue(true);
     }
+
+     */
 
 }
