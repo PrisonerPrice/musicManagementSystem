@@ -100,6 +100,20 @@ https://dzone.com/articles/all-hibernate-annotations-mapping-annotations
   URL = http://host/files/AWS_S3_Bucket_Name
 ```
 
+## JVM Options for DevOps
+
+-Ddatabase.driver=org.postgresql.Driver
+
+-Ddatabase.url=${DB_URL}
+
+-Ddatabase.user=${DB_USER}
+
+-Ddatabase.password=${DB_PASSWORD}
+
+-Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect
+
+-Dorg.slf4j.simpleLogger.defaultLogLevel=debug
+
 
 
 	
