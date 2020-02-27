@@ -15,6 +15,11 @@ public class ArtistDAOTest {
     private Artist newArtist;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Test
+    public void doo() {
+        Assert.assertEquals(1, 1);
+    }
+
     /*
     @Before
     public void init(){
