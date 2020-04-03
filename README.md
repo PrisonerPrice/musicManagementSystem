@@ -31,9 +31,9 @@ and all SQL files should abey the naming rule as:
 	
 The version number should be unique and you should pay attention that there is two **underscore** between the version number and the file name.
 
-After the setup, you can do SQL queries in your project root directory using this command:
-
-	mvn flyway:migrate
+After the setup, you can do SQL queries in your project root directory using this command: 
+  
+  mvn clean compile flyway:migrate -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.name=${DB_NAME} -Ddatabase.user=${DB_USER} -Ddatabse.password=${DB_PASSWORD}
 
 ## From JDBC to Hibernate
 
@@ -85,15 +85,15 @@ https://dzone.com/articles/all-hibernate-annotations-mapping-annotations
 
 ## API documentation
 
-###ArtistController<Under Construction>
+### ArtistController<Under Construction>
 
-###AlbumController<Under Construction>
+### AlbumController<Under Construction>
 
-###StockController<Under Construction>
+### StockController<Under Construction>
 
-###AuthController<Under Construction>
+### AuthController<Under Construction>
 
-###FileController
+### FileController
 **UPLOAD File**
 ```
   HTTP Method = POST
@@ -105,6 +105,8 @@ https://dzone.com/articles/all-hibernate-annotations-mapping-annotations
 -Ddatabase.driver=org.postgresql.Driver
 
 -Ddatabase.url=${DB_URL}
+
+-Ddatabase.name=${DB_NAME}
 
 -Ddatabase.user=${DB_USER}
 
