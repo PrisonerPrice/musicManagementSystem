@@ -33,8 +33,8 @@ The version number should be unique and you should pay attention that there is t
 
 After the setup, you can do SQL queries in your project root directory using this command: 
   
-    mvn clean compile flyway:migrate -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.name=${DB_NAME} -Ddatabase.user=${DB_USER} -Ddatabse.password=${DB_PASSWORD}
-    mvn test -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.name=${DB_NAME} -Ddatabase.user=${DB_USER} -Ddatabse.password=${DB_PASSWORD}
+    mvn clean compile flyway:migrate -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.name=${DB_NAME} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD}
+    mvn test -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.name=${DB_NAME} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD}
 
 ## From JDBC to Hibernate
 
