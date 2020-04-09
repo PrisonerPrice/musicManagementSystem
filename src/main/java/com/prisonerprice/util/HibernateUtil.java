@@ -29,7 +29,7 @@ public class HibernateUtil {
 //                Hard coded VM Options for test:
 //                String dbDriver = "org.postgresql.Driver";
 //                String dbDialect = "org.hibernate.dialect.PostgreSQL9Dialect";
-//                String dbUrl = "jdbc:postgresql://localhost:5432/music_db";
+//                String dbUrl = "jdbc:postgresql://localhost:5432/test_database_01";
 //                String dbUser = "admin";
 //                String dbPassword = "1234";
                 String dbDriver = System.getProperty("database.driver");
