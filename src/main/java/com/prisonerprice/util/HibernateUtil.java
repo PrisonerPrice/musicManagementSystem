@@ -22,18 +22,16 @@ public class HibernateUtil {
     private static SessionFactory sessionFactory;
     private static Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
 
-    /* Define JVM options
-    -Ddatabase.driver=org.postgresql.Driver
-    -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect
-    -Ddatabase.url=jdbc:postgresql://localhost:5432/training_db
-    -Ddatabase.user=admin
-    -Ddatabase.password=Training123!
-    */
-
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
                 String[] modelPackages = {"com.prisonerprice.model"};
+//                Hard coded VM Options for test:
+//                String dbDriver = "org.postgresql.Driver";
+//                String dbDialect = "org.hibernate.dialect.PostgreSQL9Dialect";
+//                String dbUrl = "jdbc:postgresql://localhost:5432/music_db";
+//                String dbUser = "admin";
+//                String dbPassword = "1234";
                 String dbDriver = System.getProperty("database.driver");
                 String dbDialect = System.getProperty("database.dialect");
                 String dbUrl = "jdbc:postgresql://" + System.getProperty("database.url") + ":5432/" + System.getProperty("database.name");
