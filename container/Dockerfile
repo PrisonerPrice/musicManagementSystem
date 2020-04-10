@@ -8,5 +8,5 @@ ENV DB_USER=""
 ENV DB_PASSWORD=""
 
 RUN rm -rf /usr/local/Cellar/tomcat/9.0.30/libexec/webapps/ROOT
-COPY ./ROOT.war /usr/local/tomcat/webapps/ROOT.war
+COPY ./*.war /usr/local/tomcat/webapps/ROOT.war
 COPY ./setenv.sh /usr/local/tomcat/bin/setenv.sh
