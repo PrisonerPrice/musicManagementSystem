@@ -1,0 +1,6 @@
+export JAVA_OPTS="$JAVA_OPTS -Ddatabase.driver=org.postgresql.Driver"
+export JAVA_OPTS="$JAVA_OPTS -Ddatabase.url=${DB_URL}"
+export JAVA_OPTS="$JAVA_OPTS -Ddatabase.name=${DB_NAME}"
+export JAVA_OPTS="$JAVA_OPTS -Ddatabase.user=${DB_USER}"
+export JAVA_OPTS="$JAVA_OPTS -Ddatabase.password=${DB_PASSWORD}"
+export JAVA_OPTS="$JAVA_OPTS -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect"
