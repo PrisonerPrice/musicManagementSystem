@@ -2,121 +2,222 @@
 
 ## Project overview
 
-In this project, I utilize docker to set up the database server, use flyway to build database schema, and use JDBC and Hibernate to communicate between Java IDE and PostgreSQL database. In this project, PGAdmin 4 is also used to easily check out the status and schema of the database.
+This application allows music stores to manage their stock system. Stock information among different local stores can be orgnized by Artist and Album.
+Setup information is also provided to DevOps, you can easily setup your own music management system with least effort!
 
-## Database server setup
+Technical key points: Java, SpringBoot, Hibernate, Maven, Flyway, PostgreSQL, Tomcat, AWS SQS, AWS S3
 
-Use 'docker' to setup local environment, i.e., create the postgreSQL server container and run it.
+## Configure local environment
 
-	docker pull postgres
-	docker run 
-	-name [container_name] 
-	-e POSTGRES_DB=[server_name] 
-	-e POSTGRES_USER=[admin] 
-	-e POSTGRES_PASSWORD=[password]
-	-p 5432:5432 
-	-d postgres
+### Database server setup
+First of all, you should pull PostgreSQL image shown bellow in docker:
+```
+docker pull postgres
 
-## Flyway usage
+docker run -name [container_name] -e POSTGRES_DB=[server_name] -e POSTGRES_USER=[admin] -e POSTGRES_PASSWORD=[password] -p 5432:5432 -d postgres
+```
+### Flyway migration
 
-In this project, Flyway is used as the DB migration tool. All SQL queries are stored under the directory
+In this project, Flyway is used as the DB migration tool. Easily setup the environment using the folling commands:
+```
+mvn clean compile flyway:migrate -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.name=${DB_NAME} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} 
+    
+mvn test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.name=${DB_NAME} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD}
+```
 
-	src/main/resources/db/migration
-	
+If you want to customize your database schema, you can store SQL files under the directory:
+```
+src/main/resources/db/migration
+```
 and all SQL files should abey the naming rule as:
-
-	V1.1__do_something_good.sql
-	V1.2__do_something_realy_good.sql
-	V2.0__do_something_awesome.sql
-	
+```
+V1.1__do_something_good.sql
+V1.2__do_something_realy_good.sql
+V2.0__do_something_awesome.sql
+```
 The version number should be unique and you should pay attention that there is two **underscore** between the version number and the file name.
 
-After the setup, you can do SQL queries in your project root directory using this command: 
-
-    mvn clean compile flyway:migrate -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.name=${DB_NAME} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD} 
-    mvn test -Ddatabase.driver=org.postgresql.Driver -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect -Ddatabase.url=${DB_URL} -Ddatabase.name=${DB_NAME} -Ddatabase.user=${DB_USER} -Ddatabase.password=${DB_PASSWORD}
-
-## From JDBC to Hibernate
-
-JDBC (Java Database Connectivity) is the basic API provided by Java to achieve the functionalities of SQL like database connectivities. In this project, I use Hibernate framework, which uses JDBC as its low-level realization, however provides more powerful functions.
-
-To use Hibernate, there are two things you need to do.
-
-The first thing is to add dependency in POM file, it should be like this:
-
-	<dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>5.4.3.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.v-ladynev</groupId>
-      <artifactId>fluent-hibernate-core</artifactId>
-      <version>0.3.1</version>
-    </dependency>
-
-The second thing here is to add annotations to your model classes, you can find these in Album.java, Artist.java, and Stock.java, a simple example is shown as follow:
-	
-	@Entity
-	@Table(name = "album")
-	public class Album {
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column
-    private int id;
-    @Column
-    private String name;
-    @Column(name = "release_year")
-    private int releaseYear;
-    @Column
-    private String artist;
-    @Column
-    private String genre;
-    @Column
-    private String description;
-    @Id
-    @Column(name = "serial_num")
-    private String serialNumber;
-    ...
-    Some getter() and setter()
-
-Here, @Table maps your model class to a SQL table, @Column maps your class' property to a column in the table.
-You can read the reference links here to get more information:
-https://www.tutorialspoint.com/hibernate/index.htm
-https://dzone.com/articles/all-hibernate-annotations-mapping-annotations
+### Build WAR file
+After pulling this project and doing all tasks above, you should build the WAR file, which will later be deployed. 
+```
+mvn compile package -P dev -DskipTests=true
+```
 
 ## API documentation
 
-### ArtistController<Under Construction>
+Here, I provide the pre-defined APIs that can be directly used.
 
-### AlbumController<Under Construction>
+### AuthController
 
-### StockController<Under Construction>
+Request a token
+```
+HTTP Method = GET
+URL = http://host/auth/token
+Query Params:
+  Key = email, Value = example@abc.com
+  Key = password, Value = 123456
+Request Body Template:
+{
+  "name": "awesomeGuy",
+  "password": "123456",
+  "email": "example@abc.com"
+}
+```
 
-### AuthController<Under Construction>
+### ArtistController
+
+Get all artists without other information
+```
+HTTP Method = GET
+URL = http://host/artists
+```
+Get all artists with other information
+```
+HTTP Method = GET
+URL = http://host/artists/with-children
+```
+Get artist by artist name
+```
+HTTP Method = GET
+URL = http://host/artists/${artist name}
+```
+Add new artist
+```
+HTTP Method = POST
+URL = http://host/artists
+Request Body Template:
+{
+  "name": "HotLearn",
+  "startYear": 1999,
+  "endYear": 0,
+  "album": {
+    ...
+  }
+}
+```
+Update an artist
+```
+HTTP Method = PUT
+URL = http://host/artists
+Request Body Template:
+{
+  "name": "HotLearn",
+  "startYear": 1999,
+  "endYear": 0,
+  "album": {
+    ...
+  }
+}
+```
+Delete an artist
+```
+HTTP Method = DELETE
+URL = http://host/artists/${artist name}
+```
+
+### AlbumController
+Get all albums without other information
+```
+HTTP Method = GET
+URL = http://host/albums
+```
+Get all albums with other information
+```
+HTTP Method = GET
+URL = http://host/albums/with-children
+```
+Get an album with the album name
+```
+HTTP Method = GET
+URL = http://host/albums/${album name}
+```
+Create a new album
+```
+HTTP Method = POST
+URL = http://host/albums/${artist name}
+Request Body Template:
+{
+  "name": "Everyday Life",
+  "releaseYear": 2020,
+  "artist": {
+    "name": "Hot Learn",
+    "startYear": 1999,
+    "endYear": 0,
+    "description": "Best ever!"
+  },
+  "genre": "Rock",
+  "description": "No description",
+  "stock": {
+    ...
+  }
+}
+```
+Update an album
+```
+HTTP Method = PUT
+URL = http://host/albums
+Request Body Template:
+{
+  "name": "Everyday Life",
+  "releaseYear": 2020,
+  "artist": {
+    "name": "Hot Learn",
+    "startYear": 1999,
+    "endYear": 0,
+    "description": "Best ever!"
+  },
+  "genre": "Rock",
+  "description": "No description",
+  "stock": {
+    ...
+  }
+}
+```
+Delete an album
+```
+HTTP Method = DELETE
+URL = http://host/albums/${album name}
+```
+
+### StockController
+Get all stock information
+```
+HTTP Method = GET
+URL = http://host/stocks
+```
+Get a specific album's stock infromation
+```
+HTTP Method = GET
+URL = http://host/stocks/${album name}
+```
+Update a specific album's stock information
+```
+HTTP Method = PATCH
+URL = http://host/stocks/${album name}/${value 1}/${value 2}/${value 3}/${value 4}/${value 5}
+```
 
 ### FileController
-**UPLOAD File**
+Upload a file
 ```
-  HTTP Method = POST
-  URL = http://host/files/AWS_S3_Bucket_Name
+HTTP Method = POST
+URL = http://host/files/${AWS S3 bucket name}
+Request Body form-data:
+  Key = file, Value = ${the files you selected}
+```
+Download a file
+```
+HTTP Method = GET
+URL = http://host/files/${file name}
 ```
 
 ## JVM Options for DevOps
-
+```
 -Ddatabase.driver=org.postgresql.Driver
-
 -Ddatabase.url=${DB_URL}
-
 -Ddatabase.name=${DB_NAME}
-
 -Ddatabase.user=${DB_USER}
-
 -Ddatabase.password=${DB_PASSWORD}
-
 -Ddatabase.dialect=org.hibernate.dialect.PostgreSQL9Dialect
-
 -Dorg.slf4j.simpleLogger.defaultLogLevel=debug
+```
 
-
-
-	
